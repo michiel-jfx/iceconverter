@@ -1,7 +1,7 @@
 # Simple Icelandic Euro to Krónas converter
 This mobile phone application uses 100% Java and JavaFX with FXML to create a simple krónas to euro conversion app and vice versa.
 
-Most conversion apps require an input and then convert your input either to euros or to krónas. Just depending on the situation, I want to convert to Krónas and in some other cases to Euros, but not caring about what to call when doing so. So this app just accepts input and converts it to and from both.  
+Most conversion apps require an input and then convert your input either to euros or to krónas (or any currency). Just depending on the situation, I want to convert to Krónas and in some other cases to Euros, but not caring about what to call when doing so. So this app just accepts input and converts it to and from both.  
 
 ## Versions
 The mobile app is build with the following versions:
@@ -16,7 +16,7 @@ The mobile app is build with the following versions:
 
 Note: this JavaFX project is built with GraalVM 23 with Gluon included, but it doesn't use any com.gluonhq artifacts, it only uses javafx packages. This means there is no popup from Gluon Mobile.
 
-If you want to setup a working Linux (Ubuntu) environment, see the [nop](https://www.dotjava.nl/nop) homepage. It describes setting up the environment. 
+If you want to setup a working Linux (Ubuntu) environment, see this [blog](https://www.dotjava.nl/2025/04/20/ubuntu-for-mobile-android-java-development/). It describes setting up the environment.
 
 ## Build and run on your phone (android)
 ```
@@ -29,7 +29,7 @@ mvn -Pandroid -X gluonfx:nativerun
 work in progress
 
 ## Information
-The application is very simple and tries to convert any input both ways around using a simple converter class. I cannot be hold responsible for any wrong conversions! The conversion rate is hard coded, before you go on holiday put the right conversion at the right place and build your image.
+The application is very simple and tries to convert any input both ways around using a simple converter class. I cannot be hold responsible for any wrong conversions! The conversion rate is hard coded, before you go on holiday (might be another country than Iceland of course) put the proper conversion at the right place and build your image.
 
 There are also 3 labels in the FXML markup which seem pretty useless. I've added them for convenience reasons. The startup screen shows:<br/><br/>
 <img src="https://github.com/user-attachments/assets/543a1a53-51a9-4b32-a9f6-50d0c6e5f916" width="250"><br/>
