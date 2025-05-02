@@ -11,13 +11,13 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="5.0" />
     </padding>
 
-    <Label     fx:id="labelUpperRight"  text="kórónu" />
-    <TextField fx:id="textfieldInput"   style="-fx-text-alignment: left;" />
-    <Label     fx:id="labelBelowLeft"   text="evrur" />
-    <Label     fx:id="welcomeText"      text="..." />
-    <Button    fx:id="iceButton"         onAction="#onIceButtonClick" text="smelltu" style="-fx-alignment: center;" />
-    <Label     fx:id="dummyOne"         text=" " />
-    <Label     fx:id="dummyTwo"         text=" " />
-    <Label     fx:id="dummyThr"         text=" " />
+    <Label     fx:id="labelUpperRight" text="kórónu" />
+    <TextField fx:id="textfieldInput"  style="-fx-text-alignment: left;" />
+    <Label     fx:id="labelBelowLeft"  text="evrur" />
+    <Label     fx:id="welcomeText"     text="..." />
+    <Button    fx:id="iceButton"       onAction="#onIceButtonClick" text="smelltu" style="-fx-alignment: center;" />
+    <Label     fx:id="dummyOne"        text=" " />
+    <Label     fx:id="dummyTwo"        text=" " />
+    <Label     fx:id="dummyThr"        text=" " />
 
 </VBox>
