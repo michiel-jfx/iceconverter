@@ -6,13 +6,14 @@ Most conversion apps require an input and then convert your input either to euro
 ## Versions
 The mobile app is build with the following versions:
 
-| What                   | Version                                             | See                                                            |
-|------------------------|-----------------------------------------------------|----------------------------------------------------------------|
-| IceCo                  | 0.1                                                 | this                                                           |
-| GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases                      |
-| JavaFX controls & fxml | 17.0.6                                              | https://mvnrepository.com/artifact/org.openjfx/javafx-controls |
-| controlsfx             | 11.2.1                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx   |
-| Gluonfx maven plugin   | 1.0.25                                              | https://github.com/gluonhq/gluonfx-maven-plugin/               |
+| What                   | Version                                             | See                                                                 |
+|------------------------|-----------------------------------------------------|---------------------------------------------------------------------|
+| IceCo                  | 0.1                                                 | this                                                                |
+| GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases                           |
+| JavaFX controls & fxml | 17.0.6                                              | https://mvnrepository.com/artifact/org.openjfx/javafx-controls      |
+| controlsfx             | 11.2.1                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx        |
+| Gluonfx maven plugin   | 1.0.25                                              | https://github.com/gluonhq/gluonfx-maven-plugin/                    |
+| Javafx maven plugin    | 0.0.8                                               | https://mvnrepository.com/artifact/org.openjfx/javafx-maven-plugin  |
 
 Note: this JavaFX project is built with GraalVM 23 with Gluon included, but it doesn't use any com.gluonhq artifacts, it only uses javafx packages. This means there is no popup from Gluon Mobile.
 
@@ -20,13 +21,19 @@ If you want to setup a working Linux (Ubuntu) environment, see this [blog](https
 
 ## Build and run on your phone (android)
 ```
-mvn clean gluonfx:build gluonfx:package -Pandroid
+mvn -Pandroid clean gluonfx:build gluonfx:package
 mvn -Pandroid gluonfx:install
 mvn -Pandroid -X gluonfx:nativerun
 ```
 
 ## Build and run on your iPhone
 work in progress
+
+## Build and run on your desktop
+Using the `org.openjfx.javafx-maven-plugin` artifact, you can run the app also on your desktop with:
+```
+mvn gluonfx:run
+```
 
 ## Information
 The application is very simple and tries to convert any input both ways around using a simple converter class. I cannot be hold responsible for any wrong conversions! The conversion rate is hard coded, before you go on holiday (might be another country than Iceland of course) put the proper conversion at the right place and build your image.
