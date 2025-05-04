@@ -10,10 +10,21 @@ public class IceCo extends Application {
 
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(IceCo.class.getResource("ice-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ice-view.fxml"));
+            Parent root = loader.load();
+            IceController controller = loader.getController();
             Scene scene = new Scene(root);
             stage.setTitle("IceCo");
             stage.setScene(scene);
+            // set initial orientation
+            controller.setPortraitModus(stage.getHeight() > stage.getWidth());
+            // add listeners for orientation changes
+            scene.widthProperty().addListener((obs, oldVal, newVal) -> {
+                controller.setPortraitModus(scene.getHeight() > newVal.doubleValue());
+            });
+            scene.heightProperty().addListener((obs, oldVal, newVal) -> {
+                controller.setPortraitModus(newVal.doubleValue() > scene.getWidth());
+            });
             stage.show();
         } catch (Exception e) {
             System.err.println("Error loading FXML: " + e.getMessage());
