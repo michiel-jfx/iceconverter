@@ -4,7 +4,7 @@ This mobile phone application uses 100% Java and JavaFX with FXML to create a si
 Most conversion apps require an input and then convert your input either to euros or to krónas (or any currency). Just depending on the situation, I want to convert to Krónas and in some other cases to Euros, but not caring about what to call when doing so. So this app just accepts input and converts it to and from both.  
 
 ## Versions
-The mobile app is build with the following versions:
+The mobile app is built with the following versions:
 
 | What                   | Version                                             | See                                                                 |
 |------------------------|-----------------------------------------------------|---------------------------------------------------------------------|
@@ -36,10 +36,20 @@ mvn gluonfx:run
 ```
 
 ## Information
-The application is very simple and tries to convert any input both ways around using a simple converter class. I cannot be hold responsible for any wrong conversions! The conversion rate is hard coded, before you go on holiday (might be another country than Iceland of course) put the proper conversion at the right place and build your image.
+The application is very simple and tries to convert any input both ways using a simple converter class. I cannot be held
+responsible for any wrong conversions! In the first version (0.0.1) the conversion rate was hard coded, but now the
+conversion rate is fetched from [Seðlabanki](https://sedlabanki.is/). I cannot read the webpage since I don't understand
+the Icelandic language, so I don't know if this bank can be trusted. On their frontpage though, there is the
+conversion rate to Euro that can be extracted. And since the AndroidManifest has:
+```
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+```
+The fetch should be no problem. See the `CurrencySupport` class for the `java.net.http.HttpClient` implementation. If
+the fetch fails, the conversion rate is hardcoded to 0.0068 like in the first version.
 
-There are also 3 labels in the FXML markup which seem pretty useless. I've added them for convenience reasons. The startup screen shows:<br/><br/>
-<img src="https://github.com/user-attachments/assets/543a1a53-51a9-4b32-a9f6-50d0c6e5f916" width="250"><br/>
+There are also 3 labels in the FXML markup that seem pretty useless. I've added them for convenience reasons. The startup
+screen shows:<br/><br/> <img src="https://github.com/user-attachments/assets/543a1a53-51a9-4b32-a9f6-50d0c6e5f916" width="250"><br/>
 
 Then, when you are about to enter a value, the keyboard shows up, like<br/>
 <img src="https://github.com/user-attachments/assets/1324d13e-1535-4a00-a02c-8c185711dfb1" width="250"><br/>

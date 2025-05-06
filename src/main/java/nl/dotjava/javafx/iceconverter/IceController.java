@@ -6,12 +6,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import nl.dotjava.javafx.domain.Currency;
+import nl.dotjava.javafx.support.ConvertSupport;
+import nl.dotjava.javafx.support.CurrencySupport;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static nl.dotjava.javafx.support.ConvertSupport.convertToEuroCurrency;
-import static nl.dotjava.javafx.support.ConvertSupport.convertToOtherCurrency;
 
 public class IceController implements Initializable {
 
@@ -37,10 +38,21 @@ public class IceController implements Initializable {
     @FXML private VBox portraitLayout;
     @FXML private VBox landscapeLayout;
 
+    // temporary Icelandic conversion values
+    private static final String ICELAND_NAME = "ISK";
+    private static final String ICELAND_CUR = "kr ";
+    private static final String ICELAND_URL = "https://sedlabanki.is/";
+    private static final BigDecimal ICELAND_FROM = new BigDecimal("0.0068"); // default conversion if not found
+
     private final SimpleBooleanProperty isPortrait = new SimpleBooleanProperty(true);
+    private ConvertSupport convertSupport;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // probably not the best place, but for now acceptable
+        Currency iceland = initializeIcelandicCurrency();
+        this.convertSupport = new ConvertSupport(iceland);
+
         // bind visibility of layouts to the orientation property
         portraitLayout.visibleProperty().bind(isPortrait);
         portraitLayout.managedProperty().bind(isPortrait);
@@ -61,12 +73,24 @@ public class IceController implements Initializable {
         if (textfieldInput != null) {
             String inputText = textfieldInput.getText();
             try {
-                labelUpperRight.setText(convertToOtherCurrency(inputText));
-                labelBelowLeft.setText(convertToEuroCurrency(inputText));
+                labelUpperRight.setText(convertSupport.convertToOtherCurrency(inputText));
+                labelBelowLeft.setText(convertSupport.convertToEuroCurrency(inputText));
             } catch (Exception e) {
                 System.err.println("Error during conversion: " + e.getMessage());
             }
         }
+    }
+
+    private Currency initializeIcelandicCurrency(){
+        Currency iceland = new Currency(ICELAND_NAME, ICELAND_CUR);
+        String rate = CurrencySupport.extractEurRate(CurrencySupport.downloadWebPageContentSynchronously(ICELAND_URL));
+        if (rate != null) {
+            iceland.setValueTo(CurrencySupport.convertRateToBigDecimal(rate));
+        } else {
+            // if not found (or no network connection)
+            iceland.setValueFrom(ICELAND_FROM);
+        }
+        return iceland;
     }
 
     public void setPortraitModus(boolean portrait) {
