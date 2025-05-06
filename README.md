@@ -27,7 +27,7 @@ mvn -Pandroid -X gluonfx:nativerun
 ```
 
 ## Build and run on your iPhone
-work in progress
+For the time being, I will not make and or maintain a version for an iPhone
 
 ## Build and run on your desktop
 Using the `org.openjfx.javafx-maven-plugin` artifact, you can run the app also on your desktop with:
