@@ -7,7 +7,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.dotjava.javafx.iceconverter.IceController">
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="nl.dotjava.javafx.iceconverter.IceController"
+           stylesheets="@styles.css">
 
     <!-- portrait (visible when height > width) -->
     <VBox fx:id="portraitLayout" alignment="CENTER" spacing="20.0">
@@ -17,7 +19,7 @@
         <Label     fx:id="labelUpperRight"  text="kórónu" />
         <TextField fx:id="textfieldInput"   style="-fx-text-alignment: left;" />
         <Label     fx:id="labelBelowLeft"   text="evrur" />
-        <Button    fx:id="iceButton"        onAction="#onIceButtonClick" text="smelltu" style="-fx-alignment: center;" />
+        <Button    fx:id="iceButton"        onAction="#onIceButtonClick" text="smelltu" styleClass="custom-button" />
         <Label     fx:id="dummyOne"         text=" " />
         <Label     fx:id="dummyTwo"         text=" " />
         <Label     fx:id="dummyThr"         text=" " />
@@ -31,7 +33,7 @@
         <Label     fx:id="labelUpperRightLandscape" />
         <TextField fx:id="textfieldInputLandscape" style="-fx-text-alignment: left;" />
         <Label     fx:id="labelBelowLeftLandscape" />
-        <Button    fx:id="iceButtonLandscape" onAction="#onIceButtonClick" text="smelltu" style="-fx-alignment: center;" />
+        <Button    fx:id="iceButtonLandscape" onAction="#onIceButtonClick" text="smelltu" styleClass="custom-button" />
         <Label     fx:id="dummyOneLandscape"  text=" " />
         <Label     fx:id="dummyTwoLandscape"  text=" " />
         <Label     fx:id="dummyThrLandscape"  text=" " />
