@@ -10,8 +10,23 @@
     -fx-cursor: hand;
 }
 
+/* desktop when mouse hovers */
 .custom-button:hover {
     -fx-background-color: #707070;
+}
+
+/* when swiping your finger during a tap */
+.custom-button:pressed {
+    -fx-background-color: #707070;
+}
+
+/* color during tap or click */
+.custom-button:armed {
+    -fx-background-color: #707070;
+}
+
+.custom-button:default {
+    -fx-background-color: #a0a0a0;
 }
 
 .spacing {
