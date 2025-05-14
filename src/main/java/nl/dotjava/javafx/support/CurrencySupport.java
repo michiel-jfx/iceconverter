@@ -34,6 +34,7 @@ public class CurrencySupport {
             HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
             if (response.statusCode() == 200) {
                 byte[] responseBody = response.body();
+                System.out.println("***** Fetched webpage content successfully");
                 return new String(responseBody, StandardCharsets.UTF_8);
             }
         } catch (IOException | InterruptedException e) {

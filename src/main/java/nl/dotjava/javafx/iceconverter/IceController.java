@@ -17,23 +17,17 @@ import java.util.ResourceBundle;
 public class IceController implements Initializable {
 
     public IceController() {
-        System.out.println("IceController instantiated successfully!");
+        System.out.println("***** IceController instantiated");
     }
 
     // portrait
     @FXML private TextField textfieldInput;
     @FXML private Label labelUpperRight;
     @FXML private Label labelBelowLeft;
-    @FXML private Label dummyOne;
-    @FXML private Label dummyTwo;
-    @FXML private Label dummyThr;
     // landscape
     @FXML private TextField textfieldInputLandscape;
     @FXML private Label labelUpperRightLandscape;
     @FXML private Label labelBelowLeftLandscape;
-    @FXML private Label dummyOneLandscape;
-    @FXML private Label dummyTwoLandscape;
-    @FXML private Label dummyThrLandscape;
     // layout containers
     @FXML private VBox portraitLayout;
     @FXML private VBox landscapeLayout;
@@ -63,9 +57,7 @@ public class IceController implements Initializable {
         // unidirectional binding
         labelUpperRightLandscape.textProperty().bind(labelUpperRight.textProperty());
         labelBelowLeftLandscape.textProperty().bind(labelBelowLeft.textProperty());
-        dummyOneLandscape.textProperty().bind(dummyOne.textProperty());
-        dummyTwoLandscape.textProperty().bind(dummyTwo.textProperty());
-        dummyThrLandscape.textProperty().bind(dummyThr.textProperty());
+        System.out.println("***** IceController initialized");
     }
 
     @FXML
@@ -85,6 +77,7 @@ public class IceController implements Initializable {
         Currency iceland = new Currency(ICELAND_NAME, ICELAND_CUR);
         String rate = CurrencySupport.extractEurRate(CurrencySupport.downloadWebPageContentSynchronously(ICELAND_URL));
         if (rate != null) {
+            System.out.println("***** Icelandic currency rate found: " + rate);
             iceland.setValueTo(CurrencySupport.convertRateToBigDecimal(rate));
         } else {
             // if not found (or no network connection)
