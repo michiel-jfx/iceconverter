@@ -32,3 +32,7 @@
 .spacing {
     -fx-margin-top: 5px;
 }
+
+.grad-bg {
+    -fx-background-color: linear-gradient(to bottom right, #e6e6ff, #d2d2e6);
+}

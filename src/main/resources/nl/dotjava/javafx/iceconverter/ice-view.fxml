@@ -13,7 +13,8 @@
 <?import javafx.scene.image.Image?>
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="nl.dotjava.javafx.iceconverter.IceController"
-           stylesheets="@styles.css">
+           stylesheets="@styles.css"
+           styleClass="grad-bg">
 
     <!-- portrait (visible when height > width) -->
     <VBox fx:id="portraitLayout" spacing="20.0">
@@ -31,7 +32,7 @@
             <Label fx:id="labelUpperRight" text="kórónu">
                 <VBox.margin><Insets bottom="8.0" /></VBox.margin>
             </Label>
-            <TextField fx:id="textfieldInput" style="-fx-text-alignment: left;">
+            <TextField fx:id="textfieldInput" style="-fx-text-alignment: left; -fx-background-color: #e6e6ff;">
                 <VBox.margin><Insets bottom="8.0" /></VBox.margin>
             </TextField>
             <Label fx:id="labelBelowLeft" text="evrur">
@@ -46,7 +47,7 @@
             <Insets bottom="8.0" left="20.0" right="20.0" top="8.0" />
         </padding>
         <Label fx:id="labelUpperRightLandscape" />
-        <TextField fx:id="textfieldInputLandscape" style="-fx-text-alignment: left;" />
+        <TextField fx:id="textfieldInputLandscape" style="-fx-text-alignment: left; -fx-background-color: #e6e6ff;" />
         <Label fx:id="labelBelowLeftLandscape" />
         <Button fx:id="iceButtonLandscape" onAction="#onIceButtonClick" text="smelltu" styleClass="custom-button" />
         <!-- bottom area with image in bottom right -->
