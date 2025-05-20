@@ -15,7 +15,7 @@ The mobile app is built with the following versions:
 | Gluonfx maven plugin   | 1.0.25                                              | https://github.com/gluonhq/gluonfx-maven-plugin/                    |
 | Javafx maven plugin    | 0.0.8                                               | https://mvnrepository.com/artifact/org.openjfx/javafx-maven-plugin  |
 
-Note: this JavaFX project is built with GraalVM 23 with Gluon included, but it doesn't use any com.gluonhq artifacts, it only uses javafx packages. This means there is no popup from Gluon Mobile.
+Note: this JavaFX project is built with GraalVM 23 with Gluon included, but it doesn't use any com.gluonhq artifacts, it only uses javafx packages. This means there is no popup from Gluon Mobile. JavaFX on mobile is completely independent from Android. It uses GraalVM's native image to compile the JavaFX application into a native library that Android calls via JNI. As far as Android is concerned it's the same as using a C++ library but we're developing in 100% Java :-)
 
 If you want to setup a working Linux (Ubuntu) environment, see this [blog](https://www.dotjava.nl/2025/04/20/ubuntu-for-mobile-android-java-development/). It describes setting up the environment.
 
