@@ -16,14 +16,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <org.openjfx.controls.version>17.0.6</org.openjfx.controls.version>
-        <org.openjfx.fxml.version>17.0.6</org.openjfx.fxml.version>
-        <org.controlsfx.controlsfx.version>11.2.1</org.controlsfx.controlsfx.version>
+        <org.openjfx.controls.version>25-ea+17</org.openjfx.controls.version>
+        <org.openjfx.fxml.version>25-ea+17</org.openjfx.fxml.version>
+        <org.controlsfx.controlsfx.version>11.2.2</org.controlsfx.controlsfx.version>
         <jackson.core.version>2.19.0</jackson.core.version>
-        <junit.version>5.10.2</junit.version>
-        <org.assertj.core>3.27.3</org.assertj.core>
+        <junit.version>5.13.0-M3</junit.version>
+        <org.assertj.core>4.0.0-M1</org.assertj.core>
 
-        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
         <gluonfx.maven.plugin.version>1.0.25</gluonfx.maven.plugin.version>
         <main.class>nl.dotjava.javafx.iceconverter.IceCo</main.class>

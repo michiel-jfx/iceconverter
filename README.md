@@ -10,8 +10,8 @@ The mobile app is built with the following versions:
 |------------------------|-----------------------------------------------------|---------------------------------------------------------------------|
 | IceCo                  | 0.2                                                 | this                                                                |
 | GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases                           |
-| JavaFX controls & fxml | 17.0.6                                              | https://mvnrepository.com/artifact/org.openjfx/javafx-controls      |
-| controlsfx             | 11.2.1                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx        |
+| JavaFX controls & fxml | 25-ea+17                                            | https://mvnrepository.com/artifact/org.openjfx/javafx-controls      |
+| controlsfx             | 11.2.2                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx        |
 | Gluonfx maven plugin   | 1.0.25                                              | https://github.com/gluonhq/gluonfx-maven-plugin/                    |
 | Javafx maven plugin    | 0.0.8                                               | https://mvnrepository.com/artifact/org.openjfx/javafx-maven-plugin  |
 
@@ -65,11 +65,11 @@ the keyboard to take some space).
 
 Whatever you type, after tapping it will convert from and to and you decide which to look at, for example<br/>
 <img src="https://github.com/user-attachments/assets/1c913f16-ee88-431e-ad01-391df8bba57b" width="250"><br/>
-Is obvious a krónas amount representing 6 or 7 euros for probably a parking ticket near the tourist site you're at ;-)
+is obvious a krónas amount representing 6 or 7 euros for probably a parking ticket near the tourist site you're at ;-)
 
 And<br/>
 <img src="https://github.com/user-attachments/assets/cca651af-e116-4872-bd80-55df472aee23" height="250"><br/>
-Is what I use to see how I can spend my 8 euros.
+is what I use to see how I can spend my 8 euros.
 
 That's the idea, have fun!
 
