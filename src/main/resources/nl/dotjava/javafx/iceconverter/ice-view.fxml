@@ -38,7 +38,7 @@
             <Label fx:id="labelBelowLeft" text="evrur">
                 <VBox.margin><Insets bottom="8.0" /></VBox.margin>
             </Label>
-            <Button fx:id="iceButton" onAction="#onIceButtonClick" text="smelltu" styleClass="custom-button" />
+            <Button fx:id="iceButton" onAction="#onCurrencyClick" text="smelltu" styleClass="custom-button" />
         </VBox>
     </VBox>
     <!-- landscape (visible when width > height) -->
@@ -49,7 +49,7 @@
         <Label fx:id="labelUpperRightLandscape" />
         <TextField fx:id="textfieldInputLandscape" style="-fx-text-alignment: left; -fx-background-color: #e6e6ff;" />
         <Label fx:id="labelBelowLeftLandscape" />
-        <Button fx:id="iceButtonLandscape" onAction="#onIceButtonClick" text="smelltu" styleClass="custom-button" />
+        <Button fx:id="iceButtonLandscape" onAction="#onCurrencyClick" text="smelltu" styleClass="custom-button" />
         <!-- bottom area with image in bottom right -->
         <HBox alignment="BOTTOM_RIGHT" VBox.vgrow="ALWAYS">
             <Region HBox.hgrow="ALWAYS" />

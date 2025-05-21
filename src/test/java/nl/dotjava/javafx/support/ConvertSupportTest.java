@@ -22,7 +22,8 @@ class ConvertSupportTest {
 
     @BeforeEach
     void setUpEach() {
-        convertSupport = new ConvertSupport(currency);
+        convertSupport = new ConvertSupport();
+        convertSupport.setCurrency(currency);
     }
 
     @Test
@@ -47,5 +48,10 @@ class ConvertSupportTest {
 
         String resultInvalid = convertSupport.convertToEuroCurrency("invalid");
         assertThat(resultInvalid).isEqualTo("úps");
+    }
+
+    @Test
+    void testCurrencyOutput() {
+        assertThat(currency.toString()).hasToString("[TST (ts ), from: 0.0067, to: 149.2537313433]");
     }
 }

@@ -9,13 +9,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class CurrencySupportTest {
 
     @Test
-    void testExtractEurRateFromSampleHtml() {
+    void testExtractEurRateFromSiteFromSampleHtml() {
         String sampleHtml = "<!DOCTYPE html><html><body><div class=\"popular-currencies-content\">" +
                 "<ul class=\"popular-currencies-list\"><li><div class=\"currency-card currency-card--show-flag\">" +
                 "<span class=\"currency-name\" style=\"--flag: url('/library/template/currency-flags/eur.png')\">EUR</span>" +
                 "<span class=\"currency-rate\">146,71</span></div></li></ul></body></html>";
 
-        String eurRate = CurrencySupport.extractEurRate(sampleHtml);
+        String eurRate = CurrencySupport.extractEurRateFromSite(sampleHtml);
         assertThat(eurRate).isEqualTo("146,71");
     }
 

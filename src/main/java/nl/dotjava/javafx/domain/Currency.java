@@ -1,6 +1,8 @@
 package nl.dotjava.javafx.domain;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 public class Currency {
     private final String name;
@@ -13,16 +15,20 @@ public class Currency {
         this.currencyCode = currencyCode;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public String getCurrencyCode() {
+        return this.currencyCode;
+    }
+
     public BigDecimal getValueFrom() {
         return this.valueFrom;
     }
 
     public BigDecimal getValueTo() {
         return this.valueTo;
-    }
-
-    public String getCurrencyCode() {
-        return this.currencyCode;
     }
 
     public void setValueFrom(BigDecimal valueFrom) {
@@ -37,8 +43,13 @@ public class Currency {
 
     private BigDecimal calculateReciprocal(BigDecimal value) {
         if (value != null && value.compareTo(BigDecimal.ZERO) > 0) {
-            return BigDecimal.ONE.divide(value, 10, BigDecimal.ROUND_HALF_UP);
+            return BigDecimal.ONE.divide(value, new MathContext(10, RoundingMode.HALF_UP));
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.name + " (" + this.currencyCode + "), from: " + this.valueFrom + ", to: " + this.valueTo + "]";
     }
 }

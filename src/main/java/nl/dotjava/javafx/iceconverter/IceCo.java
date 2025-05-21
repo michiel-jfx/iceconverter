@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static nl.dotjava.javafx.support.CurrencySupport.extractAllCurrenciesFromSite;
+
 public class IceCo extends Application {
 
     public void start(Stage stage) {
@@ -25,6 +27,10 @@ public class IceCo extends Application {
             scene.heightProperty().addListener((obs, oldVal, newVal) -> {
                 controller.setPortraitModus(newVal.doubleValue() > scene.getWidth());
             });
+            // load all currencies and set default to ISK
+            controller.setCurrencyMap(extractAllCurrenciesFromSite());
+            controller.setSelectedCurrency("ISK");
+            System.out.println("***** About to show stage");
             stage.show();
         } catch (Exception e) {
             System.err.println("Error loading FXML: " + e.getMessage());

@@ -6,10 +6,14 @@ import java.math.BigDecimal;
 
 public class ConvertSupport {
 
-    private final Currency currency;
     private static final String OOPS = "úps";
+    private Currency currency;
 
-    public ConvertSupport(Currency currency) {
+    public ConvertSupport() {
+        // instantiated during initializing, later the currency is set
+    }
+
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 
