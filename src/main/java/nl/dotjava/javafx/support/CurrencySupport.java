@@ -26,12 +26,12 @@ public class CurrencySupport {
         // default empty constructor
     }
 
-    // temporary Icelandic conversion values
+    // conversion value constants
+    private static final String ALL_CURRENCIES = "https://www.dotjava.nl/currency_data/currencies.html";
     private static final String ICELAND_NAME = "ISK";
     private static final String ICELAND_CUR = "kr ";
     private static final String ICELAND_URL = "https://sedlabanki.is/";
-    private static final BigDecimal ICELAND_FROM = new BigDecimal("0.0068"); // default conversion if not found
-    private static final String ALL_CURRENCIES = "https://www.dotjava.nl/currencies.html";
+    private static final BigDecimal ICELAND_FROM = new BigDecimal("0.0068");
 
     private static final String VALUE_FROM = "valueFrom";
     private static final String VALUE_TO = "valueTo";
@@ -112,8 +112,8 @@ public class CurrencySupport {
     }
 
     /**
-     * Fetch currency data from <a href="https://www.dotJava.nl/currencies.html">www.dotJava.nl</a>. When this fails,
-     * try to load it from Seðlabanki Íslands
+     * Fetch currency data from <a href="https://www.dotJava.nl/currency_data/currencies.html">www.dotJava.nl</a>. When
+     * this fails, try to load it from Seðlabanki Íslands.
      * @return list of currencies
      */
     public static List<Currency> extractAllCurrenciesFromSite() {

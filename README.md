@@ -1,7 +1,10 @@
 # Simple Icelandic Euro to Krónas converter
-This mobile phone application uses 100% Java and JavaFX with FXML to create a simple krónas to euro conversion app and vice versa.
+This mobile phone application uses 100% Java and JavaFX with FXML to create a simple krónas to euro conversion app and
+vice versa.
 
-Most conversion apps require an input and then convert your input either to euros or to krónas (or any currency). Just depending on the situation, I want to convert to Krónas and in some other cases to Euros, but not caring about what to call when doing so. So this app just accepts input and converts to and from both.  
+Most conversion apps require an input and then convert your input either to euros or to krónas (or any currency). Just
+depending on the situation, I want to convert to Krónas and in some other cases to Euros, but not caring about what to
+call when doing so. So this app just accepts input and converts to and from both.  
 
 ## Versions
 The mobile app is built with the following versions:
@@ -15,7 +18,10 @@ The mobile app is built with the following versions:
 | Gluonfx maven plugin   | 1.0.25                                              | https://github.com/gluonhq/gluonfx-maven-plugin/                    |
 | Javafx maven plugin    | 0.0.8                                               | https://mvnrepository.com/artifact/org.openjfx/javafx-maven-plugin  |
 
-Note: this JavaFX project is built with GraalVM 23 with Gluon included, but it doesn't use any com.gluonhq artifacts, it only uses javafx packages. This means there is no popup from Gluon Mobile. JavaFX on mobile is completely independent from Android. It uses GraalVM's native image to compile the JavaFX application into a native library that Android calls via JNI. As far as Android is concerned it's the same as using a C++ library but we're developing in 100% Java :-)
+Note: this JavaFX project is built with GraalVM 23 with Gluon included, but it doesn't use any com.gluonhq artifacts, it
+only uses javafx packages. This means there is no popup from Gluon Mobile. JavaFX on mobile is completely independent
+from Android. It uses GraalVM's native image to compile the JavaFX application into a native library that Android calls
+via JNI. As far as Android is concerned it's the same as using a C++ library but we're developing in 100% Java :-)
 
 If you want to setup a working Linux (Ubuntu) environment, see this [blog](https://www.dotjava.nl/2025/04/20/ubuntu-for-mobile-android-java-development/). It describes setting up the environment.
 
@@ -38,10 +44,10 @@ mvn gluonfx:run
 ## Information
 The application is very basic and tries to convert any input both ways using a simple converter class. I cannot be held
 responsible for any wrong conversions! In the first version (0.1) the conversion rate was hard coded, in this version
-currencies are downloaded from [dotJava/currencies.html](https://www.dotjava.nl/currencies.html). I've created another
-small java project which fetches currencies from the internet once a day and puts them in a static webpage for the 
-support of this project (I will make it public when its finished), see the method `CurrencySupport.extractAllCurrenciesFromSite()`
-for more information.
+currencies are downloaded from [dotJava/currency_data/currencies.html](https://www.dotjava.nl/currency_data/currencies.html).
+I've created another small java project which fetches currencies from the internet once a day and puts them in a static
+webpage for the support of this project (I will make it public when its finished), see the method
+`CurrencySupport.extractAllCurrenciesFromSite()` for more information.
 
 Since the AndroidManifest has:
 ```
@@ -79,15 +85,14 @@ keyboard immediately. Also, converting on focus-lost should reduce clicks. But t
 with the mobile phone and start the use of the com.gluonhq packages.
 
 I've decided not to use the com.gluonhq packages, so it stays a org.openjfx tutorial project. It is a useful currency
-converter mobile application written in 100% Java. See another [nop](https://github.com/michiel-jfx/nop) project for more
-interaction with the mobile phone and the use of some com.gluonhq packages.
+converter mobile application written in 100% Java. See another [nop](https://github.com/michiel-jfx/nop) project for
+more interaction with the mobile phone and the use of some com.gluonhq packages.
 
 There are still a lot `System.out.println` statements present since this is a tutorial project. When you understand the
 flow and see how it works, remove them all please.
 
 Next goals:<br/>
 <ul>
-<li>Upgrade to more recent JavaFX Controls</li>
 <li>Tap logo to change currency</li>
 <li>Deploy the app on [F-Droid](https://f-droid.org) </li>
 </ul>
