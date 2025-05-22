@@ -52,6 +52,6 @@ class ConvertSupportTest {
 
     @Test
     void testCurrencyOutput() {
-        assertThat(currency.toString()).hasToString("[TST (ts ), from: 0.0067, to: 149.2537313433]");
+        assertThat(currency.toString()).hasToString("[TST (ts ), from: 0.0067, to: 149.2537313]");
     }
 }

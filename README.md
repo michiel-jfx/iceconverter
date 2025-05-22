@@ -11,7 +11,7 @@ The mobile app is built with the following versions:
 
 | What                   | Version                                             | See                                                                 |
 |------------------------|-----------------------------------------------------|---------------------------------------------------------------------|
-| IceCo                  | 0.2                                                 | this                                                                |
+| IceCo                  | 0.0.2                                               | this                                                                |
 | GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases                           |
 | JavaFX controls & fxml | 25-ea+17                                            | https://mvnrepository.com/artifact/org.openjfx/javafx-controls      |
 | controlsfx             | 11.2.2                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx        |
@@ -30,7 +30,9 @@ If you want to setup a working Linux (Ubuntu) environment, see this [blog](https
 mvn -Pandroid clean gluonfx:build gluonfx:package
 mvn -Pandroid gluonfx:install
 mvn -Pandroid -X gluonfx:nativerun
+cp target/gluonfx/aarch64-android/gvm/IceCo.apk ~/Downloads
 ```
+last statement can be used to copy the android build to a location for your needs.
 
 ## Build and run on your iPhone
 For the time being, I will not make and or maintain a version for an iPhone.

@@ -5,25 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static nl.dotjava.javafx.support.CurrencySupport.downloadWebPageContentSynchronously;
 import static nl.dotjava.javafx.support.CurrencySupport.extractAllCurrenciesFromSite;
-import static nl.dotjava.javafx.support.CurrencySupport.extractEurRateFromSite;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 class CurrencySupportIT {
-
-    @Test
-    void testExtractEurRateFromSite() {
-        String url = "https://sedlabanki.is/";
-        String result = downloadWebPageContentSynchronously(url);
-        String eurRate = extractEurRateFromSite(result);
-
-        assertThat(result).isNotEmpty();
-        assertThat(eurRate)
-                .isNotNull()
-                .matches("\\d+,\\d+");   // matches format like "146,70"
-    }
 
     @Test
     void testExtractAllCurrenciesFromSite() {

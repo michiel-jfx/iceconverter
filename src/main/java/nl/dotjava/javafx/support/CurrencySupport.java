@@ -30,7 +30,6 @@ public class CurrencySupport {
     private static final String ALL_CURRENCIES = "https://www.dotjava.nl/currency_data/currencies.html";
     private static final String ICELAND_NAME = "ISK";
     private static final String ICELAND_CUR = "kr ";
-    private static final String ICELAND_URL = "https://sedlabanki.is/";
     private static final BigDecimal ICELAND_FROM = new BigDecimal("0.0068");
 
     private static final String VALUE_FROM = "valueFrom";
@@ -94,26 +93,8 @@ public class CurrencySupport {
     }
 
     /**
-     * In the first version, only a fetch from Seðlabanki Íslands was implemented by searching the website for a pattern.
-     * When it fails, initialize a default conversion rate for the ISK currency.
-     * @return list of currencies with ISK entry
-     */
-    private static List<Currency> initializeIcelandicCurrency() {
-        Currency iceland = new Currency(ICELAND_NAME, ICELAND_CUR);
-        String rate = extractEurRateFromSite(downloadWebPageContentSynchronously(ICELAND_URL));
-        if (rate != null) {
-            System.out.println("***** Icelandic currency rate found: " + rate);
-            iceland.setValueTo(convertRateToBigDecimal(rate));
-        } else {
-            // if not found (or no network connection)
-            iceland.setValueFrom(ICELAND_FROM);
-        }
-        return Collections.singletonList(iceland);
-    }
-
-    /**
      * Fetch currency data from <a href="https://www.dotJava.nl/currency_data/currencies.html">www.dotJava.nl</a>. When
-     * this fails, try to load it from Seðlabanki Íslands.
+     * this fails, initialize a default conversion rate for the ISK currency.
      * @return list of currencies
      */
     public static List<Currency> extractAllCurrenciesFromSite() {
@@ -121,7 +102,9 @@ public class CurrencySupport {
         String html = downloadWebPageContentSynchronously(ALL_CURRENCIES);
         if (html == null || html.isEmpty()) {
             System.out.println("***** Currency data not found");
-            return initializeIcelandicCurrency();
+            Currency iceland = new Currency(ICELAND_NAME, ICELAND_CUR);
+            iceland.setValueFrom(ICELAND_FROM);
+            return Collections.singletonList(iceland);
         }
         try {
             // extract content between <body> and </body>
