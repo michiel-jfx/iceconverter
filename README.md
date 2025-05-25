@@ -9,19 +9,19 @@ call when doing so. So this app just accepts input and converts to and from both
 ## Versions
 The mobile app is built with the following versions:
 
-| What                   | Version                                             | See                                                                 |
-|------------------------|-----------------------------------------------------|---------------------------------------------------------------------|
-| IceCo                  | 0.0.2                                               | this                                                                |
-| GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases                           |
-| JavaFX controls & fxml | 25-ea+17                                            | https://mvnrepository.com/artifact/org.openjfx/javafx-controls      |
-| controlsfx             | 11.2.2                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx        |
-| Gluonfx maven plugin   | 1.0.25                                              | https://github.com/gluonhq/gluonfx-maven-plugin/                    |
-| Javafx maven plugin    | 0.0.8                                               | https://mvnrepository.com/artifact/org.openjfx/javafx-maven-plugin  |
+| What                   | Version                                             | See                                                                                                                                                      |
+|------------------------|-----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| IceCo                  | 0.0.2                                               | this                                                                                                                                                     |
+| GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases <br/>note: this is the GraalVM Community Edition which is published<br/>with GNU General Public License (GPL)  |
+| JavaFX controls & fxml | 25-ea+17                                            | https://mvnrepository.com/artifact/org.openjfx/javafx-controls                                                                                           |
+| Controlsfx             | 11.2.2                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx                                                                                             |
+| Gluonfx maven plugin   | 1.0.25                                              | https://github.com/gluonhq/gluonfx-maven-plugin/                                                                                                         |
+| Javafx maven plugin    | 0.0.8                                               | https://mvnrepository.com/artifact/org.openjfx/javafx-maven-plugin                                                                                       |
 
 Note: this JavaFX project is built with GraalVM 23 with Gluon included, but it doesn't use any com.gluonhq artifacts, it
 only uses javafx packages. This means there is no popup from Gluon Mobile. JavaFX on mobile is completely independent
 from Android. It uses GraalVM's native image to compile the JavaFX application into a native library that Android calls
-via JNI. As far as Android is concerned it's the same as using a C++ library but we're developing in 100% Java :-)
+via JNI. As far as Android is concerned, it's the same as using a C++ library but we're developing in 100% Java :-)
 
 If you want to setup a working Linux (Ubuntu) environment, see this [blog](https://www.dotjava.nl/2025/04/20/ubuntu-for-mobile-android-java-development/). It describes setting up the environment.
 
