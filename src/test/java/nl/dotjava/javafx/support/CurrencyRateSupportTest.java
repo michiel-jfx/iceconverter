@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-class CurrencySupportTest {
+class CurrencyRateSupportTest {
 
     @Test
     void testExtractEurRateFromSiteFromSampleHtml() {

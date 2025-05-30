@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import nl.dotjava.javafx.domain.Currency;
+import nl.dotjava.javafx.domain.CurrencyRate;
 import nl.dotjava.javafx.support.ConvertSupport;
 
 import java.net.URL;
@@ -34,7 +34,7 @@ public class IceController implements Initializable {
 
     private final SimpleBooleanProperty isPortrait = new SimpleBooleanProperty(true);
     private final ConvertSupport convertSupport = new ConvertSupport();
-    private final HashMap<String,Currency> currencyMap = new HashMap<>();
+    private final HashMap<String, CurrencyRate> currencyMap = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,10 +68,10 @@ public class IceController implements Initializable {
         isPortrait.set(portrait);
     }
 
-    public void setCurrencyMap(List<Currency> currencies) {
+    public void setCurrencyMap(List<CurrencyRate> currencies) {
         this.currencyMap.clear();
         currencies.forEach(c -> this.currencyMap.put(c.getName(), c));
-        System.out.println("***** Currency map initialized");
+        System.out.println("***** CurrencyRate map initialized");
     }
 
     public void setSelectedCurrency(String name) {

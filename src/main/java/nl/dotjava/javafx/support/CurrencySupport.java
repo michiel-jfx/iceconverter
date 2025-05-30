@@ -3,6 +3,7 @@ package nl.dotjava.javafx.support;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.dotjava.javafx.domain.Currency;
+import nl.dotjava.javafx.domain.CurrencyRate;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -17,6 +18,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.net.http.HttpClient.newHttpClient;
+
 /**
  * Static utility class for handling currency-related operations, such as fetching web page content, extracting currency
  * rates, and converting rates to numerical values.
@@ -28,33 +31,30 @@ public class CurrencySupport {
 
     // conversion value constants
     private static final String ALL_CURRENCIES = "https://www.dotjava.nl/currency_data/currencies.html";
-    private static final String ICELAND_NAME = "ISK";
-    private static final String ICELAND_CUR = "kr ";
     private static final BigDecimal ICELAND_FROM = new BigDecimal("0.0068");
-
     private static final String VALUE_FROM = "valueFrom";
     private static final String VALUE_TO = "valueTo";
 
     /**
      * Simple method to fetch a webpage synchronously and return the content as a string.
-     * @param url page to fetch
      * @return content as a string, or null if the webpage could not be fetched
      */
-    protected static String downloadWebPageContentSynchronously(String url) {
-        HttpClient httpClient = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .build();
+    protected static String downloadWebPageContentSynchronously() {
+        try (HttpClient httpClient = newHttpClient()) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(ALL_CURRENCIES))
+                    .build();
 
-        try {
-            HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
-            if (response.statusCode() == 200) {
-                byte[] responseBody = response.body();
-                System.out.println("***** Fetched webpage content (" + url + ") successfully");
-                return new String(responseBody, StandardCharsets.UTF_8);
+            try {
+                HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
+                if (response.statusCode() == 200) {
+                    byte[] responseBody = response.body();
+                    System.out.println("***** Fetched webpage content (" + ALL_CURRENCIES + ") successfully");
+                    return new String(responseBody, StandardCharsets.UTF_8);
+                }
+            } catch (IOException | InterruptedException e) {
+                return null;
             }
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -95,14 +95,14 @@ public class CurrencySupport {
     /**
      * Fetch currency data from <a href="https://www.dotJava.nl/currency_data/currencies.html">www.dotJava.nl</a>. When
      * this fails, initialize a default conversion rate for the ISK currency.
-     * @return list of currencies
+     * @return list of currencies found on website or defaulted to ISK
      */
-    public static List<Currency> extractAllCurrenciesFromSite() {
-        List<Currency> currencies = new ArrayList<>();
-        String html = downloadWebPageContentSynchronously(ALL_CURRENCIES);
+    public static List<CurrencyRate> extractAllCurrenciesFromSite() {
+        List<CurrencyRate> currencies = new ArrayList<>();
+        String html = downloadWebPageContentSynchronously();
         if (html == null || html.isEmpty()) {
-            System.out.println("***** Currency data not found");
-            Currency iceland = new Currency(ICELAND_NAME, ICELAND_CUR);
+            System.out.println("***** CurrencyRate data not found");
+            CurrencyRate iceland = new CurrencyRate(Currency.ISK);
             iceland.setValueFrom(ICELAND_FROM);
             return Collections.singletonList(iceland);
         }
@@ -112,21 +112,20 @@ public class CurrencySupport {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonArray = mapper.readTree(data);
             for (JsonNode node : jsonArray) {
-                String name = node.get("name").asText();
-                String currencyCode = node.get("currencyCode").asText();
-                Currency currency = new Currency(name, currencyCode);
+                String cur = node.get("currency").asText();
+                CurrencyRate currencyRate = new CurrencyRate(Currency.valueOf(cur));
 
                 if (node.has(VALUE_TO) && !node.get(VALUE_TO).isNull()) {
                     BigDecimal valueTo = new BigDecimal(node.get(VALUE_TO).asText());
-                    currency.setValueTo(valueTo);
+                    currencyRate.setValueTo(valueTo);
                 } else {
                     if (node.has(VALUE_FROM) && !node.get(VALUE_FROM).isNull()) {
                         BigDecimal valueFrom = new BigDecimal(node.get(VALUE_FROM).asText());
-                        currency.setValueFrom(valueFrom);
+                        currencyRate.setValueFrom(valueFrom);
                     }
                 }
-                currencies.add(currency);
-                System.out.println("***** Added currency: " + currency);
+                currencies.add(currencyRate);
+                System.out.println("***** Added currencyRate: " + currencyRate);
             }
         } catch (Exception e) {
             System.err.println("Error parsing currency data: " + e.getMessage());

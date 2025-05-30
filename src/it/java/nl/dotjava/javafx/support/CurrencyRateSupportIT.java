@@ -1,6 +1,6 @@
 package nl.dotjava.javafx.support;
 
-import nl.dotjava.javafx.domain.Currency;
+import nl.dotjava.javafx.domain.CurrencyRate;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -8,30 +8,30 @@ import java.util.List;
 import static nl.dotjava.javafx.support.CurrencySupport.extractAllCurrenciesFromSite;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CurrencySupportIT {
+class CurrencyRateSupportIT {
 
     @Test
     void testExtractAllCurrenciesFromSite() {
-        List<Currency> currencies = extractAllCurrenciesFromSite();
+        List<CurrencyRate> currencies = extractAllCurrenciesFromSite();
         assertThat(currencies)
                 .isNotNull()
                 .isNotEmpty();
 
         assertThat(currencies)
-                .extracting(Currency::getName)
+                .extracting(CurrencyRate::getName)
                 .contains("EUR", "ISK");
 
         // Verify that each currency has the expected properties
         currencies.forEach(currency -> {
             assertThat(currency.getName()).isNotNull().isNotEmpty();
-            assertThat(currency.getCurrencyCode()).isNotNull().isNotEmpty();
+            assertThat(currency.getCurrencySymbol()).isNotNull().isNotEmpty();
             assertThat(currency.getValueFrom() != null || currency.getValueTo() != null)
                     .as("Either valueFrom or valueTo should be set for currency " + currency.getName())
                     .isTrue();
         });
 
         // list of currencies should at least contain the Icelandic currency
-        Currency isk = currencies.stream()
+        CurrencyRate isk = currencies.stream()
                 .filter(c -> "ISK".equals(c.getName()))
                 .findFirst()
                 .orElse(null);

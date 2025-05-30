@@ -49,7 +49,9 @@ responsible for any wrong conversions! In the first version (0.1) the conversion
 currencies are downloaded from [dotJava/currency_data/currencies.html](https://www.dotjava.nl/currency_data/currencies.html).
 I've created another small java project which fetches currencies from the internet once a day and puts them in a static
 webpage for the support of this project (I will make it public when its finished), see the method
-`CurrencySupport.extractAllCurrenciesFromSite()` for more information.
+`CurrencySupport.extractAllCurrenciesFromSite()` for more information. As of 30-may-2025 I've added some more currencies!
+They are not yet used in the mobile app yet, this is in anticipation of the next feature to choose your conversion in 
+the next version.
 
 Since the AndroidManifest has:
 ```
@@ -57,12 +59,12 @@ Since the AndroidManifest has:
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
 The fetch should be no problem. See the `CurrencySupport` class also for a `java.net.http.HttpClient` implementation to
-fetch the webpage. Again, I cannot be held responsible for wrong currency codes. This is a tutorial project to create
-your own mobile app on your phone. If the fetch fails, the conversion rate is hardcoded to 0.0068 like in the very first
-version. This will be the case when no internet is available.
+fetch the webpage. Again, I cannot be held responsible for wrong currency conversion rates. This is a tutorial project
+to create your own mobile app on your phone. If the fetch fails, the conversion rate is hardcoded to 0.0068 like in the
+very first version. This will be the case when no internet is available.
 
 I've changed the markup @FXML page since the first version a bit and put a nice logo in portrait and landscape mode.
-Later goal is to allow a tap on the logo to select another currency (and change the picture of course ;-).
+Later, goal is to allow a tap on the logo to select another currency (and change the picture of course ;-).
 
 The startup screen shows:<br/><br/> <img src="https://github.com/user-attachments/assets/7a1442d7-0d8a-4d5d-86b0-e638018f91f7" width="250"><br/>
 

@@ -1,55 +1,36 @@
 package nl.dotjava.javafx.domain;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
+public enum Currency {
+    EUR("Europese euro", "€ "),
+    USD("Amerikaanse dollar", "$ "),
+    ANG("Antillaanse gulden", "ƒ "),
+    AUD("Australische dollar", "A$ "),
+    CAD("Canadese dollar", "C$ "),
+    CNY("Chinese yuan", "¥ "),
+    DKK("Deense kroon", "kr "),
+    GBP("Engelse pond", "£ "),
+    HKD("Kong dollar", "HK$ "),
+    ILS("Israëlische shekel", "₪ "),
+    MAD("Marokkaanse dirham", " د.م"),
+    NOK("Noorse kroon", "kr "),
+    NZD("N-Zeelandse dollar", "NZ$ "),
+    PLN("Poolse zloty", "zł "),
+    CZK("Tsjechische kroon", "Kč "),
+    TRY("Turkse lira", "₺ "),
+    ZAR("Z-Afrikaanse rand", "R "),
+    SEK("Zweedse kroon", "kr "),
+    CHF("Zwitserse frank", "Fr "),
+    ISK("IJslandse kroon", "kr ");
 
-public class Currency {
-    private final String name;
-    private final String currencyCode;
-    private BigDecimal valueFrom;
-    private BigDecimal valueTo;
+    private final String description;
+    private final String symbol;
 
-    public Currency(String name, String currencyCode) {
-        this.name = name;
-        this.currencyCode = currencyCode;
+    Currency(String description, String symbol) {
+        this.description = description;
+        this.symbol = symbol;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public String getCurrencyCode() {
-        return this.currencyCode;
-    }
-
-    public BigDecimal getValueFrom() {
-        return this.valueFrom;
-    }
-
-    public BigDecimal getValueTo() {
-        return this.valueTo;
-    }
-
-    public void setValueFrom(BigDecimal valueFrom) {
-        this.valueFrom = valueFrom;
-        this.valueTo = calculateReciprocal(this.valueFrom);
-    }
-
-    public void setValueTo(BigDecimal valueTo) {
-        this.valueTo = valueTo;
-        this.valueFrom = calculateReciprocal(this.valueTo);
-    }
-
-    private BigDecimal calculateReciprocal(BigDecimal value) {
-        if (value != null && value.compareTo(BigDecimal.ZERO) > 0) {
-            return BigDecimal.ONE.divide(value, new MathContext(10, RoundingMode.HALF_UP));
-        }
-        return null;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + this.name + " (" + this.currencyCode + "), from: " + this.valueFrom + ", to: " + this.valueTo + "]";
+    public String getSymbol() {
+        return symbol;
     }
 }
