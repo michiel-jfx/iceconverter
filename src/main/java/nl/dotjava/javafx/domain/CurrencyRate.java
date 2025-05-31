@@ -9,9 +9,11 @@ public class CurrencyRate {
     private final Currency currency;
     private BigDecimal valueFrom;
     private BigDecimal valueTo;
+    private String targetSymbol;
 
     public CurrencyRate(Currency currency) {
         this.currency = currency;
+        this.targetSymbol = null;
     }
 
     public String getName() {
@@ -28,6 +30,14 @@ public class CurrencyRate {
 
     public BigDecimal getValueTo() {
         return this.valueTo;
+    }
+
+    public void setTargetSymbol(String targetSymbol) {
+        this.targetSymbol = targetSymbol;
+    }
+
+    public String getTargetSymbol() {
+        return this.targetSymbol == null ? "€ " : this.targetSymbol;
     }
 
     public void setValueFrom(BigDecimal valueFrom) {

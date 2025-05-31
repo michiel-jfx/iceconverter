@@ -29,7 +29,7 @@ public class ConvertSupport {
     public String convertToEuroCurrency(String euroValue) {
         try {
             BigDecimal value = new BigDecimal(euroValue.replace(",", ".")).setScale(3, BigDecimal.ROUND_HALF_UP);
-            return "€ " + value.multiply(currencyRate.getValueFrom()).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+            return currencyRate.getTargetSymbol() + value.multiply(currencyRate.getValueFrom()).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
         } catch (Exception e) {
             return OOPS;
         }
