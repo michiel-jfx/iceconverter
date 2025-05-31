@@ -15,8 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static java.net.http.HttpClient.newHttpClient;
 
@@ -55,24 +53,6 @@ public class CurrencySupport {
             } catch (IOException | InterruptedException e) {
                 return null;
             }
-        }
-        return null;
-    }
-
-    /**
-     * Extracts the EUR currency rate from the webpage content. Searches for a pattern where EUR currency is defined and
-     * extracts the rate value.
-     * @param content The (HTML) content of the webpage
-     * @return the EUR currency rate as a string, or null if not found
-     */
-    protected static String extractEurRateFromSite(String content) {
-        if (content == null || content.isEmpty()) { return null; }
-        // look for "currency-flags/eur.png" followed by ">EUR</span>" and then the rate in the upcoming span
-        String pattern = "currency-flags/eur\\.png.*?>EUR</span>\\s*<span class=\"currency-rate\">(.*?)</span>";
-        Pattern r = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-        Matcher m = r.matcher(content);
-        if (m.find()) {
-            return m.group(1).trim();
         }
         return null;
     }
