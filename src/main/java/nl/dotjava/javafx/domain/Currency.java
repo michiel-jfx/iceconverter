@@ -11,7 +11,7 @@ public enum Currency {
     GBP("Engelse pond", "£ "),
     HKD("Kong dollar", "HK$ "),
     ILS("Israëlische shekel", "₪ "),
-    MAD("Marokkaanse dirham", "د.م."),
+    MAD("Marokkaanse dirham", " د.م."),
     NOK("Noorse kroon", "kr "),
     NZD("N-Zeelandse dollar", "NZ$ "),
     PLN("Poolse zloty", "zł "),
