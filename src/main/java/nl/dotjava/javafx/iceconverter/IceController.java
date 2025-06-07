@@ -6,9 +6,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import nl.dotjava.javafx.domain.Currency;
 import nl.dotjava.javafx.domain.CurrencyRate;
 import nl.dotjava.javafx.support.ConvertSupport;
 
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -74,8 +77,19 @@ public class IceController implements Initializable {
         System.out.println("***** CurrencyRate map initialized");
     }
 
-    public void setSelectedCurrency(String name) {
-        this.convertSupport.setCurrency(this.currencyMap.get(name));
-        System.out.println("***** Currency set to: " + name);
+    /**
+     * Set a custom from and to currency factor. A custom CurrencyRate is calculated using both currencies.
+     * @param from currency symbol from
+     * @param to target currency symbol, use EUR when {null}
+     */
+    public void setCurrencyToUse(String from, String... to) {
+        String toCurrency = (to.length > 0) ? to[0] : "EUR";
+        Currency curFrom = Currency.valueOf(from);
+        CurrencyRate curRateFrom = this.currencyMap.get(from);
+        CurrencyRate curRateTo = this.currencyMap.get(toCurrency);
+        CurrencyRate customCurrency = new CurrencyRate(curFrom);
+        customCurrency.setTargetSymbol(curRateTo.getCurrencySymbol());
+        customCurrency.setValueFrom(curRateFrom.getValueFrom().multiply(curRateTo.getValueTo(), new MathContext(10, RoundingMode.HALF_UP)));
+        this.convertSupport.setCurrency(customCurrency);
     }
 }

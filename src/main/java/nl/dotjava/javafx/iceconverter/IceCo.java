@@ -21,15 +21,11 @@ public class IceCo extends Application {
             // set initial orientation
             controller.setPortraitModus(stage.getHeight() > stage.getWidth());
             // add listeners for orientation changes
-            scene.widthProperty().addListener((obs, oldVal, newVal) -> {
-                controller.setPortraitModus(scene.getHeight() > newVal.doubleValue());
-            });
-            scene.heightProperty().addListener((obs, oldVal, newVal) -> {
-                controller.setPortraitModus(newVal.doubleValue() > scene.getWidth());
-            });
+            scene.widthProperty().addListener((obs, oldVal, newVal) -> controller.setPortraitModus(scene.getHeight() > newVal.doubleValue()));
+            scene.heightProperty().addListener((obs, oldVal, newVal) -> controller.setPortraitModus(newVal.doubleValue() > scene.getWidth()));
             // load all currencies and set default to ISK
             controller.setCurrencyMap(extractAllCurrenciesFromSite());
-            controller.setSelectedCurrency("ISK");
+            controller.setCurrencyToUse("ISK");
             System.out.println("***** About to show stage");
             stage.show();
         } catch (Exception e) {

@@ -2,7 +2,6 @@ package nl.dotjava.javafx.support;
 
 import nl.dotjava.javafx.domain.Currency;
 import nl.dotjava.javafx.domain.CurrencyRate;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,14 +14,10 @@ class ConvertSupportTest {
     private static CurrencyRate currencyRate;
     private ConvertSupport convertSupport;
 
-    @BeforeAll
-    static void setUp() {
-        currencyRate = new CurrencyRate(Currency.ANG);
-        currencyRate.setValueFrom(new BigDecimal("0.1234"));
-    }
-
     @BeforeEach
     void setUpEach() {
+        currencyRate = new CurrencyRate(Currency.ANG);
+        currencyRate.setValueFrom(new BigDecimal("0.5182"));
         convertSupport = new ConvertSupport();
         convertSupport.setCurrency(currencyRate);
     }
@@ -30,10 +25,10 @@ class ConvertSupportTest {
     @Test
     void testConvertToOtherCurrency() {
         String result = convertSupport.convertToOtherCurrency("10");
-        assertThat(result).isEqualTo("ƒ 81.04");
+        assertThat(result).isEqualTo("ƒ 19.30");
 
         String resultWithComma = convertSupport.convertToOtherCurrency("10,5");
-        assertThat(resultWithComma).isEqualTo("ƒ 85.09");
+        assertThat(resultWithComma).isEqualTo("ƒ 20.26");
 
         String resultInvalid = convertSupport.convertToOtherCurrency("not-a-number");
         assertThat(resultInvalid).isEqualTo("úps");
@@ -42,10 +37,10 @@ class ConvertSupportTest {
     @Test
     void testConvertToEuroCurrency() {
         String result = convertSupport.convertToEuroCurrency("1000");
-        assertThat(result).isEqualTo("€ 123.40");
+        assertThat(result).isEqualTo("€ 518.20");
 
         String resultWithComma = convertSupport.convertToEuroCurrency("1000,5");
-        assertThat(resultWithComma).isEqualTo("€ 123.46");
+        assertThat(resultWithComma).isEqualTo("€ 518.46");
 
         String resultInvalid = convertSupport.convertToEuroCurrency("invalid");
         assertThat(resultInvalid).isEqualTo("úps");
@@ -53,6 +48,8 @@ class ConvertSupportTest {
 
     @Test
     void testCurrencyOutput() {
-        assertThat(currencyRate.toString()).hasToString("[ANG (ƒ ), from: 0.1234, to: 8.103727715]");
+        assertThat(currencyRate.toString()).hasToString("[ANG: from ƒ 0.5182, to € 1.929756851]");
+        currencyRate.setTargetSymbol("x ");
+        assertThat(currencyRate.toString()).hasToString("[ANG: from ƒ 0.5182, to x 1.929756851]");
     }
 }

@@ -34,45 +34,6 @@ public class CurrencySupport {
     private static final String VALUE_TO = "valueTo";
 
     /**
-     * Simple method to fetch a webpage synchronously and return the content as a string.
-     * @return content as a string, or null if the webpage could not be fetched
-     */
-    protected static String downloadWebPageContentSynchronously() {
-        try (HttpClient httpClient = newHttpClient()) {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(ALL_CURRENCIES))
-                    .build();
-
-            try {
-                HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
-                if (response.statusCode() == 200) {
-                    byte[] responseBody = response.body();
-                    System.out.println("***** Fetched webpage content (" + ALL_CURRENCIES + ") successfully");
-                    return new String(responseBody, StandardCharsets.UTF_8);
-                }
-            } catch (IOException | InterruptedException e) {
-                return null;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Converts a currency rate string to BigDecimal. For example, converts "146,70" to a BigDecimal representation of 146.70
-     * @param rate The currency rate as a string (e.g., "146,70")
-     * @return value as a BigDecimal, or null if the input is invalid
-     */
-    protected static BigDecimal convertRateToBigDecimal(String rate) {
-        if (rate == null || rate.isEmpty()) { return null; }
-        try {
-            String normalizedRate = rate.replace(',', '.');
-            return new BigDecimal(normalizedRate);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    /**
      * Fetch currency data from <a href="https://www.dotJava.nl/currency_data/currencies.html">www.dotJava.nl</a>. When
      * this fails, initialize a default conversion rate for the ISK currency.
      * @return list of currencies found on website or defaulted to ISK
@@ -105,12 +66,35 @@ public class CurrencySupport {
                     }
                 }
                 currencies.add(currencyRate);
-                System.out.println("***** Added currencyRate: " + currencyRate);
             }
         } catch (Exception e) {
             System.err.println("Error parsing currency data: " + e.getMessage());
             e.printStackTrace();
         }
         return currencies;
+    }
+
+    /**
+     * Simple method to fetch a webpage synchronously and return the content as a string.
+     * @return content as a string, or null if the webpage could not be fetched
+     */
+    protected static String downloadWebPageContentSynchronously() {
+        try (HttpClient httpClient = newHttpClient()) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(ALL_CURRENCIES))
+                    .build();
+
+            try {
+                HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
+                if (response.statusCode() == 200) {
+                    byte[] responseBody = response.body();
+                    System.out.println("***** Fetched webpage (" + ALL_CURRENCIES + ") successfully");
+                    return new String(responseBody, StandardCharsets.UTF_8);
+                }
+            } catch (IOException | InterruptedException e) {
+                return null;
+            }
+        }
+        return null;
     }
 }

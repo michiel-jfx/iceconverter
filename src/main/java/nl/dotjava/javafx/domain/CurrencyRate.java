@@ -59,6 +59,6 @@ public class CurrencyRate {
 
     @Override
     public String toString() {
-        return "[" + this.currency.name() + " (" + this.currency.getSymbol() + "), from: " + this.valueFrom + ", to: " + this.valueTo + "]";
+        return "[" + this.currency.name() + ": from " + this.currency.getSymbol().trim() + " " + this.valueFrom + ", to " + (this.targetSymbol==null?"€":this.targetSymbol.trim()) + " " + this.valueTo + "]";
     }
 }

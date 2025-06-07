@@ -8,7 +8,7 @@ import java.util.List;
 import static nl.dotjava.javafx.support.CurrencySupport.extractAllCurrenciesFromSite;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CurrencyRateSupportIT {
+class CurrencySupportIT {
 
     @Test
     void testExtractAllCurrenciesFromSite() {
