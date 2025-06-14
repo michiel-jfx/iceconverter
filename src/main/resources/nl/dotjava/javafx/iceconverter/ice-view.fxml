@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="nl.dotjava.javafx.iceconverter.IceController"
            stylesheets="@styles.css"
            styleClass="grad-bg">
-
     <!-- portrait (visible when height > width) -->
     <VBox fx:id="portraitLayout" spacing="20.0">
         <padding>
@@ -26,18 +26,18 @@
             <Region HBox.hgrow="ALWAYS" />
             <VBox>
                 <StackPane alignment="TOP_RIGHT">
-                    <ImageView fitHeight="100" preserveRatio="true">
+                    <ImageView fx:id="portraitFromSymbol" fitHeight="100" preserveRatio="true">
                         <Image url="@symbol/circle/ANG.png" />
                     </ImageView>
-                    <ImageView fitWidth="150" preserveRatio="true" styleClass="overlay-image">
+                    <ImageView fx:id="portraitFromFlag" fitWidth="150" preserveRatio="true" styleClass="overlay-image">
                         <Image url="@flag/medium/ANG.png" />
                     </ImageView>
                 </StackPane>
                 <StackPane alignment="BOTTOM_RIGHT">
-                    <ImageView fitHeight="100" preserveRatio="true">
+                    <ImageView fx:id="portraitToSymbol" fitHeight="100" preserveRatio="true">
                         <Image url="@symbol/circle/NZD.png" />
                     </ImageView>
-                    <ImageView fitWidth="150" preserveRatio="true" styleClass="overlay-image">
+                    <ImageView fx:id="portraitToFlag" fitWidth="150" preserveRatio="true" styleClass="overlay-image">
                         <Image url="@flag/medium/NZD.png" />
                     </ImageView>
                 </StackPane>
@@ -73,18 +73,18 @@
                 <Insets bottom="8.0" right="8.0" />
             </padding>
             <StackPane alignment="BOTTOM_CENTER">
-                <ImageView fitHeight="110" preserveRatio="true">
+                <ImageView fx:id="landscapeFromSymbol" fitHeight="110" preserveRatio="true">
                     <Image url="@symbol/circle/ANG.png" />
                 </ImageView>
-                <ImageView fitHeight="110" preserveRatio="true" styleClass="overlay-image">
+                <ImageView fx:id="landscapeFromFlag" fitHeight="110" preserveRatio="true" styleClass="overlay-image">
                     <Image url="@flag/medium/ANG.png" />
                 </ImageView>
             </StackPane>
             <StackPane alignment="BOTTOM_CENTER">
-                <ImageView fitHeight="110" preserveRatio="true">
+                <ImageView fx:id="landscapeToSymbol" fitHeight="110" preserveRatio="true">
                     <Image url="@symbol/circle/NZD.png" />
                 </ImageView>
-                <ImageView fitHeight="110" preserveRatio="true" styleClass="overlay-image">
+                <ImageView fx:id="landscapeToFlag" fitHeight="110" preserveRatio="true" styleClass="overlay-image">
                     <Image url="@flag/medium/NZD.png" />
                 </ImageView>
             </StackPane>
