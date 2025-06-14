@@ -24,9 +24,24 @@
         <!-- top area with upper right image -->
         <HBox alignment="CENTER_RIGHT">
             <Region HBox.hgrow="ALWAYS" />
-            <ImageView fitHeight="250" preserveRatio="true">
-                <Image url="@euro-with-crown.png" />
-            </ImageView>
+            <VBox>
+                <StackPane alignment="TOP_RIGHT">
+                    <ImageView fitHeight="100" preserveRatio="true">
+                        <Image url="@symbol/circle/ANG.png" />
+                    </ImageView>
+                    <ImageView fitWidth="150" preserveRatio="true" styleClass="overlay-image">
+                        <Image url="@flag/medium/ANG.png" />
+                    </ImageView>
+                </StackPane>
+                <StackPane alignment="BOTTOM_RIGHT">
+                    <ImageView fitHeight="100" preserveRatio="true">
+                        <Image url="@symbol/circle/NZD.png" />
+                    </ImageView>
+                    <ImageView fitWidth="150" preserveRatio="true" styleClass="overlay-image">
+                        <Image url="@flag/medium/NZD.png" />
+                    </ImageView>
+                </StackPane>
+            </VBox>
         </HBox>
         <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
             <Label fx:id="labelUpperRight" text="kórónu">
@@ -41,6 +56,7 @@
             <Button fx:id="iceButton" onAction="#onCurrencyClick" text="smelltu" styleClass="custom-button" />
         </VBox>
     </VBox>
+
     <!-- landscape (visible when width > height) -->
     <VBox fx:id="landscapeLayout" alignment="TOP_CENTER" spacing="20.0" visible="false" managed="false">
         <padding>
@@ -53,9 +69,25 @@
         <!-- bottom area with image in bottom right -->
         <HBox alignment="BOTTOM_RIGHT" VBox.vgrow="ALWAYS">
             <Region HBox.hgrow="ALWAYS" />
-            <ImageView fitHeight="150" preserveRatio="true">
-                <Image url="@euro-with-crown.png" />
-            </ImageView>
+            <padding>
+                <Insets bottom="8.0" right="8.0" />
+            </padding>
+            <StackPane alignment="BOTTOM_CENTER">
+                <ImageView fitHeight="110" preserveRatio="true">
+                    <Image url="@symbol/circle/ANG.png" />
+                </ImageView>
+                <ImageView fitHeight="110" preserveRatio="true" styleClass="overlay-image">
+                    <Image url="@flag/medium/ANG.png" />
+                </ImageView>
+            </StackPane>
+            <StackPane alignment="BOTTOM_CENTER">
+                <ImageView fitHeight="110" preserveRatio="true">
+                    <Image url="@symbol/circle/NZD.png" />
+                </ImageView>
+                <ImageView fitHeight="110" preserveRatio="true" styleClass="overlay-image">
+                    <Image url="@flag/medium/NZD.png" />
+                </ImageView>
+            </StackPane>
         </HBox>
     </VBox>
 </StackPane>

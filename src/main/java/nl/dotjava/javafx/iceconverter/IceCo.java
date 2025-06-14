@@ -15,7 +15,7 @@ public class IceCo extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ice-view.fxml"));
             Parent root = loader.load();
             IceController controller = loader.getController();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 1080.0, 2340.0);
             stage.setTitle("IceCo");
             stage.setScene(scene);
             // set initial orientation
@@ -25,7 +25,7 @@ public class IceCo extends Application {
             scene.heightProperty().addListener((obs, oldVal, newVal) -> controller.setPortraitModus(newVal.doubleValue() > scene.getWidth()));
             // load all currencies and set default to ISK
             controller.setCurrencyMap(extractAllCurrenciesFromSite());
-            controller.setCurrencyToUse("ISK");
+            controller.setCurrencyToUse("ISK", "EUR");
             System.out.println("***** About to show stage");
             stage.show();
         } catch (Exception e) {

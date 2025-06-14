@@ -90,6 +90,13 @@ public class IceController implements Initializable {
         CurrencyRate customCurrency = new CurrencyRate(curFrom);
         customCurrency.setTargetSymbol(curRateTo.getCurrencySymbol());
         customCurrency.setValueFrom(curRateFrom.getValueFrom().multiply(curRateTo.getValueTo(), new MathContext(10, RoundingMode.HALF_UP)));
+        // update pictures onscreen
+        updateFlagPictures(from, toCurrency);
         this.convertSupport.setCurrency(customCurrency);
+    }
+
+    private void updateFlagPictures(String from, String to) {
+        // update 8 png images onscreen, 4 for andscape, 4 for portrait
+
     }
 }

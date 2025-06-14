@@ -36,3 +36,7 @@
 .grad-bg {
     -fx-background-color: linear-gradient(to bottom right, #e6e6ff, #d2d2e6);
 }
+
+.overlay-image {
+    -fx-opacity: 0.2;
+}
