@@ -2,8 +2,10 @@ package nl.dotjava.javafx.support;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.scene.image.Image;
 import nl.dotjava.javafx.domain.Currency;
 import nl.dotjava.javafx.domain.CurrencyRate;
+import nl.dotjava.javafx.iceconverter.IceController;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -94,6 +96,18 @@ public class CurrencySupport {
             } catch (IOException | InterruptedException e) {
                 return null;
             }
+        }
+        return null;
+    }
+
+    /**
+     * Get flag or symbol images from resources (based on iceconverter package location).
+     */
+    public static Image getCurrencyImageFromResources(String folder, String resource) {
+        try {
+            return new Image(IceController.class.getResourceAsStream(folder + "/" + resource + ".png"));
+        } catch (Exception e) {
+            System.err.println("Error loading image (" + resource + "): " + e.getMessage());
         }
         return null;
     }

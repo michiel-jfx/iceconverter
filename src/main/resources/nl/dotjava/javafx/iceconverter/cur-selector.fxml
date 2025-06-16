@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.FlowPane?>
+
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="nl.dotjava.javafx.iceconverter.SelectCurrencyController"
+      stylesheets="@styles.css"
+      styleClass="grad-bg">
+
+    <padding>
+        <Insets topRightBottomLeft="15.0" />
+    </padding>
+    <HBox alignment="CENTER" spacing="20">
+        <VBox.margin>
+            <Insets bottom="15.0" />
+        </VBox.margin>
+        <ImageView fx:id="fromFlag" fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/EUR.png" />
+        </ImageView>
+        <ImageView fx:id="toFlag" fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/ISK.png" />
+        </ImageView>
+    </HBox>
+    <FlowPane fx:id="flagLayout" hgap="20" vgap="20">
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/EUR.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/ANG.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/AUD.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/CAD.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/CHF.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/CNY.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/CZK.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/DKK.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/GBP.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/HKD.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/HUF.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/ILS.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/ISK.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/JPY.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/MAD.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/NOK.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/NZD.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/PLN.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/SEK.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/TRY.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/USD.png" />
+        </ImageView>
+        <ImageView fitWidth="80" fitHeight="53">
+            <Image url="@flag/small/ZAR.png" />
+        </ImageView>
+    </FlowPane>
+</VBox>

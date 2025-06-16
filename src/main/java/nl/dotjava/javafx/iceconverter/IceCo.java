@@ -14,19 +14,18 @@ public class IceCo extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ice-view.fxml"));
             Parent root = loader.load();
-            IceController controller = loader.getController();
-            Scene scene = new Scene(root, 1080.0, 2340.0);
+            IceController iceController = loader.getController();
+            Scene scene = new Scene(root, 432.0, 855.0); // 1080 x 2340
             stage.setTitle("IceCo");
             stage.setScene(scene);
-            // set initial orientation
-            controller.setPortraitModus(stage.getHeight() > stage.getWidth());
-            // add listeners for orientation changes
-            scene.widthProperty().addListener((obs, oldVal, newVal) -> controller.setPortraitModus(scene.getHeight() > newVal.doubleValue()));
-            scene.heightProperty().addListener((obs, oldVal, newVal) -> controller.setPortraitModus(newVal.doubleValue() > scene.getWidth()));
+            // set initial orientation and add listeners for orientation changes
+            iceController.setPortraitModus(stage.getHeight() > stage.getWidth());
+            scene.widthProperty().addListener((obs, oldVal, newVal) -> iceController.setPortraitModus(scene.getHeight() > newVal.doubleValue()));
+            scene.heightProperty().addListener((obs, oldVal, newVal) -> iceController.setPortraitModus(newVal.doubleValue() > scene.getWidth()));
             // load all currencies and set default to ISK
-            controller.setCurrencyMap(extractAllCurrenciesFromSite());
-            controller.setCurrencyToUse("ISK", "EUR");
-            System.out.println("***** About to show stage");
+            iceController.setCurrencyMap(extractAllCurrenciesFromSite());
+            iceController.setCurrencyToUse("ISK", "EUR");
+            iceController.setupMainStage(stage, scene);
             stage.show();
         } catch (Exception e) {
             System.err.println("Error loading FXML: " + e.getMessage());

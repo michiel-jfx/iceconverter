@@ -16,10 +16,11 @@
            fx:controller="nl.dotjava.javafx.iceconverter.IceController"
            stylesheets="@styles.css"
            styleClass="grad-bg">
+
     <!-- portrait (visible when height > width) -->
     <VBox fx:id="portraitLayout" spacing="20.0">
         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="5.0" />
+            <Insets bottom="20.0" left="15.0" right="15.0" top="15.0" />
         </padding>
         <!-- top area with upper right image -->
         <HBox alignment="CENTER_RIGHT">
@@ -60,7 +61,7 @@
     <!-- landscape (visible when width > height) -->
     <VBox fx:id="landscapeLayout" alignment="TOP_CENTER" spacing="20.0" visible="false" managed="false">
         <padding>
-            <Insets bottom="8.0" left="20.0" right="20.0" top="8.0" />
+            <Insets bottom="10.0" left="20.0" right="15.0" top="8.0" />
         </padding>
         <Label fx:id="labelUpperRightLandscape" />
         <TextField fx:id="textfieldInputLandscape" style="-fx-text-alignment: left; -fx-background-color: #e6e6ff;" />
