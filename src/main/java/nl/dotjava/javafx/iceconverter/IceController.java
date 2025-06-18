@@ -59,9 +59,9 @@ public class IceController implements Initializable, SelectCurrencyController.Se
 
     // currency selection
     private SelectCurrencyController selectCurrencyController;
+    private Scene flagSelectScene;
     private String currentFromCurrency = "ISK";
     private String currentToCurrency = "EUR";
-    private Scene flagSelectScene;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,7 +83,7 @@ public class IceController implements Initializable, SelectCurrencyController.Se
 
     /** remember the main stage and scene (and their size). */
     public void setupMainStage(Stage stage, Scene scene) {
-        this.stageSupport = new StageSupport(stage, scene);
+        stageSupport = new StageSupport(stage, scene);
     }
 
     private void setupFlagHandlers() {
@@ -99,17 +99,15 @@ public class IceController implements Initializable, SelectCurrencyController.Se
         landscapeToFlag.setOnMouseClicked(event -> showCurrencySelector());
     }
 
-    /**
-     * Load the Currency Selector scene and sets a listener to this controller.
-     */
+    /** Load the Currency Selector scene and sets a listener to this controller. */
     private void initializeCurrencySelector() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("cur-selector.fxml"));
             Parent root = loader.load();
-            this.selectCurrencyController = loader.getController();
-            this.selectCurrencyController.setSelectCurrencyListener(this);
-            this.flagSelectScene = new Scene(root, stageSupport.getWidth(), stageSupport.getHeight());
-            System.out.println("***** flagScene size after initialization: " + this.flagSelectScene.getWidth() + " x " + this.flagSelectScene.getHeight());
+            selectCurrencyController = loader.getController();
+            selectCurrencyController.setSelectCurrencyListener(this);
+            flagSelectScene = new Scene(root, stageSupport.getWidth(), stageSupport.getHeight());
+            System.out.println("***** flagScene size after initialization: " + flagSelectScene.getWidth() + " x " + flagSelectScene.getHeight());
             System.out.println("***** Currency Selector scene initialized");
         } catch (IOException e) {
             System.err.println("Error loading currency selector during initialization: " + e.getMessage());
@@ -123,12 +121,12 @@ public class IceController implements Initializable, SelectCurrencyController.Se
      */
     private void showCurrencySelector() {
         try {
-            if (this.flagSelectScene == null) {
+            if (flagSelectScene == null) {
                 // create the scene on first use, cannot be done earlier due to refresh issues
                 initializeCurrencySelector();
             }
-            this.selectCurrencyController.setCurrentCurrencies(this.currentFromCurrency, this.currentToCurrency);
-            this.stageSupport.switchToScene(this.flagSelectScene);
+            selectCurrencyController.setCurrentCurrencies(this.currentFromCurrency, this.currentToCurrency);
+            stageSupport.switchToScene(flagSelectScene);
         } catch (Exception e) {
             System.err.println("Error showing currency selector: " + e.getMessage());
             e.printStackTrace();
@@ -140,8 +138,8 @@ public class IceController implements Initializable, SelectCurrencyController.Se
         if (textfieldInput != null) {
             String inputText = textfieldInput.getText();
             try {
-                labelUpperRight.setText(this.convertSupport.convertToOtherCurrency(inputText));
-                labelBelowLeft.setText(this.convertSupport.convertToEuroCurrency(inputText));
+                labelUpperRight.setText(convertSupport.convertToOtherCurrency(inputText));
+                labelBelowLeft.setText(convertSupport.convertToEuroCurrency(inputText));
             } catch (Exception e) {
                 System.err.println("Error during conversion: " + e.getMessage());
             }
@@ -178,7 +176,7 @@ public class IceController implements Initializable, SelectCurrencyController.Se
         customCurrency.setValueFrom(curRateFrom.getValueFrom().multiply(curRateTo.getValueTo(), new MathContext(10, RoundingMode.HALF_UP)));
         // update pictures onscreen
         updateFlagPictures(from, toCurrency);
-        this.convertSupport.setCurrency(customCurrency);
+        convertSupport.setCurrency(customCurrency);
     }
 
     /**
@@ -212,6 +210,6 @@ public class IceController implements Initializable, SelectCurrencyController.Se
     @Override
     public void onBackToMain() {
         System.out.println("***** onBackToMain() called");
-        this.stageSupport.switchBackToMainScene();
+        stageSupport.switchBackToMainScene();
     }
 }

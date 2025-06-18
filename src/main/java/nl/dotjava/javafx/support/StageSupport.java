@@ -20,15 +20,23 @@ public class StageSupport {
         System.out.println("***** Scene size (according to stage): " + this.mainStage.getScene().getWidth() + " x " + this.mainStage.getScene().getHeight());
     }
 
-    /** Return width based on stage. */
+    /** Return width based on scene on main stage. */
     public double getWidth() {
-        // return this.mainScene.getWidth();
+        return this.mainStage.getScene().getWidth();
+    }
+
+    /** Return height based on scene on main stage. */
+    public double getHeight() {
+        return this.mainStage.getScene().getHeight();
+    }
+
+    /** Return width based on main stage. */
+    public double getWidthMainStage() {
         return this.mainStage.getWidth();
     }
 
-    /** Return height based on stage. */
-    public double getHeight() {
-        // return this.mainScene.getHeight();
+    /** Return height based on main stage. */
+    public double getHeightMainStage() {
         return this.mainStage.getHeight();
     }
 
@@ -72,7 +80,8 @@ public class StageSupport {
         });
 
         System.out.println("***** Scene refreshed successfully");
-        System.out.println("***** Scene size (according to scene): " + scene.getWidth() + " x " + scene.getHeight());
+        System.out.println("***** Scene size (according to param scene): " + scene.getWidth() + " x " + scene.getHeight());
+        System.out.println("***** Scene size (according to main  scene): " + this.mainScene.getWidth() + " x " + this.mainScene.getHeight());
         System.out.println("***** Scene size (according to stage): " + this.mainStage.getScene().getWidth() + " x " + this.mainStage.getScene().getHeight());
     }
 }
