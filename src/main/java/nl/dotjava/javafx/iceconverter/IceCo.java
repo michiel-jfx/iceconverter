@@ -5,32 +5,82 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nl.dotjava.javafx.support.SceneSupport;
+
 
 import static nl.dotjava.javafx.support.CurrencySupport.extractAllCurrenciesFromSite;
 
 public class IceCo extends Application {
 
+    private static final String MAIN_SCENE = "ice-view";
+    private static final String FLAG_SCENE = "cur-selector";
+    private IceController mainController;
+    private SelectCurrencyController flagController;
+    private SceneSupport sceneSupport;
+
     public void start(Stage stage) {
+        initSceneSupport(stage);
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ice-view.fxml"));
-            Parent root = loader.load();
-            IceController iceController = loader.getController();
-            Scene scene = new Scene(root, 432.0, 855.0); // 1080 x 2340
-            stage.setTitle("IceCo");
-            stage.setScene(scene);
-            // set initial orientation and add listeners for orientation changes
-            iceController.setPortraitModus(stage.getHeight() > stage.getWidth());
-            scene.widthProperty().addListener((obs, oldVal, newVal) -> iceController.setPortraitModus(scene.getHeight() > newVal.doubleValue()));
-            scene.heightProperty().addListener((obs, oldVal, newVal) -> iceController.setPortraitModus(newVal.doubleValue() > scene.getWidth()));
-            // load all currencies and set default to ISK
-            iceController.setCurrencyMap(extractAllCurrenciesFromSite());
-            iceController.setCurrencyToUse("ISK", "EUR");
-            iceController.setupMainStage(stage, scene);
+            // setup the main scene
+            initMainController();
+            stage.setTitle("Holiday Currency");
+            stage.setScene(sceneSupport.getScene(MAIN_SCENE));
+
+            // setup flag selection
+            initFlagController();
+
+            // setup listeners
+            initListeners();
+
+            // set the scene support class, maybe implement using a listener with a lot of default functions? or something abstract? or extend? how to do this?
+
+
+            // show the stages
             stage.show();
         } catch (Exception e) {
             System.err.println("Error loading FXML: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private void initMainController() {
+        // load and setup scene from resources
+        mainController = loadFxml(MAIN_SCENE);
+        mainController.setSceneSupport(sceneSupport);
+        // load all currencies and set default to ISK
+        mainController.bindOrientations();
+        mainController.setCurrencyMap(extractAllCurrenciesFromSite());
+        mainController.setCurrencyToUse("ISK", "EUR");
+    }
+
+    private void initFlagController() {
+        flagController = loadFxml(FLAG_SCENE);
+        flagController.setSceneSupport(sceneSupport);
+    }
+
+    private void initListeners() {
+        if (flagController != null && mainController != null) {
+            flagController.setFlagSelectListener(mainController);
+            mainController.setCurrencySetupListener(flagController);
+        }
+    }
+
+    private <T> T loadFxml(String name) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(name + ".fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 432.0, 855.0); // 1080 x 2340
+            this.sceneSupport.addScene(name, scene);
+            return loader.getController();
+        } catch (Exception e) {
+            System.err.println("Error loading FXML: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void initSceneSupport(Stage stage) {
+        this.sceneSupport = new SceneSupport(stage);
     }
 
     public static void main(String[] args) {

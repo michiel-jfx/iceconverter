@@ -1,23 +1,19 @@
 package nl.dotjava.javafx.iceconverter;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import nl.dotjava.javafx.domain.Currency;
 import nl.dotjava.javafx.domain.CurrencyRate;
+import nl.dotjava.javafx.listeners.CurrencySetupListener;
 import nl.dotjava.javafx.support.ConvertSupport;
-import nl.dotjava.javafx.support.StageSupport;
+import nl.dotjava.javafx.listeners.FlagsSelectedListener;
+import nl.dotjava.javafx.support.SceneSupport;
 
-import java.io.IOException;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.net.URL;
@@ -27,7 +23,7 @@ import java.util.ResourceBundle;
 
 import static nl.dotjava.javafx.support.CurrencySupport.getCurrencyImageFromResources;
 
-public class IceController implements Initializable, SelectCurrencyController.SelectCurrencyListener {
+public class IceController implements Initializable, FlagsSelectedListener {
     public IceController() {
         // default empty constructor
     }
@@ -52,38 +48,43 @@ public class IceController implements Initializable, SelectCurrencyController.Se
     @FXML private VBox portraitLayout;
     @FXML private VBox landscapeLayout;
 
-    private final SimpleBooleanProperty isPortrait = new SimpleBooleanProperty(true);
+    private static final String FLAG_SCENE = "cur-selector";
     private final ConvertSupport convertSupport = new ConvertSupport();
     private final HashMap<String, CurrencyRate> currencyMap = new HashMap<>();
-    private StageSupport stageSupport;
+    private CurrencySetupListener currencySetupListener;
+    private SceneSupport sceneSupport;
 
     // currency selection
-    private SelectCurrencyController selectCurrencyController;
-    private Scene flagSelectScene;
     private String currentFromCurrency = "ISK";
     private String currentToCurrency = "EUR";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // bind visibility of layouts to the orientation property
-        portraitLayout.visibleProperty().bind(isPortrait);
-        portraitLayout.managedProperty().bind(isPortrait);
-        landscapeLayout.visibleProperty().bind(isPortrait.not());
-        landscapeLayout.managedProperty().bind(isPortrait.not());
-        // bidirectional binding
         textfieldInput.textProperty().bindBidirectional(textfieldInputLandscape.textProperty());
-        // unidirectional binding
         labelUpperRightLandscape.textProperty().bind(labelUpperRight.textProperty());
         labelBelowLeftLandscape.textProperty().bind(labelBelowLeft.textProperty());
         // adding tap-handler for selecting currencies
         setupFlagHandlers();
-
         System.out.println("***** IceController initialized");
     }
 
-    /** remember the main stage and scene (and their size). */
-    public void setupMainStage(Stage stage, Scene scene) {
-        stageSupport = new StageSupport(stage, scene);
+    public void bindOrientations() {
+        if (sceneSupport != null) {
+            // bind visibility of layouts to the orientation property
+            portraitLayout.visibleProperty().bind(sceneSupport.isPortrait());
+            portraitLayout.managedProperty().bind(sceneSupport.isPortrait());
+            landscapeLayout.visibleProperty().bind(sceneSupport.isPortrait().not());
+            landscapeLayout.managedProperty().bind(sceneSupport.isPortrait().not());
+            System.out.println("***** Orientation bound (to " + sceneSupport.isPortrait().getValue() + ")");
+        }
+    }
+
+    public void setCurrencySetupListener(CurrencySetupListener currencySetupListener) {
+        this.currencySetupListener = currencySetupListener;
+    }
+
+    public void setSceneSupport(SceneSupport sceneSupport) {
+        this.sceneSupport = sceneSupport;
     }
 
     private void setupFlagHandlers() {
@@ -99,38 +100,14 @@ public class IceController implements Initializable, SelectCurrencyController.Se
         landscapeToFlag.setOnMouseClicked(event -> showCurrencySelector());
     }
 
-    /** Load the Currency Selector scene and sets a listener to this controller. */
-    private void initializeCurrencySelector() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("cur-selector.fxml"));
-            Parent root = loader.load();
-            selectCurrencyController = loader.getController();
-            selectCurrencyController.setSelectCurrencyListener(this);
-            flagSelectScene = new Scene(root, stageSupport.getWidth(), stageSupport.getHeight());
-            System.out.println("***** flagScene size after initialization: " + flagSelectScene.getWidth() + " x " + flagSelectScene.getHeight());
-            System.out.println("***** Currency Selector scene initialized");
-        } catch (IOException e) {
-            System.err.println("Error loading currency selector during initialization: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Show the flag selection screen. Refresh the scene because Gluon tends to show a black screen when it is shown the
      * first time. See {@link SelectCurrencyController} for the selecting part.
      */
     private void showCurrencySelector() {
-        try {
-            if (flagSelectScene == null) {
-                // create the scene on first use, cannot be done earlier due to refresh issues
-                initializeCurrencySelector();
-            }
-            selectCurrencyController.setCurrentCurrencies(this.currentFromCurrency, this.currentToCurrency);
-            stageSupport.switchToScene(flagSelectScene);
-        } catch (Exception e) {
-            System.err.println("Error showing currency selector: " + e.getMessage());
-            e.printStackTrace();
-        }
+        currencySetupListener.onSetCurrencies(this.currentFromCurrency, this.currentToCurrency);
+        sceneSupport.switchToScene(FLAG_SCENE);
     }
 
     @FXML
@@ -144,11 +121,6 @@ public class IceController implements Initializable, SelectCurrencyController.Se
                 System.err.println("Error during conversion: " + e.getMessage());
             }
         }
-    }
-
-    /** Called from main application during initialization and listener. */
-    public void setPortraitModus(boolean portrait) {
-        isPortrait.set(portrait);
     }
 
     /** Initializes the currency map with all available currencies. */
@@ -202,14 +174,7 @@ public class IceController implements Initializable, SelectCurrencyController.Se
 
     @Override
     public void onCurrencyPairSelected(String fromCurrency, String toCurrency) {
-        System.out.println("***** IceController: Currency pair selected: " + fromCurrency + " -> " + toCurrency);
+        System.out.println("***** Currency pair selected: " + fromCurrency + " -> " + toCurrency);
         setCurrencyToUse(fromCurrency, toCurrency);
-        onBackToMain();
-    }
-
-    @Override
-    public void onBackToMain() {
-        System.out.println("***** onBackToMain() called");
-        stageSupport.switchBackToMainScene();
     }
 }
