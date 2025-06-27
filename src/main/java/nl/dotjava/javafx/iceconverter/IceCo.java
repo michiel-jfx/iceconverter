@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.dotjava.javafx.support.SceneSupport;
 
-
 import static nl.dotjava.javafx.support.CurrencySupport.extractAllCurrenciesFromSite;
 
 public class IceCo extends Application {
@@ -33,7 +32,6 @@ public class IceCo extends Application {
             initListeners();
 
             // set the scene support class, maybe implement using a listener with a lot of default functions? or something abstract? or extend? how to do this?
-
 
             // show the stages
             stage.show();
@@ -69,7 +67,7 @@ public class IceCo extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(name + ".fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root, 432.0, 855.0); // 1080 x 2340
+            Scene scene = new Scene(root); // 432.0 x 855.0 or 1080 x 2340
             this.sceneSupport.addScene(name, scene);
             return loader.getController();
         } catch (Exception e) {
