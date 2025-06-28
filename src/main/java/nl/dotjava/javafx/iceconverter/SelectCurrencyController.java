@@ -28,6 +28,7 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
     @FXML private ImageView toFlag;
 
     private static final String MAIN_SCENE = "ice-view";
+    private static final String FLAGS_FOLDER = "flag/small";
     private FlagsSelectedListener flagsSelectedListener;
     private SceneSupport sceneSupport;
 
@@ -36,9 +37,7 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // add click handlers for ImageViews in the FlowPane
         setupSelectFlagHandlers();
-        System.out.println("***** SelectCurrencyController initialized");
     }
 
     public void setFlagSelectListener(FlagsSelectedListener flagsSelectedListener) {
@@ -72,26 +71,25 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
 
                 if (selectionCounter == 1) {
                     // first selection done, update the "from" flag and continue
-                    fromFlag.setImage(getCurrencyImageFromResources("flag/small", currencyCode));
+                    fromFlag.setImage(getCurrencyImageFromResources(FLAGS_FOLDER, currencyCode));
                     System.out.println("***** Now select target currency");
 
                 } else if (selectionCounter == 2) {
                     // second selection done, update the "to" flag and finish
-                    toFlag.setImage(getCurrencyImageFromResources("flag/small", currencyCode));
-                    System.out.println("***** Target flag selected");
+                    toFlag.setImage(getCurrencyImageFromResources(FLAGS_FOLDER, currencyCode));
+                    // notify listener with both currencies
+                    flagsSelectedListener.onCurrencyPairSelected(selectedCurrencies[0], selectedCurrencies[1]);
+                    System.out.println("***** Target flag selected (" + currencyCode + ")");
+
                     // add a small delay to allow the UI to update before switching scenes
                     Platform.runLater(() -> {
                         try {
                             // Small delay to show the second flag update
                             Thread.sleep(500);
+                            sceneSupport.switchToScene(MAIN_SCENE);
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();
                         }
-                        System.out.println("***** Both currencies selected: " + selectedCurrencies[0] + " and " + selectedCurrencies[1]);
-
-                        // notify listener with both currencies and switch to main
-                        flagsSelectedListener.onCurrencyPairSelected(selectedCurrencies[0], selectedCurrencies[1]);
-                        sceneSupport.switchToScene(MAIN_SCENE);
                     });
                 }
             }
@@ -120,8 +118,8 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
         selectionCounter = 0;
         selectedCurrencies[0] = null;
         selectedCurrencies[1] = null;
-        fromFlag.setImage(getCurrencyImageFromResources("flag/small", from));
-        toFlag.setImage(getCurrencyImageFromResources("flag/small", to));
+        fromFlag.setImage(getCurrencyImageFromResources(FLAGS_FOLDER, from));
+        toFlag.setImage(getCurrencyImageFromResources(FLAGS_FOLDER, to));
         System.out.println("***** SetCurrencies, flags set to " + from + " -> " + to);
     }
 }

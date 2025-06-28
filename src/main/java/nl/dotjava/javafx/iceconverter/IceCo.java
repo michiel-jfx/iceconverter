@@ -19,11 +19,12 @@ public class IceCo extends Application {
     private SceneSupport sceneSupport;
 
     public void start(Stage stage) {
+        System.out.println("***** Setting up stage");
         initSceneSupport(stage);
         try {
             // setup the main scene
             initMainController();
-            stage.setTitle("Holiday Currency");
+            stage.setTitle("Currency Holiday");
             stage.setScene(sceneSupport.getScene(MAIN_SCENE));
 
             // setup flag selection
@@ -32,10 +33,7 @@ public class IceCo extends Application {
             // setup listeners
             initListeners();
 
-            // set the scene support class, maybe implement using a listener with a lot of default functions? or something abstract? or extend? how to do this?
-
-
-            // show the stages
+            // show the stage
             stage.show();
         } catch (Exception e) {
             System.err.println("Error loading FXML: " + e.getMessage());
@@ -47,8 +45,6 @@ public class IceCo extends Application {
         // load and setup scene from resources
         mainController = loadFxml(MAIN_SCENE);
         mainController.setSceneSupport(sceneSupport);
-        // load all currencies and set default to ISK
-        mainController.bindOrientations();
         mainController.setCurrencyMap(extractAllCurrenciesFromSite());
         mainController.setCurrencyToUse("ISK", "EUR");
     }
@@ -62,6 +58,7 @@ public class IceCo extends Application {
         if (flagController != null && mainController != null) {
             flagController.setFlagSelectListener(mainController);
             mainController.setCurrencySetupListener(flagController);
+            System.out.println("***** Listeners initialized");
         }
     }
 
@@ -69,8 +66,9 @@ public class IceCo extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(name + ".fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root, 432.0, 855.0); // 1080 x 2340
+            Scene scene = new Scene(root); //  432.0 x 855.0 and dimensions 1080 x 2340
             this.sceneSupport.addScene(name, scene);
+            System.out.println("***** FXML loaded: " + name);
             return loader.getController();
         } catch (Exception e) {
             System.err.println("Error loading FXML: " + e.getMessage());

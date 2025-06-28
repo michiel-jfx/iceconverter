@@ -1,8 +1,8 @@
 package nl.dotjava.javafx.support;
 
-import javafx.application.Platform;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -14,80 +14,42 @@ public class SceneSupport {
 
     private final Stage stage;
     private final HashMap<String, Scene> sceneMap = new HashMap<>();
-    private double initialPortraitWidth = 432.0;
-    private double initialPortraitHeight = 855.0;
-    private final SimpleBooleanProperty isPortrait = new SimpleBooleanProperty(true);
+    // screen resolution properties defaulted to portrait
+    private double actualScreenWidth;
+    private double actualScreenHeight;
 
     public SceneSupport(Stage stage) {
         this.stage = stage;
-        System.out.println("***** Constructor SceneSupport, stage size: " + this.stage.getWidth() + " x " + this.stage.getHeight());
+        initializeScreenDimensions();
+    }
+
+    /** Initialize actual screen dimensions */
+    private void initializeScreenDimensions() {
+        try {
+            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+            this.actualScreenWidth = Math.min(screenBounds.getWidth(), screenBounds.getHeight());
+            this.actualScreenHeight = Math.max(screenBounds.getWidth(), screenBounds.getHeight());
+            setSceneAndSize(null);
+        } catch (Exception e) {
+            System.err.println("***** ERROR: Could not determine screen dimensions: " + e.getMessage());
+        }
     }
 
     public void addScene(String name, Scene scene) {
         this.sceneMap.put(name, scene);
-        setOrientationListeners(name);
-    }
-
-    /** Return width based on scene on stage. */
-    public double getWidth() {
-        return this.stage.getScene().getWidth();
-    }
-
-    /** Return height based on scene on stage. */
-    public double getHeight() {
-        return this.stage.getScene().getHeight();
-    }
-
-    /** Return width based on stage. */
-    public double getStageWidth() {
-        return this.stage.getWidth();
-    }
-
-    /** Return height based on stage. */
-    public double getStageHeight() {
-        return this.stage.getHeight();
     }
 
     public Scene getScene(String name) {
-        return (this.sceneMap.containsKey(name))
-                ? this.sceneMap.get(name)
-                : null;
-    }
-
-    public void setPortrait(String who, boolean portrait) {
-        System.out.println("***** " + who + " sets portrait mode to: " + portrait);
-        this.isPortrait.set(portrait);
-    }
-
-    public SimpleBooleanProperty isPortrait() {
-        return this.isPortrait;
-    }
-
-    /** Add orientation listener to the scene */
-    public void setOrientationListeners(String name) {
-        if (this.sceneMap.containsKey(name)) {
-            Scene scene = this.sceneMap.get(name);
-            this.sceneMap.get(name).widthProperty().addListener((obs, oldVal, newVal)  -> setPortrait(name, scene.getHeight() > newVal.doubleValue()));
-            this.sceneMap.get(name).heightProperty().addListener((obs, oldVal, newVal) -> setPortrait(name, newVal.doubleValue() > scene.getWidth()));
-        }
+        return this.sceneMap.getOrDefault(name, null);
     }
 
     /** Switch to a scene in the HashMap and put it on stage. */
     public void switchToScene(String name) {
         if (this.sceneMap.containsKey(name)) {
-            switchToScene(this.sceneMap.get(name));
+            refresh(this.sceneMap.get(name));
+            System.out.println("***** Scene switched to " + name);
         } else {
             System.err.println("***** ERROR: scene with name " + name + " not found!");
-        }
-    }
-
-    /** Switch to a scene and put it on stage. */
-    private void switchToScene(Scene scene) {
-        if (this.stage != null && scene != null) {
-            this.stage.setScene(scene);
-            refresh(scene);
-        } else {
-            System.err.println("***** ERROR: stage or scene is null!");
         }
     }
 
@@ -96,27 +58,21 @@ public class SceneSupport {
      * to refresh the scene and (re)position the scene and or stage.
      */
     private void refresh(Scene scene) {
-        System.out.println("***** Before refreshing");
-        printSizes(scene);
-
-        // just before the refresh
-        this.stage.setX(0);
-        this.stage.setY(0);
-        this.stage.setScene(scene);
-
-        // refresh
-        Platform.runLater(() -> {
-            scene.getRoot().requestLayout();
-            scene.getRoot().applyCss();
-        });
-
-        printSizes(scene);
-        System.out.println("***** Scene refreshed");
+        setSceneAndSize(scene);
+        scene.getRoot().requestLayout();
+        scene.getRoot().applyCss();
     }
 
-    private void printSizes(Scene scene) {
-        System.out.println("***** Scene size (according to this scene): "  + scene.getWidth() + " x " + scene.getHeight());
-        System.out.println("***** Scene size (according to this stage): "  + getStageWidth()  + " x " + getStageHeight());
-        System.out.println("***** Scene size (according to stage scene): " + getWidth()       + " x " + getHeight());
+    /** actualWidth and actualHeight are kept in portrait mode, so when setting them check the mode first. */
+    private void setSceneAndSize(Scene scene) {
+        this.stage.setX(0);
+        this.stage.setY(0);
+        if (scene != null) {
+            this.stage.setScene(scene);
+        } else {
+            System.out.println("***** Stage set and sized to " + actualScreenWidth + " x " + actualScreenHeight);
+        }
+        this.stage.setWidth(actualScreenWidth);
+        this.stage.setHeight(actualScreenHeight);
     }
 }

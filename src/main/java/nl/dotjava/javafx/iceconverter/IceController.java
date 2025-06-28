@@ -63,20 +63,15 @@ public class IceController implements Initializable, FlagsSelectedListener {
         textfieldInput.textProperty().bindBidirectional(textfieldInputLandscape.textProperty());
         labelUpperRightLandscape.textProperty().bind(labelUpperRight.textProperty());
         labelBelowLeftLandscape.textProperty().bind(labelBelowLeft.textProperty());
-        // adding tap-handler for selecting currencies
         setupFlagHandlers();
-        System.out.println("***** IceController initialized");
+        bindOrientations();
     }
 
-    public void bindOrientations() {
-        if (sceneSupport != null) {
-            // bind visibility of layouts to the orientation property
-            portraitLayout.visibleProperty().bind(sceneSupport.isPortrait());
-            portraitLayout.managedProperty().bind(sceneSupport.isPortrait());
-            landscapeLayout.visibleProperty().bind(sceneSupport.isPortrait().not());
-            landscapeLayout.managedProperty().bind(sceneSupport.isPortrait().not());
-            System.out.println("***** Orientation bound (to " + sceneSupport.isPortrait().getValue() + ")");
-        }
+    private void bindOrientations() {
+        portraitLayout.setVisible(true);
+        portraitLayout.setManaged(true);
+        landscapeLayout.setVisible(false);
+        landscapeLayout.setManaged(false);
     }
 
     public void setCurrencySetupListener(CurrencySetupListener currencySetupListener) {
@@ -88,18 +83,11 @@ public class IceController implements Initializable, FlagsSelectedListener {
     }
 
     private void setupFlagHandlers() {
-        // portrait (accepting tapping on flags or currencies)
         portraitFromSymbol.setOnMouseClicked(event -> showCurrencySelector());
         portraitFromFlag.setOnMouseClicked(event -> showCurrencySelector());
         portraitToSymbol.setOnMouseClicked(event -> showCurrencySelector());
         portraitToFlag.setOnMouseClicked(event -> showCurrencySelector());
-        // landscape
-        landscapeFromSymbol.setOnMouseClicked(event -> showCurrencySelector());
-        landscapeFromFlag.setOnMouseClicked(event -> showCurrencySelector());
-        landscapeToSymbol.setOnMouseClicked(event -> showCurrencySelector());
-        landscapeToFlag.setOnMouseClicked(event -> showCurrencySelector());
     }
-
 
     /**
      * Show the flag selection screen. Refresh the scene because Gluon tends to show a black screen when it is shown the
@@ -146,8 +134,7 @@ public class IceController implements Initializable, FlagsSelectedListener {
         CurrencyRate customCurrency = new CurrencyRate(curFrom);
         customCurrency.setTargetSymbol(curRateTo.getCurrencySymbol());
         customCurrency.setValueFrom(curRateFrom.getValueFrom().multiply(curRateTo.getValueTo(), new MathContext(10, RoundingMode.HALF_UP)));
-        // update pictures onscreen
-        updateFlagPictures(from, toCurrency);
+        updateFlagPicturesOnScene(from, toCurrency);
         convertSupport.setCurrency(customCurrency);
     }
 
@@ -156,7 +143,7 @@ public class IceController implements Initializable, FlagsSelectedListener {
      * @param from Currency abbreviation to use as from
      * @param to Currency abbreviation to use as target
      */
-    private void updateFlagPictures(String from, String to) {
+    private void updateFlagPicturesOnScene(String from, String to) {
         Image fromSymbolImage = getCurrencyImageFromResources("symbol/circle", from);
         Image fromFlagImage = getCurrencyImageFromResources("flag/medium", from);
         Image toSymbolImage = getCurrencyImageFromResources("symbol/circle", to);
@@ -169,7 +156,7 @@ public class IceController implements Initializable, FlagsSelectedListener {
         landscapeFromFlag.setImage(fromFlagImage);
         landscapeToSymbol.setImage(toSymbolImage);
         landscapeToFlag.setImage(toFlagImage);
-        System.out.println("***** IceController: Images updated for " + from + " -> " + to);
+        System.out.println("***** Images updated for " + from + " -> " + to);
     }
 
     @Override
