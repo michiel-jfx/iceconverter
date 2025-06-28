@@ -83,7 +83,7 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
                     Platform.runLater(() -> {
                         try {
                             // Small delay to show the second flag update
-                            Thread.sleep(500);
+                            Thread.sleep(400);
                             sceneSupport.switchToScene(MAIN_SCENE);
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();

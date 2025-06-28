@@ -45,16 +45,38 @@
             </VBox>
         </HBox>
         <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
-            <Label fx:id="labelUpperRight" text="kórónu">
+            <Label fx:id="labelUpperRight" text=" ">
                 <VBox.margin><Insets bottom="8.0" /></VBox.margin>
             </Label>
             <TextField fx:id="textfieldInput" style="-fx-text-alignment: left; -fx-background-color: #e6e6ff;">
                 <VBox.margin><Insets bottom="8.0" /></VBox.margin>
             </TextField>
-            <Label fx:id="labelBelowLeft" text="evrur">
+            <Label fx:id="labelBelowLeft" text=" ">
                 <VBox.margin><Insets bottom="8.0" /></VBox.margin>
             </Label>
-            <Button fx:id="iceButton" onAction="#onCurrencyClick" text="smelltu" styleClass="custom-button" />
+            <!-- keyboard -->
+            <VBox spacing="5">
+                <HBox alignment="CENTER" spacing="5">
+                    <Button onAction="#onKeyboardClick" text="1" styleClass="key-button" />
+                    <Button onAction="#onKeyboardClick" text="2" styleClass="key-button" />
+                    <Button onAction="#onKeyboardClick" text="3" styleClass="key-button" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="5">
+                    <Button onAction="#onKeyboardClick" text="4" styleClass="key-button" />
+                    <Button onAction="#onKeyboardClick" text="5" styleClass="key-button" />
+                    <Button onAction="#onKeyboardClick" text="6" styleClass="key-button" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="5">
+                    <Button onAction="#onKeyboardClick" text="7" styleClass="key-button" />
+                    <Button onAction="#onKeyboardClick" text="8" styleClass="key-button" />
+                    <Button onAction="#onKeyboardClick" text="9" styleClass="key-button" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="5">
+                    <Button onAction="#onKeyboardClick" text="." styleClass="key-button" />
+                    <Button onAction="#onKeyboardClick" text="0" styleClass="key-button" />
+                    <Button onAction="#onKeyboardClick" text="⌫" styleClass="key-button" />
+                </HBox>
+            </VBox>
         </VBox>
     </VBox>
 </StackPane>

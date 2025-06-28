@@ -7,7 +7,6 @@ import java.math.RoundingMode;
 
 public class ConvertSupport {
 
-    private static final String OOPS = "úps";
     private CurrencyRate currencyRate;
 
     public ConvertSupport() {
@@ -23,7 +22,7 @@ public class ConvertSupport {
             BigDecimal value = new BigDecimal(currencyValue.replace(",", ".")).setScale(3, RoundingMode.HALF_UP);
             return currencyRate.getCurrencySymbol() + value.multiply(currencyRate.getValueTo()).setScale(2, RoundingMode.HALF_UP);
         } catch (Exception e) {
-            return OOPS;
+            return "";
         }
     }
 
@@ -32,7 +31,7 @@ public class ConvertSupport {
             BigDecimal value = new BigDecimal(euroValue.replace(",", ".")).setScale(3, RoundingMode.HALF_UP);
             return currencyRate.getTargetSymbol() + value.multiply(currencyRate.getValueFrom()).setScale(2, RoundingMode.HALF_UP);
         } catch (Exception e) {
-            return OOPS;
+            return "";
         }
     }
 }

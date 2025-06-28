@@ -1,7 +1,9 @@
 package nl.dotjava.javafx.iceconverter;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -50,6 +52,8 @@ public class IceController implements Initializable, FlagsSelectedListener {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupFlagHandlers();
+        textfieldInput.setEditable(false);
+        textfieldInput.setFocusTraversable(false);
     }
 
     public void setCurrencySetupListener(CurrencySetupListener currencySetupListener) {
@@ -77,7 +81,30 @@ public class IceController implements Initializable, FlagsSelectedListener {
     }
 
     @FXML
-    protected void onCurrencyClick() {
+    protected void onKeyboardClick(ActionEvent event) {
+        Button clickedButton = (Button) event.getSource();
+        String buttonText = clickedButton.getText();
+        String currentText = textfieldInput.getText();
+        switch (buttonText) {
+            case "⌫", "x":
+                handleBackspace(currentText);
+                break;
+            default:
+                textfieldInput.setText(currentText + buttonText);
+                break;
+        }
+        // immediately update currency conversion
+        onCurrencyClick();
+    }
+
+    private void handleBackspace(String currentText) {
+        if (!currentText.isEmpty()) {
+            textfieldInput.setText(currentText.substring(0, currentText.length() - 1));
+        }
+    }
+
+    /** Update calculated conversion values */
+    private void onCurrencyClick() {
         if (textfieldInput != null) {
             String inputText = textfieldInput.getText();
             try {
@@ -134,5 +161,6 @@ public class IceController implements Initializable, FlagsSelectedListener {
     @Override
     public void onCurrencyPairSelected(String fromCurrency, String toCurrency) {
         setCurrencyToUse(fromCurrency, toCurrency);
+        onCurrencyClick();
     }
 }
