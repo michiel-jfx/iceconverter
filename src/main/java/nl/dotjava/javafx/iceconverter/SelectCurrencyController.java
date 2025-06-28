@@ -72,14 +72,12 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
                 if (selectionCounter == 1) {
                     // first selection done, update the "from" flag and continue
                     fromFlag.setImage(getCurrencyImageFromResources(FLAGS_FOLDER, currencyCode));
-                    System.out.println("***** Now select target currency");
+                    System.out.println("***** Select target currency");
 
                 } else if (selectionCounter == 2) {
-                    // second selection done, update the "to" flag and finish
+                    // second selection done, update the "to" flag, notify listener and finish
                     toFlag.setImage(getCurrencyImageFromResources(FLAGS_FOLDER, currencyCode));
-                    // notify listener with both currencies
                     flagsSelectedListener.onCurrencyPairSelected(selectedCurrencies[0], selectedCurrencies[1]);
-                    System.out.println("***** Target flag selected (" + currencyCode + ")");
 
                     // add a small delay to allow the UI to update before switching scenes
                     Platform.runLater(() -> {
@@ -120,6 +118,5 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
         selectedCurrencies[1] = null;
         fromFlag.setImage(getCurrencyImageFromResources(FLAGS_FOLDER, from));
         toFlag.setImage(getCurrencyImageFromResources(FLAGS_FOLDER, to));
-        System.out.println("***** SetCurrencies, flags set to " + from + " -> " + to);
     }
 }

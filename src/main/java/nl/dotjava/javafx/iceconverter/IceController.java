@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import nl.dotjava.javafx.domain.Currency;
 import nl.dotjava.javafx.domain.CurrencyRate;
 import nl.dotjava.javafx.listeners.CurrencySetupListener;
@@ -28,27 +27,17 @@ public class IceController implements Initializable, FlagsSelectedListener {
         // default empty constructor
     }
 
-    // portrait
     @FXML private TextField textfieldInput;
     @FXML private Label labelUpperRight;
     @FXML private Label labelBelowLeft;
-    @FXML private ImageView portraitFromSymbol;
-    @FXML private ImageView portraitFromFlag;
-    @FXML private ImageView portraitToSymbol;
-    @FXML private ImageView portraitToFlag;
-    // landscape
-    @FXML private TextField textfieldInputLandscape;
-    @FXML private Label labelUpperRightLandscape;
-    @FXML private Label labelBelowLeftLandscape;
-    @FXML private ImageView landscapeFromSymbol;
-    @FXML private ImageView landscapeFromFlag;
-    @FXML private ImageView landscapeToSymbol;
-    @FXML private ImageView landscapeToFlag;
-    // layout containers
-    @FXML private VBox portraitLayout;
-    @FXML private VBox landscapeLayout;
+    @FXML private ImageView fromSymbol;
+    @FXML private ImageView fromFlag;
+    @FXML private ImageView toSymbol;
+    @FXML private ImageView toFlag;
 
     private static final String FLAG_SCENE = "cur-selector";
+    private static final String SYMBOL_FOLDER = "symbol/circle";
+    private static final String FLAGS_FOLDER  = "flag/medium";
     private final ConvertSupport convertSupport = new ConvertSupport();
     private final HashMap<String, CurrencyRate> currencyMap = new HashMap<>();
     private CurrencySetupListener currencySetupListener;
@@ -60,18 +49,7 @@ public class IceController implements Initializable, FlagsSelectedListener {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        textfieldInput.textProperty().bindBidirectional(textfieldInputLandscape.textProperty());
-        labelUpperRightLandscape.textProperty().bind(labelUpperRight.textProperty());
-        labelBelowLeftLandscape.textProperty().bind(labelBelowLeft.textProperty());
         setupFlagHandlers();
-        bindOrientations();
-    }
-
-    private void bindOrientations() {
-        portraitLayout.setVisible(true);
-        portraitLayout.setManaged(true);
-        landscapeLayout.setVisible(false);
-        landscapeLayout.setManaged(false);
     }
 
     public void setCurrencySetupListener(CurrencySetupListener currencySetupListener) {
@@ -83,10 +61,10 @@ public class IceController implements Initializable, FlagsSelectedListener {
     }
 
     private void setupFlagHandlers() {
-        portraitFromSymbol.setOnMouseClicked(event -> showCurrencySelector());
-        portraitFromFlag.setOnMouseClicked(event -> showCurrencySelector());
-        portraitToSymbol.setOnMouseClicked(event -> showCurrencySelector());
-        portraitToFlag.setOnMouseClicked(event -> showCurrencySelector());
+        fromSymbol.setOnMouseClicked(event -> showCurrencySelector());
+        fromFlag.setOnMouseClicked(event -> showCurrencySelector());
+        toSymbol.setOnMouseClicked(event -> showCurrencySelector());
+        toFlag.setOnMouseClicked(event -> showCurrencySelector());
     }
 
     /**
@@ -115,7 +93,6 @@ public class IceController implements Initializable, FlagsSelectedListener {
     public void setCurrencyMap(List<CurrencyRate> currencies) {
         this.currencyMap.clear();
         currencies.forEach(c -> this.currencyMap.put(c.getName(), c));
-        System.out.println("***** CurrencyRate map initialized");
     }
 
     /**
@@ -144,24 +121,18 @@ public class IceController implements Initializable, FlagsSelectedListener {
      * @param to Currency abbreviation to use as target
      */
     private void updateFlagPicturesOnScene(String from, String to) {
-        Image fromSymbolImage = getCurrencyImageFromResources("symbol/circle", from);
-        Image fromFlagImage = getCurrencyImageFromResources("flag/medium", from);
-        Image toSymbolImage = getCurrencyImageFromResources("symbol/circle", to);
-        Image toFlagImage = getCurrencyImageFromResources("flag/medium", to);
-        portraitFromSymbol.setImage(fromSymbolImage);
-        portraitFromFlag.setImage(fromFlagImage);
-        portraitToSymbol.setImage(toSymbolImage);
-        portraitToFlag.setImage(toFlagImage);
-        landscapeFromSymbol.setImage(fromSymbolImage);
-        landscapeFromFlag.setImage(fromFlagImage);
-        landscapeToSymbol.setImage(toSymbolImage);
-        landscapeToFlag.setImage(toFlagImage);
-        System.out.println("***** Images updated for " + from + " -> " + to);
+        Image fromSymbolImage = getCurrencyImageFromResources(SYMBOL_FOLDER, from);
+        Image fromFlagImage = getCurrencyImageFromResources(FLAGS_FOLDER, from);
+        Image toSymbolImage = getCurrencyImageFromResources(SYMBOL_FOLDER, to);
+        Image toFlagImage = getCurrencyImageFromResources(FLAGS_FOLDER, to);
+        fromSymbol.setImage(fromSymbolImage);
+        fromFlag.setImage(fromFlagImage);
+        toSymbol .setImage(toSymbolImage);
+        toFlag.setImage(toFlagImage);
     }
 
     @Override
     public void onCurrencyPairSelected(String fromCurrency, String toCurrency) {
-        System.out.println("***** Currency pair selected: " + fromCurrency + " -> " + toCurrency);
         setCurrencyToUse(fromCurrency, toCurrency);
     }
 }

@@ -19,7 +19,6 @@ public class IceCo extends Application {
     private SceneSupport sceneSupport;
 
     public void start(Stage stage) {
-        System.out.println("***** Setting up stage");
         initSceneSupport(stage);
         try {
             // setup the main scene

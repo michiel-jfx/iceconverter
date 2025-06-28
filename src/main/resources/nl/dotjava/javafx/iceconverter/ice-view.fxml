@@ -17,8 +17,8 @@
            stylesheets="@styles.css"
            styleClass="grad-bg">
 
-    <!-- portrait (visible when height > width) -->
-    <VBox fx:id="portraitLayout" spacing="20.0">
+    <!-- portrait version -->
+    <VBox spacing="20.0">
         <padding>
             <Insets bottom="20.0" left="15.0" right="15.0" top="15.0" />
         </padding>
@@ -27,18 +27,18 @@
             <Region HBox.hgrow="ALWAYS" />
             <VBox>
                 <StackPane alignment="TOP_RIGHT">
-                    <ImageView fx:id="portraitFromSymbol" fitHeight="100" preserveRatio="true">
+                    <ImageView fx:id="fromSymbol" fitHeight="100" preserveRatio="true">
                         <Image url="@symbol/circle/ANG.png" />
                     </ImageView>
-                    <ImageView fx:id="portraitFromFlag" fitWidth="150" preserveRatio="true" styleClass="overlay-image">
+                    <ImageView fx:id="fromFlag" fitWidth="150" preserveRatio="true" styleClass="overlay-image">
                         <Image url="@flag/medium/ANG.png" />
                     </ImageView>
                 </StackPane>
                 <StackPane alignment="BOTTOM_RIGHT">
-                    <ImageView fx:id="portraitToSymbol" fitHeight="100" preserveRatio="true">
+                    <ImageView fx:id="toSymbol" fitHeight="100" preserveRatio="true">
                         <Image url="@symbol/circle/NZD.png" />
                     </ImageView>
-                    <ImageView fx:id="portraitToFlag" fitWidth="150" preserveRatio="true" styleClass="overlay-image">
+                    <ImageView fx:id="toFlag" fitWidth="150" preserveRatio="true" styleClass="overlay-image">
                         <Image url="@flag/medium/NZD.png" />
                     </ImageView>
                 </StackPane>
@@ -56,39 +56,5 @@
             </Label>
             <Button fx:id="iceButton" onAction="#onCurrencyClick" text="smelltu" styleClass="custom-button" />
         </VBox>
-    </VBox>
-
-    <!-- landscape (visible when width > height) -->
-    <VBox fx:id="landscapeLayout" alignment="TOP_CENTER" spacing="20.0" visible="false" managed="false">
-        <padding>
-            <Insets bottom="10.0" left="20.0" right="15.0" top="8.0" />
-        </padding>
-        <Label fx:id="labelUpperRightLandscape" />
-        <TextField fx:id="textfieldInputLandscape" style="-fx-text-alignment: left; -fx-background-color: #e6e6ff;" />
-        <Label fx:id="labelBelowLeftLandscape" />
-        <Button fx:id="iceButtonLandscape" onAction="#onCurrencyClick" text="smelltu" styleClass="custom-button" />
-        <!-- bottom area with image in bottom right -->
-        <HBox alignment="BOTTOM_RIGHT" VBox.vgrow="ALWAYS">
-            <Region HBox.hgrow="ALWAYS" />
-            <padding>
-                <Insets bottom="8.0" right="8.0" />
-            </padding>
-            <StackPane alignment="BOTTOM_CENTER">
-                <ImageView fx:id="landscapeFromSymbol" fitHeight="110" preserveRatio="true">
-                    <Image url="@symbol/circle/ANG.png" />
-                </ImageView>
-                <ImageView fx:id="landscapeFromFlag" fitHeight="110" preserveRatio="true" styleClass="overlay-image">
-                    <Image url="@flag/medium/ANG.png" />
-                </ImageView>
-            </StackPane>
-            <StackPane alignment="BOTTOM_CENTER">
-                <ImageView fx:id="landscapeToSymbol" fitHeight="110" preserveRatio="true">
-                    <Image url="@symbol/circle/NZD.png" />
-                </ImageView>
-                <ImageView fx:id="landscapeToFlag" fitHeight="110" preserveRatio="true" styleClass="overlay-image">
-                    <Image url="@flag/medium/NZD.png" />
-                </ImageView>
-            </StackPane>
-        </HBox>
     </VBox>
 </StackPane>
