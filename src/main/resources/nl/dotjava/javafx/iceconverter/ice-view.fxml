@@ -25,12 +25,12 @@
         <!-- top area with upper right image -->
         <HBox alignment="CENTER_RIGHT">
             <Region HBox.hgrow="ALWAYS" />
-            <VBox>
-                <StackPane alignment="TOP_RIGHT">
+            <VBox spacing="5">
+            <StackPane alignment="TOP_RIGHT">
                     <ImageView fx:id="fromSymbol" fitHeight="100" preserveRatio="true">
                         <Image url="@symbol/circle/ANG.png" />
                     </ImageView>
-                    <ImageView fx:id="fromFlag" fitWidth="150" preserveRatio="true" styleClass="overlay-image">
+                    <ImageView fx:id="fromFlag" fitWidth="200" preserveRatio="true" styleClass="overlay-image">
                         <Image url="@flag/medium/ANG.png" />
                     </ImageView>
                 </StackPane>
@@ -38,7 +38,7 @@
                     <ImageView fx:id="toSymbol" fitHeight="100" preserveRatio="true">
                         <Image url="@symbol/circle/NZD.png" />
                     </ImageView>
-                    <ImageView fx:id="toFlag" fitWidth="150" preserveRatio="true" styleClass="overlay-image">
+                    <ImageView fx:id="toFlag" fitWidth="200" preserveRatio="true" styleClass="overlay-image">
                         <Image url="@flag/medium/NZD.png" />
                     </ImageView>
                 </StackPane>

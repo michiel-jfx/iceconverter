@@ -1,6 +1,6 @@
 # Simple Icelandic Euro to Krónas converter
 This mobile phone application uses 100% Java and JavaFX with FXML to create a simple krónas to euro conversion app and
-vice versa.
+vice versa. Actually, since version 0.0.4 it can convert from and to 22 different currencies!
 
 Most conversion apps require an input and then convert your input either to euros or to krónas (or any currency). Just
 depending on the situation, I want to convert to Krónas and in some other cases to Euros, but not caring about what to
@@ -11,7 +11,7 @@ The mobile app is built with the following versions:
 
 | What                   | Version                                             | See                                                                                                                                                     |
 |------------------------|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| IceCo                  | 0.0.3                                               | this, see also https://www.dotjava.nl/iceco/                                                                                                            |
+| IceCo                  | 0.0.4                                               | this, see also https://www.dotjava.nl/iceco/                                                                                                            |
 | GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases <br/>note: this is the GraalVM Community Edition which is published<br/>with GNU General Public License (GPL) |
 | JavaFX controls & fxml | 25-ea+17                                            | https://mvnrepository.com/artifact/org.openjfx/javafx-controls                                                                                          |
 | Controlsfx             | 11.2.2                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx                                                                                            |
@@ -46,14 +46,16 @@ mvn gluonfx:run
 ## Information
 The application is very basic and tries to convert any input both ways using a simple converter class. **I cannot be held
 responsible for any wrong conversions!** In the first version (0.0.1) the conversion rate was hard coded, in this version
-currencies are downloaded from [dotJava/currency_data/currencies.html](https://www.dotjava.nl/currency_data/currencies.html).
-I've created another small java project which fetches currencies from the internet once a day and puts them in a static
-webpage for the support of this project (I will make it public when its finished), see the method
+currencies are downloaded once at startup from
+[dotJava/currency_data/currencies.html](https://www.dotjava.nl/currency_data/currencies.html). I've created another
+small java project which fetches currencies from the internet once a day and puts them in a static webpage for the
+support of this project (I will make it public when its finished), see the method
 `CurrencySupport.extractAllCurrenciesFromSite()` for more information.
 
-As of 30-may-2025 I've added some more currencies including flags from around the world! The flags already can be used
-freely, see [Flagpedia](https://flagpedia.net/) for this. My daughter created all the currency symbols, the flags and
-symbols can be used and set programmatically; this is in anticipation of the upcoming feature to choose your conversion.
+As of 30-may-2025 I've added some more currencies including flags from around the world. The flags already can be used
+freely, see [Flagpedia](https://flagpedia.net/) for this. My daughter created all the currency symbols. When you tap on
+on of the flags or symbols, the currency selection screen will show up. Tap on two flags to set new currencies, the
+selection scene will close shortly after.
 
 Since the AndroidManifest has:
 ```
@@ -65,43 +67,48 @@ fetch the webpage. *Again, I cannot be held responsible for wrong currency conve
 to create your own mobile app on your phone. If the fetch fails, the currency is set to ISK and the rate is hardcoded to
 0.0068 like in the very first version. This will be the case when no internet is available.
 
-I've changed the markup @FXML page since the first version a bit and put a nice logo in portrait and landscape mode.
-Later, goal is to allow a tap on the logo to select another currency (images can be set in this version already ;-).
+Startup screen looks like:<br/>
+<img src="https://github.com/user-attachments/assets/ca65ea69-ceac-4963-acb7-0420737cb7d5" width="250"><br/>
 
-The startup screen shows:<br/><br/> <img src="https://github.com/user-attachments/assets/58d17e61-636b-41c0-9386-977ebe536a16" width="250"><br/>
+New feature (from 0.0.4) is, you can enter values directly and use the backspace to clear values, the keyboard from the
+mobile phone itself isn't necessary anymore. I've considered to add the 'c' (clear) as character instead of the '.' 
+value (indicating decimal values) for smaller conversions. Sometimes a decimal value can make the difference as it's not
+always about the big bucks. So to clear, you have to tap the backspace a few times. Maybe I can add a double tap on the 
+backspace to clear the amount field at once. Something todo later.
 
-Then, when you are about to enter a value, the keyboard shows up, like<br/>
-<img src="https://github.com/user-attachments/assets/74d07e5d-9e5c-4f4f-b208-5eeeec121ebf" width="250"><br/>
-I've not added a feature to move the screen, so that's why all information is in the upper part of the screen (to allow
-the keyboard to take some space).
+<img src="https://github.com/user-attachments/assets/77e33280-13c6-4a3c-9ff4-15f81dec60d4" width="250"><br/>
+Values tapped will be converted immediately, like this is obvious a krónas amount representing about 7 euros for probably a parking ticket near the tourist site you're at ;-)
 
-Whatever you type, after tapping it will convert from and to and you decide which to look at, for example<br/>
-<img src="https://github.com/user-attachments/assets/605f4e5b-077c-4d9a-9e05-aa12dfc03e84" width="250"><br/>
-is obvious a krónas amount representing 6 or 7 euros for probably a parking ticket near the tourist site you're at ;-)
-
-And<br/>
-<img src="https://github.com/user-attachments/assets/6af06cee-ea47-45eb-937d-0bf023c5088d" height="250"><br/>
-is what I use to see how I can spend my 8 euros.
+When you select one of the flags, the currency selection screen will appear.<br/>
+<img src="https://github.com/user-attachments/assets/7817d3de-8a4f-4869-b83d-4495bcc2e010" width="250"><br/>
+Both flags on top are the currently selected currencies. Tap on any flag (two times), and it will set the currencies to
+convert and close the scene shortly after.
 
 That's the idea, have fun!
 
-# Additions
-After the very first implementation, I wanted to change the behavior to show the numerical keyboard instead of text
-keyboard immediately. Also, converting on focus-lost should reduce clicks. But this would require some more interaction
-with the mobile phone and start the use of the com.gluonhq packages.
+# Additional info
+After the very first implementation, I wanted to change the behavior to show the numerical keyboard from your phone 
+instead of text keyboard. Also, converting on focus-lost of the textfield should reduce clicks. But this would require
+some more interaction with the mobile phone and start the use of the com.gluonhq packages.
 
-I've decided not to use the com.gluonhq packages, so it stays a org.openjfx tutorial project. It is a useful currency
+I've decided not to use the com.gluonhq packages, so it stays an org.openjfx tutorial project. It is a useful currency
 converter mobile application written in 100% Java. See another [nop](https://github.com/michiel-jfx/nop) project for more interaction with the mobile
-phone and the use of some com.gluonhq packages. Make sure to checkout version 0.0.1 to get the basics of creating your
-own easy to understand mobile phone application!
+phone and the use of some com.gluonhq packages.
 
-There are still a lot `System.out.println` statements present since this is a tutorial project. When you understand the
-flow and see how it works, remove them all please.
+In this version 0.0.4 I've removed the landscape version. Switching between scenes and keeping track of the orientation
+didn't quite went smooth. If you want to, take a look at this 
+[branch](https://github.com/michiel-jfx/iceconverter/tree/orientation_issues). It did give the idea of a SceneSupport
+class though to put in common methods to use when switching between scenes.
+
+There are still some `System.out.println` statements present since this is a tutorial project. When you understand the
+flow and see how it works, remove them please.
 
 Next goals:<br/>
 <ul>
-<li>Tap logo to change currency</li>
-<li>Deploy the app on [FDroid](https://f-droid.org) or in the Google Playstore</li>
+<li>Store last currency settings for next usage</li>
+<li>Add more currencies</li>
+<li>Change the name of the project since it will be no longer an Icelandic Converter (IceCo) but a currency converter for the holidays</li>
+<li>Deploy the app on [FDroid](https://f-droid.org) or in the Google Play Store</li>
 </ul>
 
 # License

@@ -17,7 +17,7 @@
     </padding>
     <HBox alignment="CENTER" spacing="20">
         <VBox.margin>
-            <Insets bottom="15.0" />
+            <Insets bottom="50.0" />
         </VBox.margin>
         <ImageView fx:id="fromFlag" fitWidth="80" fitHeight="53">
             <Image url="@flag/small/EUR.png" />
