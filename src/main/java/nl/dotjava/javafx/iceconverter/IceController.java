@@ -148,6 +148,10 @@ public class IceController implements Initializable, FlagsSelectedListener {
      * @param to Currency abbreviation to use as target
      */
     private void updateFlagPicturesOnScene(String from, String to) {
+        // skip UI if FXML components are not initialized
+        if (fromSymbol == null || fromFlag == null || toSymbol == null || toFlag == null) {
+            return;
+        }
         Image fromSymbolImage = getCurrencyImageFromResources(SYMBOL_FOLDER, from);
         Image fromFlagImage = getCurrencyImageFromResources(FLAGS_FOLDER, from);
         Image toSymbolImage = getCurrencyImageFromResources(SYMBOL_FOLDER, to);

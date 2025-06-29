@@ -81,8 +81,8 @@ Values tapped will be converted immediately, like this is obvious a krónas amou
 
 When you select one of the flags, the currency selection screen will appear.<br/>
 <img src="https://github.com/user-attachments/assets/7817d3de-8a4f-4869-b83d-4495bcc2e010" width="250"><br/>
-Both flags on top are the currently selected currencies. Tap on any flag (two times), and it will set the currencies to
-convert and close the scene shortly after.
+Both flags on top are the currently selected currencies. Tap on any flag (do this twice), and it will set the currencies
+to convert and close the scene shortly after.
 
 That's the idea, have fun!
 
