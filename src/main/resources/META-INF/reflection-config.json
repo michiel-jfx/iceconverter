@@ -1,20 +1,25 @@
 [
   {
-    "name": "nl.dotjava.javafx.domain.CurrencyRate",
+    "name": "nl.dotjava.javafx.domain.StorageProperty",
     "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
     "allDeclaredFields": true,
-    "allDeclaredMethods": true
+    "allPublicFields": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
   },
   {
-    "name": "nl.dotjava.javafx.domain.Currency",
+    "name": "com.fasterxml.jackson.databind.ObjectMapper",
     "allDeclaredConstructors": true,
-    "allDeclaredFields": true,
-    "allDeclaredMethods": true
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
   },
   {
     "name": "java.util.ArrayList",
     "allDeclaredConstructors": true,
-    "allDeclaredFields": true,
-    "allDeclaredMethods": true
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
   }
 ]

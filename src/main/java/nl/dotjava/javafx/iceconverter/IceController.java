@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static nl.dotjava.javafx.support.CurrencySupport.getCurrencyImageFromResources;
+import static nl.dotjava.javafx.support.StorageSupport.saveUsedCurrencies;
 
 public class IceController implements Initializable, FlagsSelectedListener {
     public IceController() {
@@ -124,7 +125,7 @@ public class IceController implements Initializable, FlagsSelectedListener {
 
     /**
      * Set a custom from and to currency factor. A custom CurrencyRate is calculated using both currencies. Also update
-     * flag and symbol on screen.
+     * flag + symbol on screen and store these to local private storage.
      * @param from currency symbol from
      * @param to target currency symbol, use EUR when {null}
      */
@@ -140,6 +141,7 @@ public class IceController implements Initializable, FlagsSelectedListener {
         customCurrency.setValueFrom(curRateFrom.getValueFrom().multiply(curRateTo.getValueTo(), new MathContext(10, RoundingMode.HALF_UP)));
         updateFlagPicturesOnScene(from, toCurrency);
         convertSupport.setCurrency(customCurrency);
+        saveUsedCurrencies(from, toCurrency);
     }
 
     /**

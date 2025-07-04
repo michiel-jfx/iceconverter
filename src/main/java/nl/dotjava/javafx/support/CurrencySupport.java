@@ -15,10 +15,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static java.net.http.HttpClient.newHttpClient;
+import static nl.dotjava.javafx.support.StorageSupport.loadCurrencies;
+import static nl.dotjava.javafx.support.StorageSupport.saveCurrencies;
 
 /**
  * Static utility class for handling currency-related operations, such as fetching web page content, extracting currency
@@ -37,18 +38,28 @@ public class CurrencySupport {
 
     /**
      * Fetch currency data from <a href="https://www.dotJava.nl/currency_data/currencies.html">www.dotJava.nl</a>. When
-     * this fails, initialize a default conversion rate for the ISK currency.
+     * this fails, try to load from local storage. When everything fails, return a default.
      * @return list of currencies found on website or defaulted to ISK
      */
     public static List<CurrencyRate> extractAllCurrenciesFromSite() {
-        List<CurrencyRate> currencies = new ArrayList<>();
         String html = downloadWebPageContentSynchronously();
         if (html == null || html.isEmpty()) {
-            System.out.println("***** CurrencyRate data not found");
+            html = loadCurrencies();
+        } else {
+            saveCurrencies(html);
+        }
+        List<CurrencyRate> currencies = extractFromHtml(html);
+        if (currencies.isEmpty()) {
             CurrencyRate iceland = new CurrencyRate(Currency.ISK);
             iceland.setValueFrom(ICELAND_FROM);
-            return Collections.singletonList(iceland);
+            currencies.add(iceland);
         }
+        return currencies;
+    }
+
+    /** Extract HTML data found to list of currencies */
+    private static List<CurrencyRate> extractFromHtml(String html) {
+        List<CurrencyRate> currencies = new ArrayList<>();
         try {
             // extract content between <body> and </body>
             String data = html.replaceAll("(?s).*<body>\\s*(.*?)\\s*</body>.*", "$1").trim();

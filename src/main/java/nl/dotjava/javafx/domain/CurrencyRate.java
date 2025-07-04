@@ -32,12 +32,12 @@ public class CurrencyRate {
         return this.valueTo;
     }
 
-    public void setTargetSymbol(String targetSymbol) {
-        this.targetSymbol = targetSymbol;
-    }
-
     public String getTargetSymbol() {
         return this.targetSymbol == null ? "€ " : this.targetSymbol;
+    }
+
+    public void setTargetSymbol(String targetSymbol) {
+        this.targetSymbol = targetSymbol;
     }
 
     public void setValueFrom(BigDecimal valueFrom) {

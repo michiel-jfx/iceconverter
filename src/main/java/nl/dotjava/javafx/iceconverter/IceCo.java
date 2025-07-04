@@ -9,6 +9,7 @@ import nl.dotjava.javafx.support.SceneSupport;
 
 
 import static nl.dotjava.javafx.support.CurrencySupport.extractAllCurrenciesFromSite;
+import static nl.dotjava.javafx.support.StorageSupport.loadUsedCurrencies;
 
 public class IceCo extends Application {
 
@@ -45,7 +46,8 @@ public class IceCo extends Application {
         mainController = loadFxml(MAIN_SCENE);
         mainController.setSceneSupport(sceneSupport);
         mainController.setCurrencyMap(extractAllCurrenciesFromSite());
-        mainController.setCurrencyToUse("ISK", "EUR");
+        String[] currenciesUsed = loadUsedCurrencies();
+        mainController.setCurrencyToUse(currenciesUsed[0], currenciesUsed[1]);
     }
 
     private void initFlagController() {
@@ -70,7 +72,7 @@ public class IceCo extends Application {
             System.out.println("***** FXML loaded: " + name);
             return loader.getController();
         } catch (Exception e) {
-            System.err.println("Error loading FXML: " + e.getMessage());
+            System.err.println("***** Error loading FXML: " + e.getMessage());
             e.printStackTrace();
         }
         return null;
