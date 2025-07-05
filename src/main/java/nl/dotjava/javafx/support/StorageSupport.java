@@ -8,17 +8,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
+/** Support class to write to local private storage on mobile phone */
 public class StorageSupport {
     private StorageSupport() {
         // default empty constructor
     }
 
     private static final String CURRENCY_HTML_FILE = "currencies.json";
-    private static final String CURRENCY_FROM_FILE = "used-from.ini";
-    private static final String CURRENCY_TO_FILE = "used-to.ini";
+    private static final String CURRENCY_USED_FILE = "currencies-used.ini";
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    /** Save currencies to local (private) storage as string content */
+    /** Save currencies to local private storage as string content */
     public static void saveCurrencies(String htmlContent) {
         try {
             Optional<File> storageRoot = StorageService.create().flatMap(StorageService::getPrivateStorage);
@@ -27,15 +27,13 @@ public class StorageSupport {
                 File currenciesFile = new File(storageRoot.get(), CURRENCY_HTML_FILE);
                 OBJECT_MAPPER.writeValue(currenciesFile, storageProperty);
                 System.out.println("***** Currencies saved to " + currenciesFile.getAbsolutePath() + ", bytes: " + currenciesFile.length());
-            } else {
-                System.out.println("***** Error saving currencies: Storage root not found");
             }
         } catch (IOException e) {
             System.err.println("***** Error saving currencies: " + e.getMessage());
         }
     }
 
-    /** Load currencies as flat string from local storage or return null */
+    /** Load currencies as flat string from local private storage or return null */
     public static String loadCurrencies() {
         try {
             Optional<File> storageRoot = StorageService.create().flatMap(StorageService::getPrivateStorage);
@@ -46,9 +44,6 @@ public class StorageSupport {
                     System.out.println("***** Currencies loaded from " + currenciesFile.getAbsolutePath() + ", bytes: " + currenciesFile.length());
                     return storageProperty.getValue();
                 }
-            } else {
-                System.out.println("***** Error loading currencies: Storage root not found");
-                return null;
             }
         } catch (IOException e) {
             System.err.println("***** Error loading currencies: " + e.getMessage());
@@ -56,47 +51,42 @@ public class StorageSupport {
         return null;
     }
 
-    /** Save used currencies to local (private) storage as string content */
+    /** Save used currencies to local private storage as string content */
     public static void saveUsedCurrencies(String from, String to) {
+        StorageProperty[] properties = new StorageProperty[] {
+                new StorageProperty("from", from),
+                new StorageProperty("to", to)
+        };
         try {
             Optional<File> storageRoot = StorageService.create().flatMap(StorageService::getPrivateStorage);
             if (storageRoot.isPresent()) {
-                // store 'from' setting
-                StorageProperty fromProperty = new StorageProperty("from", from);
-                File fromFile = new File(storageRoot.get(), CURRENCY_FROM_FILE);
-                OBJECT_MAPPER.writeValue(fromFile, fromProperty);
-                // store 'to' setting
-                StorageProperty toProperty = new StorageProperty("to", to);
-                File toFile = new File(storageRoot.get(), CURRENCY_TO_FILE);
-                OBJECT_MAPPER.writeValue(toFile, toProperty);
+                File usedCurrenciesFile = new File(storageRoot.get(), CURRENCY_USED_FILE);
+                OBJECT_MAPPER.writeValue(usedCurrenciesFile, properties);
             }
         } catch (IOException e) {
             System.err.println("***** Error saving used currencies: " + e.getMessage());
         }
     }
 
-    /** Load used currencies as flat string from local storage, return both concatenated */
+    /** Load used currencies back from local private storage */
     public static String[] loadUsedCurrencies() {
         String from = "ISK";
         String to = "EUR";
         try {
             Optional<File> storageRoot = StorageService.create().flatMap(StorageService::getPrivateStorage);
             if (storageRoot.isPresent()) {
-                // load 'from' setting
-                File fromFile = new File(storageRoot.get(), CURRENCY_FROM_FILE);
-                if (fromFile.exists()) {
-                    StorageProperty storageProperty = OBJECT_MAPPER.readValue(fromFile, StorageProperty.class);
-                    from = storageProperty.getValue();
+                File usedCurrenciesFile = new File(storageRoot.get(), CURRENCY_USED_FILE);
+                if (usedCurrenciesFile.exists()) {
+                    StorageProperty[] properties = OBJECT_MAPPER.readValue(usedCurrenciesFile, StorageProperty[].class);
+                    for (StorageProperty property : properties) {
+                        if ("from".equals(property.getKey())) {
+                            from = property.getValue();
+                        } else if ("to".equals(property.getKey())) {
+                            to = property.getValue();
+                        }
+                    }
                 } else {
-                    System.out.println("***** Warning: used-from.ini not found, using default ISK");
-                }
-                // load 'to' setting
-                File toFile = new File(storageRoot.get(), CURRENCY_TO_FILE);
-                if (toFile.exists()) {
-                    StorageProperty storageProperty = OBJECT_MAPPER.readValue(toFile, StorageProperty.class);
-                    to = storageProperty.getValue();
-                } else {
-                    System.out.println("***** Warning: used-to.ini not found, using default EUR");
+                    System.out.println("***** Warning: " + CURRENCY_USED_FILE + " not found, using default ISK and EUR");
                 }
             }
         } catch (IOException e) {

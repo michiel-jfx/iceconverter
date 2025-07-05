@@ -39,7 +39,7 @@ public class CurrencySupport {
     /**
      * Fetch currency data from <a href="https://www.dotJava.nl/currency_data/currencies.html">www.dotJava.nl</a>. When
      * this fails, try to load from local storage. When everything fails, return a default.
-     * @return list of currencies found on website or defaulted to ISK
+     * @return list of currencies found on website or defaulted to ISK to EUR
      */
     public static List<CurrencyRate> extractAllCurrenciesFromSite() {
         String html = downloadWebPageContentSynchronously();
