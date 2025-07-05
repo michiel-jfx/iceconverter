@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.FlowPane?>
 
 <VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="nl.dotjava.javafx.iceconverter.SelectCurrencyController"
+      fx:controller="nl.dotjava.javafx.holidayconverter.SelectCurrencyController"
       stylesheets="@styles.css"
       styleClass="grad-bg">
 

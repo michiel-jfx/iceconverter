@@ -23,7 +23,7 @@ public class SceneSupport {
         initializeScreenDimensions();
     }
 
-    /** Initialize actual screen dimensions */
+    /** Initialize actual screen dimensions. */
     private void initializeScreenDimensions() {
         try {
             Rectangle2D screenBounds = Screen.getPrimary().getBounds();

@@ -1,4 +1,4 @@
-package nl.dotjava.javafx.iceconverter;
+package nl.dotjava.javafx.holidayconverter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,9 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.dotjava.javafx.domain.Currency;
 import nl.dotjava.javafx.domain.CurrencyRate;
-import nl.dotjava.javafx.listeners.CurrencySetupListener;
+import nl.dotjava.javafx.listeners.SelectCurrenciesListener;
+import nl.dotjava.javafx.listeners.SelectFlagsListener;
 import nl.dotjava.javafx.support.ConvertSupport;
-import nl.dotjava.javafx.listeners.FlagsSelectedListener;
 import nl.dotjava.javafx.support.SceneSupport;
 
 import java.math.MathContext;
@@ -25,8 +25,8 @@ import java.util.ResourceBundle;
 import static nl.dotjava.javafx.support.CurrencySupport.getCurrencyImageFromResources;
 import static nl.dotjava.javafx.support.StorageSupport.saveUsedCurrencies;
 
-public class IceController implements Initializable, FlagsSelectedListener {
-    public IceController() {
+public class HoliCurController implements Initializable, SelectFlagsListener {
+    public HoliCurController() {
         // default empty constructor
     }
 
@@ -38,14 +38,13 @@ public class IceController implements Initializable, FlagsSelectedListener {
     @FXML private ImageView toSymbol;
     @FXML private ImageView toFlag;
 
-    private static final String FLAG_SCENE = "cur-selector";
+    private static final String FLAG_SCENE = "currency-selector";
     private static final String SYMBOL_FOLDER = "symbol/circle";
     private static final String FLAGS_FOLDER  = "flag/medium";
     private final ConvertSupport convertSupport = new ConvertSupport();
     private final HashMap<String, CurrencyRate> currencyMap = new HashMap<>();
-    private CurrencySetupListener currencySetupListener;
+    private SelectCurrenciesListener selectCurrenciesListener;
     private SceneSupport sceneSupport;
-
     // currency selection
     private String currentFromCurrency = "ISK";
     private String currentToCurrency = "EUR";
@@ -57,8 +56,8 @@ public class IceController implements Initializable, FlagsSelectedListener {
         textfieldInput.setFocusTraversable(false);
     }
 
-    public void setCurrencySetupListener(CurrencySetupListener currencySetupListener) {
-        this.currencySetupListener = currencySetupListener;
+    public void setCurrencySetupListener(SelectCurrenciesListener selectCurrenciesListener) {
+        this.selectCurrenciesListener = selectCurrenciesListener;
     }
 
     public void setSceneSupport(SceneSupport sceneSupport) {
@@ -77,7 +76,7 @@ public class IceController implements Initializable, FlagsSelectedListener {
      * first time. See {@link SelectCurrencyController} for the selecting part.
      */
     private void showCurrencySelector() {
-        currencySetupListener.onSetCurrencies(this.currentFromCurrency, this.currentToCurrency);
+        selectCurrenciesListener.onSetCurrencies(this.currentFromCurrency, this.currentToCurrency);
         sceneSupport.switchToScene(FLAG_SCENE);
     }
 
@@ -104,7 +103,7 @@ public class IceController implements Initializable, FlagsSelectedListener {
         }
     }
 
-    /** Update calculated conversion values */
+    /** Update calculated conversion values. */
     private void onCurrencyClick() {
         if (textfieldInput != null) {
             String inputText = textfieldInput.getText();

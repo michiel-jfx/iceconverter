@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.scene.image.Image;
 import nl.dotjava.javafx.domain.Currency;
 import nl.dotjava.javafx.domain.CurrencyRate;
-import nl.dotjava.javafx.iceconverter.IceController;
+import nl.dotjava.javafx.holidayconverter.HoliCurController;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -38,7 +38,7 @@ public class CurrencySupport {
 
     /**
      * Fetch currency data from <a href="https://www.dotJava.nl/currency_data/currencies.html">www.dotJava.nl</a>. When
-     * this fails, try to load from local storage. When everything fails, return a default.
+     * this fails, try to load from local private storage. When everything fails, return a default.
      * @return list of currencies found on website or defaulted to ISK to EUR
      */
     public static List<CurrencyRate> extractAllCurrenciesFromSite() {
@@ -57,7 +57,7 @@ public class CurrencySupport {
         return currencies;
     }
 
-    /** Extract HTML data found to list of currencies */
+    /** Extract HTML data found to list of currencies. */
     private static List<CurrencyRate> extractFromHtml(String html) {
         List<CurrencyRate> currencies = new ArrayList<>();
         try {
@@ -111,14 +111,12 @@ public class CurrencySupport {
         return null;
     }
 
-    /**
-     * Get flag or symbol images from resources (based on iceconverter package location).
-     */
+    /** Get flag or symbol images from resources (based on holidayconverter package location). */
     public static Image getCurrencyImageFromResources(String folder, String resource) {
         try {
-            return new Image(IceController.class.getResourceAsStream(folder + "/" + resource + ".png"));
+            return new Image(HoliCurController.class.getResourceAsStream(folder + "/" + resource + ".png"));
         } catch (Exception e) {
-            System.err.println("Error loading image (" + resource + "): " + e.getMessage());
+            System.err.println("***** Error loading image (" + resource + "): " + e.getMessage());
         }
         return null;
     }

@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <application android:label='IceCo' android:icon="@mipmap/ic_launcher">
+    <application android:label='HoliCur' android:icon="@mipmap/ic_launcher">
 
         <activity android:name='com.gluonhq.helloandroid.MainActivity'
                   android:exported="true"

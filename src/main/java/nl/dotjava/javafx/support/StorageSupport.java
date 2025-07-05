@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
-/** Support class to write to local private storage on mobile phone */
+/** Support class to write to local private storage on mobile phone. */
 public class StorageSupport {
     private StorageSupport() {
         // default empty constructor
@@ -18,7 +18,7 @@ public class StorageSupport {
     private static final String CURRENCY_USED_FILE = "currencies-used.ini";
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    /** Save currencies to local private storage as string content */
+    /** Save currencies to local private storage as string content. */
     public static void saveCurrencies(String htmlContent) {
         try {
             Optional<File> storageRoot = StorageService.create().flatMap(StorageService::getPrivateStorage);
@@ -33,7 +33,7 @@ public class StorageSupport {
         }
     }
 
-    /** Load currencies as flat string from local private storage or return null */
+    /** Load currencies as flat string from local private storage or return null. */
     public static String loadCurrencies() {
         try {
             Optional<File> storageRoot = StorageService.create().flatMap(StorageService::getPrivateStorage);
@@ -51,7 +51,7 @@ public class StorageSupport {
         return null;
     }
 
-    /** Save used currencies to local private storage as string content */
+    /** Save used currencies to local private storage as string content. */
     public static void saveUsedCurrencies(String from, String to) {
         StorageProperty[] properties = new StorageProperty[] {
                 new StorageProperty("from", from),
@@ -68,7 +68,7 @@ public class StorageSupport {
         }
     }
 
-    /** Load used currencies back from local private storage */
+    /** Load used currencies back from local private storage. */
     public static String[] loadUsedCurrencies() {
         String from = "ISK";
         String to = "EUR";

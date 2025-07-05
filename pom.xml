@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nl.dotjava.javafx</groupId>
-    <artifactId>iceconverter</artifactId>
-    <version>0.0.4</version>
-    <name>IceCo</name>
+    <artifactId>holidayconverter</artifactId>
+    <version>0.0.5</version>
+    <name>HoliCur</name>
 
     <properties>
         <java.version>23</java.version>
@@ -28,7 +28,7 @@
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
         <gluonfx.maven.plugin.version>1.0.25</gluonfx.maven.plugin.version>
-        <main.class>nl.dotjava.javafx.iceconverter.IceCo</main.class>
+        <main.class>nl.dotjava.javafx.holidayconverter.HoliCur</main.class>
     </properties>
 
     <dependencies>
@@ -134,8 +134,8 @@
                     <target>${gluonfx.target}</target>
                     <mainClass>${main.class}</mainClass>
                     <reflectionList>
-                        <reflectionClass>nl.dotjava.javafx.iceconverter.IceController</reflectionClass>
-                        <reflectionClass>nl.dotjava.javafx.iceconverter.SelectCurrencyController</reflectionClass>
+                        <reflectionClass>nl.dotjava.javafx.holidayconverter.HoliCurController</reflectionClass>
+                        <reflectionClass>nl.dotjava.javafx.holidayconverter.SelectCurrencyController</reflectionClass>
                         <reflectionClass>nl.dotjava.javafx.domain.StorageProperty</reflectionClass>
                         <reflectionClass>com.gluonhq.attach.storage.impl.AndroidStorageService</reflectionClass>
                         <reflectionClass>com.fasterxml.jackson.databind.ObjectMapper</reflectionClass>

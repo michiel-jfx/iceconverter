@@ -1,5 +1,5 @@
 package nl.dotjava.javafx.listeners;
 
-public interface CurrencySetupListener {
+public interface SelectCurrenciesListener {
     void onSetCurrencies(String from, String to);
 }

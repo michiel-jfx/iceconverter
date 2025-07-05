@@ -13,7 +13,7 @@
 .custom-button:hover {
     -fx-background-color: #707070;
 }
-/* when swiping your finger during a tap */
+/* when moving your finger during a tap */
 .custom-button:pressed {
     -fx-background-color: #707070;
 }

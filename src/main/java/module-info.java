@@ -1,4 +1,4 @@
-module nl.dotjava.javafx.iceconverter {
+module nl.dotjava.javafx.holidayconverter {
 
     requires javafx.controls;
     requires javafx.fxml;
@@ -7,7 +7,7 @@ module nl.dotjava.javafx.iceconverter {
     requires com.fasterxml.jackson.databind;
     requires com.gluonhq.attach.storage;
 
-    opens nl.dotjava.javafx.iceconverter to javafx.fxml;
+    opens nl.dotjava.javafx.holidayconverter to javafx.fxml;
     opens nl.dotjava.javafx.domain to com.fasterxml.jackson.databind;
-    exports nl.dotjava.javafx.iceconverter;
+    exports nl.dotjava.javafx.holidayconverter;
 }

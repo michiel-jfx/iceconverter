@@ -1,4 +1,4 @@
-package nl.dotjava.javafx.iceconverter;
+package nl.dotjava.javafx.holidayconverter;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,34 +11,30 @@ import nl.dotjava.javafx.support.SceneSupport;
 import static nl.dotjava.javafx.support.CurrencySupport.extractAllCurrenciesFromSite;
 import static nl.dotjava.javafx.support.StorageSupport.loadUsedCurrencies;
 
-public class IceCo extends Application {
+public class HoliCur extends Application {
 
-    private static final String MAIN_SCENE = "ice-view";
-    private static final String FLAG_SCENE = "cur-selector";
-    private IceController mainController;
+    private static final String MAIN_SCENE = "holiday-currency-converter";
+    private static final String FLAG_SCENE = "currency-selector";
+    private HoliCurController mainController;
     private SelectCurrencyController flagController;
     private SceneSupport sceneSupport;
 
     public void start(Stage stage) {
-        initSceneSupport(stage);
-        try {
-            // setup the main scene
-            initMainController();
-            stage.setTitle("Currency Holiday");
-            stage.setScene(sceneSupport.getScene(MAIN_SCENE));
+        this.sceneSupport = new SceneSupport(stage);
 
-            // setup flag selection
-            initFlagController();
+        // setup the main scene
+        initMainController();
+        stage.setTitle("Holiday Currency Converter");
+        stage.setScene(sceneSupport.getScene(MAIN_SCENE));
 
-            // setup listeners
-            initListeners();
+        // setup flag selection scene
+        initFlagController();
 
-            // show the stage
-            stage.show();
-        } catch (Exception e) {
-            System.err.println("Error loading FXML: " + e.getMessage());
-            e.printStackTrace();
-        }
+        // setup listeners
+        initListeners();
+
+        // show the stage
+        stage.show();
     }
 
     private void initMainController() {
@@ -76,10 +72,6 @@ public class IceCo extends Application {
             e.printStackTrace();
         }
         return null;
-    }
-
-    private void initSceneSupport(Stage stage) {
-        this.sceneSupport = new SceneSupport(stage);
     }
 
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package nl.dotjava.javafx.iceconverter;
+package nl.dotjava.javafx.holidayconverter;
 
 import nl.dotjava.javafx.domain.Currency;
 import nl.dotjava.javafx.domain.CurrencyRate;
@@ -17,9 +17,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
 
-class IceControllerTest {
+class HoliCurControllerTest {
 
-    private IceController controller;
+    private HoliCurController controller;
 
     @Mock
     private ConvertSupport mockConvertSupport;
@@ -32,7 +32,7 @@ class IceControllerTest {
     void setUp() throws Exception {
         openMocks(this);
         // setup controller and inject the mocked ConvertSupport
-        controller = new IceController() {
+        controller = new HoliCurController() {
             @Override
             public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
                 // Skip fxml initialization
@@ -40,7 +40,7 @@ class IceControllerTest {
         };
 
         // use reflection to set the mocked ConvertSupport
-        java.lang.reflect.Field convertSupportField = IceController.class.getDeclaredField("convertSupport");
+        java.lang.reflect.Field convertSupportField = HoliCurController.class.getDeclaredField("convertSupport");
         convertSupportField.setAccessible(true);
         convertSupportField.set(controller, mockConvertSupport);
         setupTestCurrencies();

@@ -3,7 +3,7 @@ package nl.dotjava.javafx.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/** class for deserialization to mobile storage */
+/** class for deserialization to mobile storage. */
 public class StorageProperty {
     private String key;
     private String value;

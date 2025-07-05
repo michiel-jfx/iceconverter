@@ -1,4 +1,4 @@
-package nl.dotjava.javafx.iceconverter;
+package nl.dotjava.javafx.holidayconverter;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -6,8 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import nl.dotjava.javafx.listeners.CurrencySetupListener;
-import nl.dotjava.javafx.listeners.FlagsSelectedListener;
+import nl.dotjava.javafx.listeners.SelectCurrenciesListener;
+import nl.dotjava.javafx.listeners.SelectFlagsListener;
 import nl.dotjava.javafx.support.SceneSupport;
 
 import java.net.URL;
@@ -18,7 +18,7 @@ import static nl.dotjava.javafx.support.CurrencySupport.getCurrencyImageFromReso
 /**
  * Controller for selecting the from and to currencies, manages communication using a listener.
  */
-public class SelectCurrencyController implements Initializable, CurrencySetupListener {
+public class SelectCurrencyController implements Initializable, SelectCurrenciesListener {
     public SelectCurrencyController() {
         // default empty constructor
     }
@@ -27,9 +27,9 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
     @FXML private ImageView fromFlag;
     @FXML private ImageView toFlag;
 
-    private static final String MAIN_SCENE = "ice-view";
+    private static final String MAIN_SCENE = "holiday-currency-converter";
     private static final String FLAGS_FOLDER = "flag/small";
-    private FlagsSelectedListener flagsSelectedListener;
+    private SelectFlagsListener selectFlagsListener;
     private SceneSupport sceneSupport;
 
     private int selectionCounter = 0;
@@ -40,8 +40,8 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
         setupSelectFlagHandlers();
     }
 
-    public void setFlagSelectListener(FlagsSelectedListener flagsSelectedListener) {
-        this.flagsSelectedListener = flagsSelectedListener;
+    public void setFlagSelectListener(SelectFlagsListener selectFlagsListener) {
+        this.selectFlagsListener = selectFlagsListener;
     }
 
     public void setSceneSupport(SceneSupport sceneSupport) {
@@ -64,7 +64,7 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
             String imageUrl = clickedImage.getImage().getUrl();
             String currencyCode = extractCurrencyCodeFromUrl(imageUrl);
 
-            if (currencyCode != null && flagsSelectedListener != null) {
+            if (currencyCode != null && selectFlagsListener != null) {
                 selectedCurrencies[selectionCounter] = currencyCode;
                 selectionCounter++;
                 System.out.println("***** Currency " + selectionCounter + " selected: " + currencyCode);
@@ -77,7 +77,7 @@ public class SelectCurrencyController implements Initializable, CurrencySetupLis
                 } else if (selectionCounter == 2) {
                     // second selection done, update the "to" flag, notify listener and finish
                     toFlag.setImage(getCurrencyImageFromResources(FLAGS_FOLDER, currencyCode));
-                    flagsSelectedListener.onCurrencyPairSelected(selectedCurrencies[0], selectedCurrencies[1]);
+                    selectFlagsListener.onCurrencyPairSelected(selectedCurrencies[0], selectedCurrencies[1]);
 
                     // add a small delay to allow the UI to update before switching scenes
                     Platform.runLater(() -> {
