@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.dotjava.javafx.iceconverter.IceController">
+
+    <!-- portrait (visible when height > width) -->
+    <VBox fx:id="portraitLayout" alignment="CENTER" spacing="20.0">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="5.0" />
+        </padding>
+        <Label     fx:id="labelUpperRight"  text="kórónu" />
+        <TextField fx:id="textfieldInput"   style="-fx-text-alignment: left;" />
+        <Label     fx:id="labelBelowLeft"   text="evrur" />
+        <Button    fx:id="iceButton"        onAction="#onIceButtonClick" text="smelltu" style="-fx-alignment: center;" />
+        <Label     fx:id="dummyOne"         text=" " />
+        <Label     fx:id="dummyTwo"         text=" " />
+        <Label     fx:id="dummyThr"         text=" " />
+    </VBox>
+
+    <!-- landscape (visible when width > height) -->
+    <VBox fx:id="landscapeLayout" alignment="TOP_CENTER" spacing="20.0" visible="false" managed="false">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="5.0" />
+        </padding>
+        <Label     fx:id="labelUpperRightLandscape" />
+        <TextField fx:id="textfieldInputLandscape" style="-fx-text-alignment: left;" />
+        <Label     fx:id="labelBelowLeftLandscape" />
+        <Button    fx:id="iceButtonLandscape" onAction="#onIceButtonClick" text="smelltu" style="-fx-alignment: center;" />
+        <Label     fx:id="dummyOneLandscape"  text=" " />
+        <Label     fx:id="dummyTwoLandscape"  text=" " />
+        <Label     fx:id="dummyThrLandscape"  text=" " />
+    </VBox>
+
+</StackPane>

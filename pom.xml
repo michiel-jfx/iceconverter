@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>nl.dotjava.javafx</groupId>
+    <artifactId>iceconverter</artifactId>
+    <version>0.1</version>
+    <name>IceCo</name>
+
+    <properties>
+        <java.version>23</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <org.openjfx.controls.version>17.0.6</org.openjfx.controls.version>
+        <org.openjfx.fxml.version>17.0.6</org.openjfx.fxml.version>
+        <org.controlsfx.controlsfx.version>11.2.1</org.controlsfx.controlsfx.version>
+        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+        <javafx.plugin.version>0.0.8</javafx.plugin.version>
+        <gluonfx.maven.plugin.version>1.0.25</gluonfx.maven.plugin.version>
+
+        <main.class>nl.dotjava.javafx.iceconverter.IceCo</main.class>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${org.openjfx.controls.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${org.openjfx.fxml.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>${org.controlsfx.controlsfx.version}</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>android</id>
+            <properties>
+                <gluonfx.target>android</gluonfx.target>
+                <manifestPath>${project.basedir}/android/AndroidManifest.xml</manifestPath>
+            </properties>
+        </profile>
+        <profile>
+            <id>ios</id>
+            <properties>
+                <gluonfx.target>ios</gluonfx.target>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx.plugin.version}</version>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.gluonhq</groupId>
+                <artifactId>gluonfx-maven-plugin</artifactId>
+                <version>${gluonfx.maven.plugin.version}</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <target>${gluonfx.target}</target>
+                    <mainClass>${main.class}</mainClass>
+                    <reflectionList>
+                        <reflectionClass>nl.dotjava.javafx.iceconverter.IceController</reflectionClass>
+                    </reflectionList>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
