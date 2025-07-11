@@ -17,6 +17,8 @@ The mobile app is build with the following versions:
 
 Note: this JavaFX project is built with GraalVM 23 with Gluon included, but it doesn't use any com.gluonhq artifacts, it only uses javafx packages. This means there is no popup from Gluon Mobile.
 
+JavaFX on mobile is completely independent from Android. It uses GraalVM's native image to compile the JavaFX application into a native library that Android calls via JNI. As far as Android is concerned, it's the same as using a C++ library, but we're developing in 100% Java :-)
+
 If you want to setup a working Linux (Ubuntu) environment, see this [blog](https://www.dotjava.nl/2025/04/20/ubuntu-for-mobile-android-java-development/). It describes setting up the environment.
 
 ## Build and run on your phone (android)
@@ -36,21 +38,21 @@ mvn gluonfx:run
 ```
 
 ## Information
-The application is very simple and tries to convert any input both ways around using a simple converter class. I cannot be hold responsible for any wrong conversions! The conversion rate is hard coded, before you go on holiday (might be another country than Iceland of course) put the proper conversion at the right place and build your image.
+The application is very simple and tries to convert any input both ways around using a simple converter class. **I cannot be hold responsible for any wrong conversions!** The conversion rate is hard coded, before you go on holiday (might be another country than Iceland of course) put the proper conversion at the right place and build your image.
 
 There are also 3 labels in the FXML markup which seem pretty useless. I've added them for convenience reasons. The startup screen shows:<br/><br/>
-<img src="https://github.com/user-attachments/assets/543a1a53-51a9-4b32-a9f6-50d0c6e5f916" width="250"><br/>
+<img src="https://github.com/user-attachments/assets/da3eb905-7607-4171-9d68-7f781b465b43" width="250"><br/>
 
 Then, when you are about to enter a value, the keyboard shows up, like<br/>
-<img src="https://github.com/user-attachments/assets/1324d13e-1535-4a00-a02c-8c185711dfb1" width="250"><br/>
+<img src="https://github.com/user-attachments/assets/e6b3f7b8-cef8-4ee7-8c8e-bc33d71989c7" width="250"><br/>
 I've not added a feature to move the screen, so when the 3 labels are not present, the keyboard goes over the input, which is not pretty.
 
 Whatever you type, it will convert and you decide what to use, for example<br/>
-<img src="https://github.com/user-attachments/assets/e6c83931-e277-4501-bb32-f558f3f76ce5" width="250"><br/>
+<img src="https://github.com/user-attachments/assets/616f99b8-badf-4359-bee2-57e027665dc7" width="250"><br/>
 Is obvious a krónas amount like 6 or 7 euros for probably a parking ticket near the tourist site you're at ;-)
 
 And<br/>
-<img src="https://github.com/user-attachments/assets/3f1c08a7-1acb-4b3b-beaa-493377a20613" width="250"><br/>
+<img src="https://github.com/user-attachments/assets/9ffd9c5d-71dd-4385-bad2-fa50443b3946" width="250"><br/>
 Is what I use to see what I can buy for 5 euros.
 
 That's the idea, have fun!
