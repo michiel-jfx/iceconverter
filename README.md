@@ -1,9 +1,9 @@
-# Simple Icelandic Euro to Krónas converter
-This mobile phone application uses 100% Java and JavaFX with FXML to create a simple krónas to euro conversion app and
+# Simple Icelandic Euros to Krónur converter
+This mobile phone application uses 100% Java and JavaFX with FXML to create a simple króna to euro conversion app and
 vice versa.
 
-Most conversion apps require an input and then convert your input either to euros or to krónas. Just depending on the
-situation, I want to convert to Krónas and in some other cases to Euros, but not caring about what to call when doing.
+Most conversion apps require an input and then convert your input either to euros or to krónur. Just depending on the
+situation, I want to convert to Krónur and in some other cases to Euros, but not caring about what to call when doing.
 So this app just accepts input and converts to and from both.  
 
 ## Versions
@@ -70,7 +70,7 @@ the keyboard to take some space).
 
 Whatever you type, after tapping it will convert *from* and *to* and you decide which to look at, for example<br/>
 <img src="https://github.com/user-attachments/assets/d137afb8-b5fc-4994-8977-b6bab3b2f93d" width="250"><br/>
-is obvious a krónas amount representing 6 or 7 euros for probably a parking ticket near the tourist site you're at ;-)
+is obvious a krónur amount representing 6 or 7 euros for probably a parking ticket near the tourist site you're at ;-)
 
 And<br/>
 <img src="https://github.com/user-attachments/assets/ed0513b4-1a56-4e65-af81-04a5a182d676" height="250"><br/>
