@@ -1,0 +1,32 @@
+.custom-button {
+    -fx-pref-width: 70px;
+    -fx-alignment: center;
+    -fx-padding: 4px 0;
+    -fx-font-size: 14px;
+    -fx-border-color: black;
+    -fx-border-radius: 3px;
+    -fx-background-color: #a0a0a0;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+/* desktop when mouse hovers */
+.custom-button:hover {
+    -fx-background-color: #707070;
+}
+/* when swiping your finger during a tap */
+.custom-button:pressed {
+    -fx-background-color: #707070;
+}
+/* color during tap or click */
+.custom-button:armed {
+    -fx-background-color: #707070;
+}
+.custom-button:default {
+    -fx-background-color: #a0a0a0;
+}
+.spacing {
+    -fx-margin-top: 5px;
+}
+.grad-bg {
+    -fx-background-color: linear-gradient(to bottom right, #e6e6ff, #d2d2e6);
+}

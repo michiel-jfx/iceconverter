@@ -6,7 +6,7 @@
 
     <groupId>nl.dotjava.javafx</groupId>
     <artifactId>iceconverter</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <name>IceCo</name>
 
     <properties>
@@ -16,17 +16,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <org.openjfx.controls.version>17.0.6</org.openjfx.controls.version>
-        <org.openjfx.fxml.version>17.0.6</org.openjfx.fxml.version>
-        <org.controlsfx.controlsfx.version>11.2.1</org.controlsfx.controlsfx.version>
-        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+        <org.openjfx.controls.version>25-ea+17</org.openjfx.controls.version>
+        <org.openjfx.fxml.version>25-ea+17</org.openjfx.fxml.version>
+        <org.controlsfx.controlsfx.version>11.2.2</org.controlsfx.controlsfx.version>
+        <jackson.core.version>2.19.0</jackson.core.version>
+        <junit.version>5.13.0-M3</junit.version>
+        <org.assertj.core>4.0.0-M1</org.assertj.core>
+
+        <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
         <gluonfx.maven.plugin.version>1.0.25</gluonfx.maven.plugin.version>
-
         <main.class>nl.dotjava.javafx.iceconverter.IceCo</main.class>
     </properties>
 
     <dependencies>
+        <!-- JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -41,6 +45,33 @@
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
             <version>${org.controlsfx.controlsfx.version}</version>
+        </dependency>
+
+        <!-- json -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.core.version}</version>
+        </dependency>
+
+        <!-- test -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${org.assertj.core}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

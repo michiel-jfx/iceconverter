@@ -6,38 +6,35 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import nl.dotjava.javafx.domain.Currency;
+import nl.dotjava.javafx.support.ConvertSupport;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
-
-import static nl.dotjava.javafx.support.ConvertSupport.convertToEuroCurrency;
-import static nl.dotjava.javafx.support.ConvertSupport.convertToOtherCurrency;
 
 public class IceController implements Initializable {
 
     public IceController() {
-        System.out.println("IceController instantiated successfully!");
+        System.out.println("***** IceController instantiated");
     }
 
     // portrait
     @FXML private TextField textfieldInput;
     @FXML private Label labelUpperRight;
     @FXML private Label labelBelowLeft;
-    @FXML private Label dummyOne;
-    @FXML private Label dummyTwo;
-    @FXML private Label dummyThr;
     // landscape
     @FXML private TextField textfieldInputLandscape;
     @FXML private Label labelUpperRightLandscape;
     @FXML private Label labelBelowLeftLandscape;
-    @FXML private Label dummyOneLandscape;
-    @FXML private Label dummyTwoLandscape;
-    @FXML private Label dummyThrLandscape;
     // layout containers
     @FXML private VBox portraitLayout;
     @FXML private VBox landscapeLayout;
 
     private final SimpleBooleanProperty isPortrait = new SimpleBooleanProperty(true);
+    private final ConvertSupport convertSupport = new ConvertSupport();
+    private final HashMap<String,Currency> currencyMap = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,25 +48,33 @@ public class IceController implements Initializable {
         // unidirectional binding
         labelUpperRightLandscape.textProperty().bind(labelUpperRight.textProperty());
         labelBelowLeftLandscape.textProperty().bind(labelBelowLeft.textProperty());
-        dummyOneLandscape.textProperty().bind(dummyOne.textProperty());
-        dummyTwoLandscape.textProperty().bind(dummyTwo.textProperty());
-        dummyThrLandscape.textProperty().bind(dummyThr.textProperty());
+        System.out.println("***** IceController initialized");
     }
 
     @FXML
-    protected void onIceButtonClick() {
+    protected void onCurrencyClick() {
         if (textfieldInput != null) {
             String inputText = textfieldInput.getText();
             try {
-                labelUpperRight.setText(convertToOtherCurrency(inputText));
-                labelBelowLeft.setText(convertToEuroCurrency(inputText));
+                labelUpperRight.setText(convertSupport.convertToOtherCurrency(inputText));
+                labelBelowLeft.setText(convertSupport.convertToEuroCurrency(inputText));
             } catch (Exception e) {
                 System.err.println("Error during conversion: " + e.getMessage());
             }
         }
     }
 
-    public void setPortraitModus(boolean portrait) {
+    protected void setPortraitModus(boolean portrait) {
         isPortrait.set(portrait);
+    }
+
+    protected void setCurrencyMap(List<Currency> currencies) {
+        this.currencyMap.clear();
+        currencies.forEach(c -> this.currencyMap.put(c.getName(), c));
+    }
+
+    protected void setSelectedCurrency(String name) {
+        this.convertSupport.setCurrency(this.currencyMap.get(name));
+        System.out.println("***** Currency set to: " + name);
     }
 }
