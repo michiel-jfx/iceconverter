@@ -21,7 +21,7 @@ The mobile app is built with the following versions:
 Note: this JavaFX project is built with GraalVM 23 with Gluon included, but it doesn't use any com.gluonhq artifacts, it
 only uses javafx packages. This means there is no popup from Gluon Mobile. JavaFX on mobile is completely independent
 from Android. It uses GraalVM's native image to compile the JavaFX application into a native library that Android calls
-via JNI. As far as Android is concerned it's the same as using a C++ library but we're developing in 100% Java :-)
+via JNI. As far as Android is concerned, it's the same as using a C++ library but we're developing in 100% Java :-)
 
 If you want to setup a working Linux (Ubuntu) environment, see this [blog](https://www.dotjava.nl/2025/04/20/ubuntu-for-mobile-android-java-development/). It describes setting up the environment.
 
@@ -46,7 +46,7 @@ mvn gluonfx:run
 ## Information
 The application is very basic and tries to convert any input both ways using a simple converter class. *I cannot be held
 responsible for any wrong conversions!* In the first version (0.1) the conversion rate was hard coded, in this version
-the currency is downloaded from [dotJava/currency_data/currencies.html](https://www.dotjava.nl/currency_data/currencies.html).
+the currency is downloaded from [dotJava/currency_data/króna.html](https://www.dotjava.nl/currency_data/króna.html).
 
 Since the AndroidManifest has:
 ```
@@ -55,7 +55,7 @@ Since the AndroidManifest has:
 ```
 The fetch should be no problem. See the `CurrencySupport` class also for a `java.net.http.HttpClient` implementation to
 fetch the webpage. **Again, I cannot be held responsible for wrong currency codes**. This is a tutorial project to create
-your own mobile app on your phone. If the fetch fails, the conversion rate is hardcoded to 0.0068 like in the very first
+your own mobile app on your phone. If the fetch fails, the conversion rate is hardcoded to 0.00703 like in the very first
 version. This will be the case when no internet is available.
 
 I've changed the markup @FXML page since the first version a bit and put a nice logo in portrait and landscape mode.
