@@ -11,8 +11,6 @@ import nl.dotjava.javafx.domain.Currency;
 import nl.dotjava.javafx.support.ConvertSupport;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.BACK_SPACE;
@@ -38,7 +36,6 @@ public class IceController implements Initializable {
 
     private final SimpleBooleanProperty isPortrait = new SimpleBooleanProperty(true);
     private final ConvertSupport convertSupport = new ConvertSupport();
-    private final HashMap<String,Currency> currencyMap = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -89,13 +86,7 @@ public class IceController implements Initializable {
         isPortrait.set(portrait);
     }
 
-    protected void setCurrencyMap(List<Currency> currencies) {
-        this.currencyMap.clear();
-        currencies.forEach(c -> this.currencyMap.put(c.getName(), c));
-    }
-
-    protected void setSelectedCurrency(String name) {
-        this.convertSupport.setCurrency(this.currencyMap.get(name));
-        System.out.println("***** Currency set to: " + name);
+    protected void setSelectedCurrency(Currency currency) {
+        this.convertSupport.setCurrency(currency);
     }
 }

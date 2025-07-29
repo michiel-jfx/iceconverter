@@ -3,6 +3,7 @@ package nl.dotjava.javafx.support;
 import nl.dotjava.javafx.domain.Currency;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class ConvertSupport {
 
@@ -20,7 +21,7 @@ public class ConvertSupport {
     public String convertToOtherCurrency(String currencyValue) {
         try {
             BigDecimal value = new BigDecimal(currencyValue.replace(",", ".")).setScale(3, BigDecimal.ROUND_HALF_UP);
-            return "kr " + value.multiply(currency.getValueTo()).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+            return currency.getCurrencyCode() + value.multiply(currency.getValueTo()).setScale(2, RoundingMode.HALF_UP);
         } catch (Exception e) {
             return OOPS;
         }
@@ -29,7 +30,7 @@ public class ConvertSupport {
     public String convertToEuroCurrency(String euroValue) {
         try {
             BigDecimal value = new BigDecimal(euroValue.replace(",", ".")).setScale(3, BigDecimal.ROUND_HALF_UP);
-            return "€ " + value.multiply(currency.getValueFrom()).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+            return "€ " + value.multiply(currency.getValueFrom()).setScale(2, RoundingMode.HALF_UP);
         } catch (Exception e) {
             return OOPS;
         }

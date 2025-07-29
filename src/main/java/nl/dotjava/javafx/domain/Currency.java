@@ -20,8 +20,8 @@ public class Currency {
         this.currencyCode = currencyCode;
     }
 
-    public String getName() {
-        return this.name;
+    public String getCurrencyCode() {
+        return this.currencyCode;
     }
 
     public BigDecimal getValueFrom() {

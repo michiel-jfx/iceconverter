@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import static nl.dotjava.javafx.support.CurrencySupport.extractAllCurrenciesFromSite;
+import static nl.dotjava.javafx.support.CurrencySupport.getIcalandicCurrency;
 
 public class IceCo extends Application {
 
@@ -27,9 +27,8 @@ public class IceCo extends Application {
             scene.heightProperty().addListener((obs, oldVal, newVal) -> {
                 controller.setPortraitModus(newVal.doubleValue() > scene.getWidth());
             });
-            // load all currencies and set default to ISK
-            controller.setCurrencyMap(extractAllCurrenciesFromSite());
-            controller.setSelectedCurrency("ISK");
+            // load and set Icelandic currency
+            controller.setSelectedCurrency(getIcalandicCurrency());
             System.out.println("***** About to show stage");
             stage.show();
         } catch (Exception e) {
