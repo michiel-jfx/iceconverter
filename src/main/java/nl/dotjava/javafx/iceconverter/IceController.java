@@ -1,5 +1,6 @@
 package nl.dotjava.javafx.iceconverter;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static javafx.scene.input.KeyCode.BACK_SPACE;
+import static javafx.scene.input.KeyCode.ESCAPE;
 
 public class IceController implements Initializable {
 
@@ -48,6 +52,7 @@ public class IceController implements Initializable {
         // unidirectional binding
         labelUpperRightLandscape.textProperty().bind(labelUpperRight.textProperty());
         labelBelowLeftLandscape.textProperty().bind(labelBelowLeft.textProperty());
+        setupBackButtonHandler();
         System.out.println("***** IceController initialized");
     }
 
@@ -62,6 +67,22 @@ public class IceController implements Initializable {
                 System.err.println("Error during conversion: " + e.getMessage());
             }
         }
+    }
+
+    /** Add handler to scene to catch the Android previous or back tapping event. */
+    private void setupBackButtonHandler() {
+        // ensure the scene is fully loaded before adding the key-handler
+        Platform.runLater(() -> {
+            if (portraitLayout.getScene() != null) {
+                portraitLayout.getScene().setOnKeyPressed(event -> {
+                    if (event.getCode() == ESCAPE || event.getCode() == BACK_SPACE) {
+                        Platform.exit();
+                        System.exit(0);
+                        event.consume();
+                    }
+                });
+            }
+        });
     }
 
     protected void setPortraitModus(boolean portrait) {
