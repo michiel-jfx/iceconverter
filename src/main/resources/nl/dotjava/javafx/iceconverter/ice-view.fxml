@@ -11,15 +11,16 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="nl.dotjava.javafx.iceconverter.IceController"
            stylesheets="@styles.css"
            styleClass="grad-bg">
 
-    <!-- portrait (visible when height > width) -->
-    <VBox fx:id="portraitLayout" spacing="20.0">
+    <!-- portrait version -->
+    <VBox fx:id="sceneLayout" spacing="20.0">
         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="5.0" />
+            <Insets bottom="20.0" left="15.0" right="15.0" top="15.0" />
         </padding>
         <!-- top area with upper right image -->
         <HBox alignment="CENTER_RIGHT">
@@ -29,33 +30,41 @@
             </ImageView>
         </HBox>
         <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
-            <Label fx:id="labelUpperRight" text="kórónu">
+            <Label fx:id="labelUpperRight" text=" ">
                 <VBox.margin><Insets bottom="8.0" /></VBox.margin>
             </Label>
-            <TextField fx:id="textfieldInput" style="-fx-text-alignment: left; -fx-background-color: #e6e6ff;">
-                <VBox.margin><Insets bottom="8.0" /></VBox.margin>
-            </TextField>
-            <Label fx:id="labelBelowLeft" text="evrur">
+            <HBox alignment="CENTER_LEFT" spacing="8" VBox.vgrow="NEVER">
+                <Label text="#" />
+                <TextField fx:id="textfieldInput" promptText=" " HBox.hgrow="ALWAYS" style="-fx-text-alignment: left; -fx-background-color: #e6e6ff;">
+                    <VBox.margin><Insets bottom="8.0" /></VBox.margin>
+                </TextField>
+            </HBox>
+            <Label fx:id="labelBelowLeft" text=" ">
                 <VBox.margin><Insets bottom="8.0" /></VBox.margin>
             </Label>
-            <Button fx:id="iceButton" onAction="#onCurrencyClick" text="smelltu" styleClass="custom-button" />
+            <!-- keyboard -->
+            <VBox spacing="5">
+                <HBox alignment="CENTER" spacing="5">
+                    <Button onAction="#onButtonTap" text="1" styleClass="key-button" />
+                    <Button onAction="#onButtonTap" text="2" styleClass="key-button" />
+                    <Button onAction="#onButtonTap" text="3" styleClass="key-button" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="5">
+                    <Button onAction="#onButtonTap" text="4" styleClass="key-button" />
+                    <Button onAction="#onButtonTap" text="5" styleClass="key-button" />
+                    <Button onAction="#onButtonTap" text="6" styleClass="key-button" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="5">
+                    <Button onAction="#onButtonTap" text="7" styleClass="key-button" />
+                    <Button onAction="#onButtonTap" text="8" styleClass="key-button" />
+                    <Button onAction="#onButtonTap" text="9" styleClass="key-button" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="5">
+                    <Button onAction="#onButtonTap" text="." styleClass="key-button" />
+                    <Button onAction="#onButtonTap" text="0" styleClass="key-button" />
+                    <Button onAction="#onButtonTap" text="&lt;" styleClass="key-button" />
+                </HBox>
+            </VBox>
         </VBox>
-    </VBox>
-    <!-- landscape (visible when width > height) -->
-    <VBox fx:id="landscapeLayout" alignment="TOP_CENTER" spacing="20.0" visible="false" managed="false">
-        <padding>
-            <Insets bottom="8.0" left="20.0" right="20.0" top="8.0" />
-        </padding>
-        <Label fx:id="labelUpperRightLandscape" />
-        <TextField fx:id="textfieldInputLandscape" style="-fx-text-alignment: left; -fx-background-color: #e6e6ff;" />
-        <Label fx:id="labelBelowLeftLandscape" />
-        <Button fx:id="iceButtonLandscape" onAction="#onCurrencyClick" text="smelltu" styleClass="custom-button" />
-        <!-- bottom area with image in bottom right -->
-        <HBox alignment="BOTTOM_RIGHT" VBox.vgrow="ALWAYS">
-            <Region HBox.hgrow="ALWAYS" />
-            <ImageView fitHeight="150" preserveRatio="true">
-                <Image url="@euro-with-crown.png" />
-            </ImageView>
-        </HBox>
     </VBox>
 </StackPane>

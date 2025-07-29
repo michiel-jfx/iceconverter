@@ -18,15 +18,6 @@ public class IceCo extends Application {
             Scene scene = new Scene(root);
             stage.setTitle("IceCo");
             stage.setScene(scene);
-            // set initial orientation
-            controller.setPortraitModus(stage.getHeight() > stage.getWidth());
-            // add listeners for orientation changes
-            scene.widthProperty().addListener((obs, oldVal, newVal) -> {
-                controller.setPortraitModus(scene.getHeight() > newVal.doubleValue());
-            });
-            scene.heightProperty().addListener((obs, oldVal, newVal) -> {
-                controller.setPortraitModus(newVal.doubleValue() > scene.getWidth());
-            });
             // load and set Icelandic currency
             controller.setSelectedCurrency(getIcalandicCurrency());
             System.out.println("***** About to show stage");
