@@ -16,12 +16,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <org.openjfx.controls.version>25-ea+17</org.openjfx.controls.version>
-        <org.openjfx.fxml.version>25-ea+17</org.openjfx.fxml.version>
+        <org.openjfx.controls.version>26-ea+1</org.openjfx.controls.version>
+        <org.openjfx.fxml.version>26-ea+1</org.openjfx.fxml.version>
         <org.controlsfx.controlsfx.version>11.2.2</org.controlsfx.controlsfx.version>
-        <jackson.core.version>2.19.0</jackson.core.version>
-        <junit.version>5.13.0-M3</junit.version>
-        <org.assertj.core>4.0.0-M1</org.assertj.core>
+        <jackson.core.version>2.19.2</jackson.core.version>
+        <org.junit.jupiter.version>5.13.4</org.junit.jupiter.version>
+        <org.assertj.core.version>4.0.0-M1</org.assertj.core.version>
 
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
@@ -58,19 +58,19 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
+            <version>${org.junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
+            <version>${org.junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>${org.assertj.core}</version>
+            <version>${org.assertj.core.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
