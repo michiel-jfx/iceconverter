@@ -35,7 +35,7 @@ class ConvertSupportTest {
         assertThat(resultWithComma).isEqualTo("kr 1567.16");
 
         String resultInvalid = convertSupport.convertToOtherCurrency("not-a-number");
-        assertThat(resultInvalid).isEqualTo("úps");
+        assertThat(resultInvalid).isEqualTo("kr 0");
     }
 
     @Test
@@ -47,7 +47,7 @@ class ConvertSupportTest {
         assertThat(resultWithComma).isEqualTo("€ 6.70");
 
         String resultInvalid = convertSupport.convertToEuroCurrency("invalid");
-        assertThat(resultInvalid).isEqualTo("úps");
+        assertThat(resultInvalid).isEqualTo("€ 0");
     }
 
     @Test

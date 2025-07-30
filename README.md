@@ -11,7 +11,7 @@ The mobile app is built with the following versions:
 
 | What                   | Version                                             | See                                                                |
 |------------------------|-----------------------------------------------------|--------------------------------------------------------------------|
-| IceCo                  | 0.2                                                 | this, see https://www.dotjava.nl/iceco                             |
+| IceCo                  | 0.3                                                 | this, see https://www.dotjava.nl/iceco                             |
 | GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases                          |
 | JavaFX controls & fxml | 25-ea+17                                            | https://mvnrepository.com/artifact/org.openjfx/javafx-controls     |
 | controlsfx             | 11.2.2                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx       |
@@ -53,47 +53,45 @@ Since the AndroidManifest has:
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
-The fetch should be no problem. See the `CurrencySupport` class also for a `java.net.http.HttpClient` implementation to
+the fetch should be no problem. See the `CurrencySupport` class also for a `java.net.http.HttpClient` implementation to
 fetch the webpage. **Again, I cannot be held responsible for wrong currency codes**. This is a tutorial project to create
 your own mobile app on your phone. If the fetch fails, the conversion rate is hardcoded to 0.00703 like in the very first
 version. This will be the case when no internet is available.
 
-I've changed the markup @FXML page since the first version a bit and put a nice logo in portrait and landscape mode.
+From this version (v0.3) there only is a portrait version with an input keyboard present directly on screen to allow
+faster number entry.
 
 The startup screen shows:<br/>
-<img src="https://github.com/user-attachments/assets/8afa5b52-5dac-4ca7-8e6c-f426e58c6cbb" width="250"><br/>
+<img src="https://github.com/user-attachments/assets/0cb2731e-de69-4134-81c2-2286b76e9727" width="250"><br/>
 
-Then, when you are about to enter a value, the keyboard shows up, like<br/>
-<img src="https://github.com/user-attachments/assets/2bfbfcff-aed0-41e0-a816-4fd80a247929" width="250"><br/>
-I've not added a feature to move the screen, so that's why all information is in the upper part of the screen (to allow
-the keyboard to take some space).
-
-Whatever you type, after tapping it will convert *from* and *to* and you decide which to look at, for example<br/>
-<img src="https://github.com/user-attachments/assets/d137afb8-b5fc-4994-8977-b6bab3b2f93d" width="250"><br/>
-is obvious a krónur amount representing 6 or 7 euros for probably a parking ticket near the tourist site you're at ;-)
+You can enter values directly and use the '&lt;' to clear values (double tapping clears entire input), the keyboard
+from the mobile phone itself isn't necessary anymore.<br/>
+<img src="https://github.com/user-attachments/assets/79cd0b15-86b0-42ca-a54a-5741aeedf87f" width="250"><br/>
+Values tapped will be converted immediately *from* and *to*, like above here is obvious a krónur amount of 1000 
+representing about 7 euros for probably a parking ticket near the tourist site you're at ;-)
 
 And<br/>
-<img src="https://github.com/user-attachments/assets/ed0513b4-1a56-4e65-af81-04a5a182d676" height="250"><br/>
-is what I use to see how I can spend my 8 euros.
+<img src="https://github.com/user-attachments/assets/37a47bd0-4e0f-4b4e-9245-139e6a66457a" width="250"><br/>
+is what I use to see how I can spend my 12 euros.
 
 That's the idea, have fun!
 
 # Additions
 After the very first implementation, I wanted to change the behavior to show the numerical keyboard instead of text
-keyboard immediately. Also, converting on focus-lost could reduce clicks. But this would require some more interaction
-with the mobile phone and start the use of the com.gluonhq packages.
+keyboard immediately. This would require some more interaction with the mobile phone and start the use of the
+com.gluonhq packages.
 
-I've decided not to use the com.gluonhq packages, so it stays a org.openjfx tutorial project. It is a useful currency
-converter mobile application written in 100% Java. See another [nop](https://github.com/michiel-jfx/nop) project for
-more interaction with the mobile phone and the use of some com.gluonhq packages.
+I've decided not to use the com.gluonhq packages, so it stays a org.openjfx tutorial project. It is a useful Icelandic 
+currency converter mobile application written in 100% Java. See another [nop](https://github.com/michiel-jfx/nop) 
+project for more interaction with the mobile phone and the use of some com.gluonhq packages.
 
 There are still a lot `System.out.println` statements present since this is a tutorial project. When you understand the
 flow and see how it works, remove them all please.
 
 Next goals:<br/>
 <ul>
-<li>Add our own input keyboard</li>
-<li>Use a custom font</li>
+<li>Store currency locally (when no internet)</li>
+<li>Make a donate button ;)</li>
 <li>Deploy the app on [F-Droid](https://f-droid.org) </li>
 </ul>
 
