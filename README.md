@@ -11,7 +11,7 @@ The mobile app is built with the following versions:
 
 | What                   | Version                                             | See                                                                |
 |------------------------|-----------------------------------------------------|--------------------------------------------------------------------|
-| IceCo                  | 0.3                                                 | this, see https://www.dotjava.nl/iceco                             |
+| IceCo                  | 0.4                                                 | this, see https://www.dotjava.nl/iceco                             |
 | GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases                          |
 | JavaFX controls & fxml | 26-ea+1                                             | https://mvnrepository.com/artifact/org.openjfx/javafx-controls     |
 | Controlsfx             | 11.2.2                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx       |
