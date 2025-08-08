@@ -5,7 +5,9 @@ module nl.dotjava.javafx.iceconverter {
     requires org.controlsfx.controls;
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
+    requires com.gluonhq.attach.storage;
 
     opens nl.dotjava.javafx.iceconverter to javafx.fxml;
+
     exports nl.dotjava.javafx.iceconverter;
 }

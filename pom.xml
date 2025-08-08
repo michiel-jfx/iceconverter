@@ -19,6 +19,7 @@
         <org.openjfx.controls.version>26-ea+1</org.openjfx.controls.version>
         <org.openjfx.fxml.version>26-ea+1</org.openjfx.fxml.version>
         <org.controlsfx.controlsfx.version>11.2.2</org.controlsfx.controlsfx.version>
+        <gluonhq.attach.storage.version>4.0.23</gluonhq.attach.storage.version>
         <jackson.core.version>2.19.2</jackson.core.version>
         <org.junit.jupiter.version>5.13.4</org.junit.jupiter.version>
         <org.assertj.core.version>4.0.0-M1</org.assertj.core.version>
@@ -45,6 +46,13 @@
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
             <version>${org.controlsfx.controlsfx.version}</version>
+        </dependency>
+
+        <!-- gluonhq -->
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>storage</artifactId>
+            <version>${gluonhq.attach.storage.version}</version>
         </dependency>
 
         <!-- json -->
@@ -120,7 +128,11 @@
                     <mainClass>${main.class}</mainClass>
                     <reflectionList>
                         <reflectionClass>nl.dotjava.javafx.iceconverter.IceController</reflectionClass>
+                        <reflectionClass>com.gluonhq.attach.storage.impl.AndroidStorageService</reflectionClass>
                     </reflectionList>
+                    <attachList>
+                        <list>storage</list>
+                    </attachList>
                 </configuration>
             </plugin>
         </plugins>
