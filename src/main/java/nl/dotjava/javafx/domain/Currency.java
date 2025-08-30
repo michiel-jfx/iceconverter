@@ -32,11 +32,6 @@ public class Currency {
         return this.valueTo;
     }
 
-    public void setValueFrom(BigDecimal valueFrom) {
-        this.valueFrom = valueFrom;
-        this.valueTo = calculateReciprocal(this.valueFrom);
-    }
-
     public void setValueTo(BigDecimal valueTo) {
         this.valueTo = valueTo;
         this.valueFrom = calculateReciprocal(this.valueTo);

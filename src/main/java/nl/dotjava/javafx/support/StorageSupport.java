@@ -1,7 +1,9 @@
 package nl.dotjava.javafx.support;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gluonhq.attach.storage.StorageService;
 import javafx.scene.text.Font;
+import nl.dotjava.javafx.domain.StorageProperty;
 import nl.dotjava.javafx.iceconverter.IceController;
 
 import java.io.File;
@@ -12,11 +14,16 @@ import java.io.InputStream;
 import java.util.Optional;
 
 public class StorageSupport {
+    private StorageSupport() {
+        // default empty constructor
+    }
 
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final String ICELANDIC_CURRENCY = "krona.html";
     private static final String FONT_UBUNTU = "ubuntu_medium.ttf";
     private static final double FONT_SIZE = 24.0;
 
-    /** Get and return custom font to use in mobile app (using local storage technique) */
+    /** Get and return custom font to use in mobile app (using local storage technique). */
     public static Font loadCustomFont() {
         Optional<File> privateStorage = StorageService.create().flatMap(StorageService::getPrivateStorage);
         if (privateStorage.isPresent()) {
@@ -36,7 +43,7 @@ public class StorageSupport {
         return null;
     }
 
-    /** Copy a fontFile present in the resources to the local storage for faster usage */
+    /** Copy a fontFile present in the resources to the local storage for faster usage. */
     private static void copyFontToStorage(File fontFile) {
         try {
             InputStream inputStream = IceController.class.getResourceAsStream("fonts/" + FONT_UBUNTU);
@@ -55,6 +62,39 @@ public class StorageSupport {
             System.err.println("***** Error copying font to storage: " + fnfe.getMessage());
         } catch (IOException ioe) {
             System.err.println("***** I/O Error copying font: " + ioe.getMessage());
+        }
+    }
+
+    /** Load conversion rate from cache or return null. */
+    public static String loadIcelandicRate() {
+        try {
+            Optional<File> privateStorage = StorageService.create().flatMap(StorageService::getPrivateStorage);
+            if (privateStorage.isPresent()) {
+                File currenciesFile = new File(privateStorage.get(), ICELANDIC_CURRENCY);
+                if (currenciesFile.exists()) {
+                    StorageProperty storageProperty = OBJECT_MAPPER.readValue(currenciesFile, StorageProperty.class);
+                    System.out.println("***** Conversion rate loaded from " + currenciesFile.getAbsolutePath() + ", bytes: " + currenciesFile.length());
+                    return storageProperty.getValue();
+                }
+            }
+        } catch (IOException ioe) {
+            System.err.println("***** I/O Error loading conversion rate: " + ioe.getMessage());
+        }
+        return null;
+    }
+
+    /** Save currencies to local private storage as string content. */
+    public static void saveIcelandicRate(String content) {
+        try {
+            Optional<File> privateStorage = StorageService.create().flatMap(StorageService::getPrivateStorage);
+            if (privateStorage.isPresent()) {
+                StorageProperty storageProperty = new StorageProperty("html", content);
+                File currenciesFile = new File(privateStorage.get(), ICELANDIC_CURRENCY);
+                OBJECT_MAPPER.writeValue(currenciesFile, storageProperty);
+                System.out.println("***** Conversion rate saved to " + currenciesFile.getAbsolutePath() + ", bytes: " + currenciesFile.length());
+            }
+        } catch (IOException ioe) {
+            System.err.println("***** I/O Error saving conversion rate: " + ioe.getMessage());
         }
     }
 }

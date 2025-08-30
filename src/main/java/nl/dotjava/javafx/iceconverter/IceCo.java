@@ -27,7 +27,7 @@ public class IceCo extends Application {
             System.out.println("***** About to show stage");
             stage.show();
         } catch (Exception e) {
-            System.err.println("Error loading FXML: " + e.getMessage());
+            System.err.println("***** Error loading FXML: " + e.getMessage());
             e.printStackTrace();
         }
     }

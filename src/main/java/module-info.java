@@ -8,6 +8,7 @@ module nl.dotjava.javafx.iceconverter {
     requires com.gluonhq.attach.storage;
 
     opens nl.dotjava.javafx.iceconverter to javafx.fxml;
+    opens nl.dotjava.javafx.domain to com.fasterxml.jackson.databind;
 
     exports nl.dotjava.javafx.iceconverter;
 }

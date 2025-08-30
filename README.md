@@ -11,7 +11,7 @@ The mobile app is built with the following versions:
 
 | What                   | Version                                             | See                                                                |
 |------------------------|-----------------------------------------------------|--------------------------------------------------------------------|
-| IceCo                  | 0.4                                                 | this, see https://www.dotjava.nl/iceco                             |
+| IceCo                  | 0.5                                                 | this, see https://www.dotjava.nl/iceco                             |
 | GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases                          |
 | JavaFX controls & fxml | 26-ea+1                                             | https://mvnrepository.com/artifact/org.openjfx/javafx-controls     |
 | Controlsfx             | 11.2.2                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx       |
@@ -48,8 +48,9 @@ mvn gluonfx:run
 
 ## Information
 The application is very basic and tries to convert any input both ways using a simple converter class. *I cannot be held
-responsible for any wrong conversions!* In the first version (0.1) the conversion rate was hard coded, in this version
-the currency is downloaded from [dotJava/currency_data/króna.html](https://www.dotjava.nl/currency_data/króna.html).
+responsible for any wrong conversions!* In the first version the conversion rate was hard coded, in this version the
+currency is downloaded from [dotJava/currency_data/króna.html](https://www.dotjava.nl/currency_data/króna.html) and is 
+updated when necessary, see the `CurrencySupport.getIcalandicCurrency()` method on how this is done.
 
 Since the AndroidManifest has:
 ```
@@ -62,11 +63,10 @@ your own mobile app on your phone. If the fetch fails, the conversion rate is ha
 version. This will be the case when no internet is available.
 
 There is only a portrait version available with an input keyboard present directly on screen to allow faster number
-entry. In this version I've added a custom (free to use) font for the keypad numbers. It was a good exercise to get the
-font to work on the mobile phone as it behaves a bit differently than when running on the desktop. Streaming from the
-resources to the font directly simply didn't work on the mobile phone (as it does work when running on your desktop).
-
-See this [commit](https://github.com/michiel-jfx/iceconverter/commit/8994b351dea340e175b3eaffd1a70a0af43767dc) to see
+entry. I've added a custom (free to use) font for the keypad numbers. It was a good exercise to get the font to work on
+the mobile phone as it behaves a bit differently than when running on the desktop. Streaming from the resources to the
+font directly simply didn't work on the mobile phone (as it does work when running on your desktop). See this
+[commit](https://github.com/michiel-jfx/iceconverter/commit/8994b351dea340e175b3eaffd1a70a0af43767dc) to see
 what (small) additions are necessary to get the font to work.
 
 The startup screen shows:<br/>
@@ -100,9 +100,8 @@ flow and see how it works, remove them all please.
 
 Next goals:<br/>
 <ul>
-<li>Store currency locally (when no internet)</li>
 <li>Make a donate button ;)</li>
-<li>Deploy the app on [F-Droid](https://f-droid.org) </li>
+<li>Deploy the app on Google Play Store or [F-Droid](https://f-droid.org) </li>
 </ul>
 
 # License

@@ -6,7 +6,7 @@
 
     <groupId>nl.dotjava.javafx</groupId>
     <artifactId>iceconverter</artifactId>
-    <version>0.4</version>
+    <version>0.5</version>
     <name>IceCo</name>
 
     <properties>
@@ -128,6 +128,7 @@
                     <mainClass>${main.class}</mainClass>
                     <reflectionList>
                         <reflectionClass>nl.dotjava.javafx.iceconverter.IceController</reflectionClass>
+                        <reflectionClass>nl.dotjava.javafx.domain.StorageProperty</reflectionClass>
                         <reflectionClass>com.gluonhq.attach.storage.impl.AndroidStorageService</reflectionClass>
                     </reflectionList>
                     <attachList>
