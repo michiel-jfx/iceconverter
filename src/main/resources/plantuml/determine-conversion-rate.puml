@@ -1,0 +1,49 @@
+@startuml Currency Fetching Strategy
+!pragma useVerticalIf on
+skinparam partition {
+    BorderColor black
+    BackgroundColor lightgrey
+}
+
+start
+
+:load cached rate from storage;
+:check internet connectivity;
+
+if (cache exists?) then (yes)
+  if (internet available?) then (no)
+    partition "FETCH_FROM_CACHE                    " {
+      :use cached conversion rate;
+      :                                          ;
+    }
+  else (yes)
+    if (cache is fresh?) then (yes)
+      partition "FETCH_FROM_CACHE                    " {
+        :use cached conversion rate;
+        :                                          ;
+      }
+    else (no)
+      partition "FETCH_FROM_INTERNET                " {
+        :fetch conversion rate from internet;
+        :save to cache;
+      }
+    endif
+  endif
+else (no)
+  if (internet available?) then (yes)
+    partition "FETCH_FROM_INTERNET                " {
+      :fetch conversion rate from internet;
+      :save to cache;
+    }
+  else (no)
+    partition "USE_DEFAULTS                       " {
+      :use default hardcoded rate;
+      :                                          ;
+    }
+  endif
+endif
+
+:create currency rate object with rate;
+stop
+
+@enduml
