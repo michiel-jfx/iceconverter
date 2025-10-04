@@ -126,6 +126,10 @@
                     <verbose>true</verbose>
                     <target>${gluonfx.target}</target>
                     <mainClass>${main.class}</mainClass>
+                    <nativeImageArgs>
+                        <arg>-H:+UnlockExperimentalVMOptions</arg>
+                        <arg>-H:+StripDebugInfo</arg>
+                    </nativeImageArgs>
                     <reflectionList>
                         <reflectionClass>nl.dotjava.javafx.iceconverter.IceController</reflectionClass>
                         <reflectionClass>nl.dotjava.javafx.domain.StorageProperty</reflectionClass>
@@ -134,6 +138,12 @@
                     <attachList>
                         <list>storage</list>
                     </attachList>
+                    <!-- Added for Google Play Console -->
+                    <releaseConfiguration>
+                        <appLabel>IceCo</appLabel>
+                        <versionCode>3</versionCode>
+                        <versionName>1.2</versionName>
+                    </releaseConfiguration>
                 </configuration>
             </plugin>
         </plugins>
