@@ -68,6 +68,9 @@ I will monitor these projects for updated JavaFX mobile support:
 The app will be fully migrated to SDK 35 when the 16KB page size support becomes available. Since this is a tutorial
 project, I will keep this current state in a separate branch, see [here](https://github.com/michiel-jfx/iceconverter/tree/last-version-4kb-page-size).
 
+Important note: You can still build, deploy and use the app on your Android mobile phone, it's just not possible to 
+upload a complete signed package in the Google Play Console after November 2025 to get it in the Google Play Store.
+
 # Information on the app
 The application is very basic and tries to convert any input both ways using a simple converter class. *I cannot be held
 responsible for any wrong conversions!* In the first version the conversion rate was hard coded, in this version the
