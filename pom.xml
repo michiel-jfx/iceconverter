@@ -27,6 +27,7 @@
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
         <gluonfx.maven.plugin.version>1.0.25</gluonfx.maven.plugin.version>
+        <org.codehaus.mojo.exec.maven.version>3.6.1</org.codehaus.mojo.exec.maven.version>
         <main.class>nl.dotjava.javafx.iceconverter.IceCo</main.class>
     </properties>
 
@@ -118,6 +119,7 @@
                     <mainClass>${main.class}</mainClass>
                 </configuration>
             </plugin>
+            <!-- building native mobile image -->
             <plugin>
                 <groupId>com.gluonhq</groupId>
                 <artifactId>gluonfx-maven-plugin</artifactId>
@@ -129,6 +131,11 @@
                     <nativeImageArgs>
                         <arg>-H:+UnlockExperimentalVMOptions</arg>
                         <arg>-H:+StripDebugInfo</arg>
+                        <arg>-H:PageSize=16384</arg>
+                        <arg>-H:NativeLinkerOption=-Wl,-z,max-page-size=16384</arg>
+                        <arg>-H:NativeLinkerOption=-Wl,-z,common-page-size=16384</arg>
+                        <arg>-H:NativeLinkerOption=-Wl,--section-start=.text=0x4000</arg>
+                        <arg>-H:NativeLinkerOption=-Wl,-T,${project.basedir}/src/main/resources/android-linker-16kb.ld</arg>
                     </nativeImageArgs>
                     <reflectionList>
                         <reflectionClass>nl.dotjava.javafx.iceconverter.IceController</reflectionClass>
@@ -141,10 +148,28 @@
                     <!-- Added for Google Play Console -->
                     <releaseConfiguration>
                         <appLabel>IceCo</appLabel>
-                        <versionCode>3</versionCode>
-                        <versionName>1.2</versionName>
+                        <versionCode>4</versionCode>
+                        <versionName>1.3</versionName>
                     </releaseConfiguration>
                 </configuration>
+            </plugin>
+            <!-- post-processing to fix page-size alignment -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${org.codehaus.mojo.exec.maven.version}</version>
+                <executions>
+                    <execution>
+                        <id>fix-pagesize-alignment</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${project.basedir}/fix-pagesize-alignment.sh</executable>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

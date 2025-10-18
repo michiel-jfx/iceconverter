@@ -45,8 +45,10 @@ Using the `org.openjfx.javafx-maven-plugin` artifact, you can run the app also o
 ```
 mvn gluonfx:run
 ```
+## Signing the app
+To sign the app and be able to use it in the Play Store, see [here](README-signing.md).
 
-## Information
+# Information
 The application is very basic and tries to convert any input both ways using a simple converter class. *I cannot be held
 responsible for any wrong conversions!* In the first version the conversion rate was hard coded, in this version the
 currency is downloaded from [dotJava/currency_data/króna.html](https://www.dotjava.nl/currency_data/króna.html) and is 
