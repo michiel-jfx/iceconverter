@@ -46,25 +46,27 @@ Using the `org.openjfx.javafx-maven-plugin` artifact, you can run the app also o
 mvn gluonfx:run
 ```
 ## Signing the app
-To sign the app and be able to use it in the Play Store, see [here](README-signing.md).
+To sign the app and be able to upload it in Google Play Console, see [here](README-signing.md).
 
-# Current status (October 2025)
+## Current status (October 2025)
 
-This app is successfully deployed on Google Play Store using `targetSdkVersion="35"` altered during post processing, see [here](https://play.google.com/store/apps/details?id=nl.dotjava.javafx.iceconverter&hl=en).
+This app is successfully deployed in the Google Play Store using `targetSdkVersion="35"` altered during post-processing,
+see [here](https://play.google.com/store/apps/details?id=nl.dotjava.javafx.iceconverter&hl=en).
 
 ### 16KB Page Size Limitation
 
-Google Play Console requires 16KB page size support as of November 1, 2025. The current Gluon GraalVM which I use is the
-latest SDK, but is from September 2024 and does not fully support this requirement.
+Google Play Console requires 16KB page size support as of November 1, 2025. The current GraalVM + Gluon which I use is
+the latest SDK, but is from September 2024 and does not fully support this requirement. It's not possible to enter an 
+issue unfortunately.
 
 ### Future Migration
 
-Monitoring these projects for updated JavaFX mobile support:
+I will monitor these projects for updated JavaFX mobile support:
 - [OpenJDK Mobile - JavaFX Build](https://github.com/openjdk-mobile/openjfx-build)
 - [OpenJDK Mobile - JFX](https://github.com/openjdk-mobile/jfx)
 
-The app will be migrated to SDK 35 when the 16KB page size support becomes available. Since this is a tutorial project,
-I will keep this current state in a separate branch.
+The app will be fully migrated to SDK 35 when the 16KB page size support becomes available. Since this is a tutorial
+project, I will keep this current state in a separate branch, see [here](https://github.com/michiel-jfx/iceconverter/tree/last-version-4kb-page-size).
 
 # Information on the app
 The application is very basic and tries to convert any input both ways using a simple converter class. *I cannot be held
