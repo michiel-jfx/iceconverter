@@ -163,6 +163,5 @@ mvn -Pandroid gluonfx:install
 Last step is to make sure everything still works on your phone (phone must be plugged in to install it).
 
 # Page size (16Kb)
-The app was accepted in the Google Play Console, but the page size is not 16Kb. As from 1 november 2025, the page size
-must be 16Kb. See [here](README-other-issues.md) for more on that.
-
+The app was accepted in the Google Play Console, see it [here](https://play.google.com/store/apps/details?id=nl.dotjava.javafx.iceconverter&hl=en&pli=1),
+the page size however is not 16Kb. As from 1 november 2025, the page size must be 16Kb. See [here](README-other-issues.md) for more on that.
