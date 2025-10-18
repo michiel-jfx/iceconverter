@@ -48,7 +48,25 @@ mvn gluonfx:run
 ## Signing the app
 To sign the app and be able to use it in the Play Store, see [here](README-signing.md).
 
-# Information
+# Current status (October 2025)
+
+This app is successfully deployed on Google Play Store using `targetSdkVersion="35"` altered during post processing, see [here](https://play.google.com/store/apps/details?id=nl.dotjava.javafx.iceconverter&hl=en).
+
+### 16KB Page Size Limitation
+
+Google Play Console requires 16KB page size support as of November 1, 2025. The current Gluon GraalVM which I use is the
+latest SDK, but is from September 2024 and does not fully support this requirement.
+
+### Future Migration
+
+Monitoring these projects for updated JavaFX mobile support:
+- [OpenJDK Mobile - JavaFX Build](https://github.com/openjdk-mobile/openjfx-build)
+- [OpenJDK Mobile - JFX](https://github.com/openjdk-mobile/jfx)
+
+The app will be migrated to SDK 35 when the 16KB page size support becomes available. Since this is a tutorial project,
+I will keep this current state in a separate branch.
+
+# Information on the app
 The application is very basic and tries to convert any input both ways using a simple converter class. *I cannot be held
 responsible for any wrong conversions!* In the first version the conversion rate was hard coded, in this version the
 currency is downloaded from [dotJava/currency_data/króna.html](https://www.dotjava.nl/currency_data/króna.html) and is 
@@ -103,7 +121,7 @@ flow and see how it works, remove them all please.
 Next goals:<br/>
 <ul>
 <li>Make a donate button ;)</li>
-<li>Deploy the app on Google Play Store or [F-Droid](https://f-droid.org) </li>
+<li>Deploy the app on https://f-droid.org/</li>
 </ul>
 
 # License
