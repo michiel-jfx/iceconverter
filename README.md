@@ -12,7 +12,7 @@ The mobile app is built with the following versions:
 | What                   | Version               | See                                                                  |
 |------------------------|-----------------------|----------------------------------------------------------------------|
 | IceCo                  | 0.6                   | this, see https://www.dotjava.nl/iceco                               |
-| GraalVM 22 no Gluon    | native-image 22.1.0.1 | https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-23.0.2 |
+| GraalVM 22 with Gluon  | native-image 22.1.0.1 | https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-23.0.2 |
 | JavaFX controls & fxml | 17.0.17               | https://mvnrepository.com/artifact/org.openjfx/javafx-controls       |
 | Controlsfx             | 11.2.2                | https://mvnrepository.com/artifact/org.controlsfx/controlsfx         |
 | GluonHQ storage        | 4.0.24                | https://central.sonatype.com/artifact/com.gluonhq.attach/storage     |
