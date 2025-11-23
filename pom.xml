@@ -6,29 +6,46 @@
 
     <groupId>nl.dotjava.javafx</groupId>
     <artifactId>iceconverter</artifactId>
-    <version>0.5</version>
+    <version>0.6</version>
     <name>IceCo</name>
 
     <properties>
-        <java.version>23</java.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+
+        <android.minSdkVersion>36</android.minSdkVersion>
+        <android.targetSdkVersion>36</android.targetSdkVersion>
+        <android.compileSdkVersion>36</android.compileSdkVersion>
+        <android.buildToolsVersion>35.0.0</android.buildToolsVersion>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <org.openjfx.controls.version>26-ea+1</org.openjfx.controls.version>
-        <org.openjfx.fxml.version>26-ea+1</org.openjfx.fxml.version>
+        <org.openjfx.controls.version>17.0.17</org.openjfx.controls.version>
+        <org.openjfx.fxml.version>17.0.17</org.openjfx.fxml.version>
         <org.controlsfx.controlsfx.version>11.2.2</org.controlsfx.controlsfx.version>
-        <gluonhq.attach.storage.version>4.0.23</gluonhq.attach.storage.version>
+        <gluonhq.attach.storage.version>4.0.24</gluonhq.attach.storage.version>
         <jackson.core.version>2.19.2</jackson.core.version>
         <org.junit.jupiter.version>5.13.4</org.junit.jupiter.version>
         <org.assertj.core.version>4.0.0-M1</org.assertj.core.version>
 
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
-        <gluonfx.maven.plugin.version>1.0.25</gluonfx.maven.plugin.version>
+        <gluonfx.maven.plugin.version>1.0.28</gluonfx.maven.plugin.version>
         <main.class>nl.dotjava.javafx.iceconverter.IceCo</main.class>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>maven-central</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>Gluon</id>
+            <url>https://nexus.gluonhq.com/nexus/content/repositories/releases</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- JavaFX -->
@@ -108,6 +125,7 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                    <release>17</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -127,9 +145,12 @@
                     <verbose>true</verbose>
                     <target>${gluonfx.target}</target>
                     <mainClass>${main.class}</mainClass>
+                    <linkerArgs>
+                        <arg>-Wl,-z,max-page-size=16384</arg>
+                    </linkerArgs>
                     <nativeImageArgs>
-                        <arg>-H:+UnlockExperimentalVMOptions</arg>
-                        <arg>-H:+StripDebugInfo</arg>
+                        <arg>-H:PageSize=16384</arg>
+                        <arg>-H:NativeLinkerOption=-Wl,-z,max-page-size=16384</arg>
                     </nativeImageArgs>
                     <reflectionList>
                         <reflectionClass>nl.dotjava.javafx.iceconverter.IceController</reflectionClass>
@@ -139,11 +160,11 @@
                     <attachList>
                         <list>storage</list>
                     </attachList>
-                    <!-- Added for Google Play Console -->
+                    <!-- added for Google Play Console -->
                     <releaseConfiguration>
                         <appLabel>IceCo</appLabel>
-                        <versionCode>4</versionCode>
-                        <versionName>1.3</versionName>
+                        <versionCode>5</versionCode>
+                        <versionName>1.5</versionName>
                     </releaseConfiguration>
                 </configuration>
             </plugin>

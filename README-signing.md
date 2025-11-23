@@ -20,7 +20,6 @@ Assume the Java projects are in the `/pub/gitlab` folder and the project is call
 `/pub/gitlab/iceconverter` is the default location for the project. Run the following in an IntelliJ terminal:
 ```
 cd /pub/gitlab/iceconverter
-mvn clean gluonfx:build gluonfx:package
 mvn -Pandroid clean gluonfx:build gluonfx:package
 cp target/gluonfx/aarch64-android/gvm/IceCo.apk ~/Downloads
 cp target/gluonfx/aarch64-android/gvm/IceCo.aab ~/Downloads
@@ -103,7 +102,7 @@ FAILURE: Build failed with an exception.
 Execution failed for task ':app:validateSigningRelease'.
 > Keystore file '/pub/gitlab/iceconverter/target/gluonfx/aarch64-android/gvm/android_project/app/KEYSTORE_FILE' not found for signing config 'release'.
 ```
-May this build process tries to sign the packages, looking at the file (in the target folder) `/pub/gitlab/iceconverter/target/gluonfx/aarch64-android/gvm/android_project/app/keystore.properties` shows:
+The build process tries to sign the packages, looking at the file (in the target folder) `/pub/gitlab/iceconverter/target/gluonfx/aarch64-android/gvm/android_project/app/keystore.properties` shows:
 ```
 storeFile=KEYSTORE_FILE
 storePassword=KEYSTORE_PASSWORD
@@ -117,8 +116,7 @@ storePassword=[secret_key]
 keyAlias=iceco-alias
 keyPassword=[secret_key]
 ```
-Later I will look for the source where the KEYSTORE_FILE and others are coming from, so the assembling and bundling are
-correct immediately. I ran the both commands and copied the resulting `.aab` file to the `~/Downloads/signed` folder:
+I ran the both commands and copied the resulting `.aab` file to the `~/Downloads/signed` folder:
 ```
 /pub/gitlab/iceconverter/target/gluonfx/aarch64-android/gvm/android_project/gradlew -p /pub/gitlab/iceconverter/target/gluonfx/aarch64-android/gvm/android_project assembleRelease
 /pub/gitlab/iceconverter/target/gluonfx/aarch64-android/gvm/android_project/gradlew -p /pub/gitlab/iceconverter/target/gluonfx/aarch64-android/gvm/android_project bundleRelease
@@ -164,4 +162,4 @@ Last step is to make sure everything still works on your phone (phone must be pl
 
 # Page size (16Kb)
 The app was accepted in the Google Play Console, see it [here](https://play.google.com/store/apps/details?id=nl.dotjava.javafx.iceconverter&hl=en&pli=1),
-the page size however is not 16Kb. As from 1 november 2025, the page size must be 16Kb. See [here](README-other-issues.md) for more on that.
+the page size however is not 16Kb. As from 1 november 2025, the page size must be 16Kb. See [here](README-substrate.md) for more on that.

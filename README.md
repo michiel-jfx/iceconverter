@@ -9,33 +9,32 @@ So this app just accepts input and converts to and from both.
 ## Versions
 The mobile app is built with the following versions:
 
-| What                   | Version                                             | See                                                                |
-|------------------------|-----------------------------------------------------|--------------------------------------------------------------------|
-| IceCo                  | 0.5                                                 | this, see https://www.dotjava.nl/iceco                             |
-| GraalVM 23 with Gluon  | native-image 23 2024-09-17 (23+25.1-dev-2409082136) | https://github.com/gluonhq/graal/releases                          |
-| JavaFX controls & fxml | 26-ea+1                                             | https://mvnrepository.com/artifact/org.openjfx/javafx-controls     |
-| Controlsfx             | 11.2.2                                              | https://mvnrepository.com/artifact/org.controlsfx/controlsfx       |
-| GluonHQ storage        | 4.0.23                                              | https://central.sonatype.com/artifact/com.gluonhq.attach/storage   |
-| Gluonfx maven plugin   | 1.0.25                                              | https://github.com/gluonhq/gluonfx-maven-plugin/                   |
-| Javafx maven plugin    | 0.0.8                                               | https://mvnrepository.com/artifact/org.openjfx/javafx-maven-plugin |
+| What                   | Version               | See                                                                  |
+|------------------------|-----------------------|----------------------------------------------------------------------|
+| IceCo                  | 0.6                   | this, see https://www.dotjava.nl/iceco                               |
+| GraalVM 22 no Gluon    | native-image 22.1.0.1 | https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-23.0.2 |
+| JavaFX controls & fxml | 17.0.17               | https://mvnrepository.com/artifact/org.openjfx/javafx-controls       |
+| Controlsfx             | 11.2.2                | https://mvnrepository.com/artifact/org.controlsfx/controlsfx         |
+| GluonHQ storage        | 4.0.24                | https://central.sonatype.com/artifact/com.gluonhq.attach/storage     |
+| GluonHQ substrated     | 0.0.68 local build    | https://central.sonatype.com/artifact/com.gluonhq/substrate          |
+| Gluonfx maven plugin   | 1.0.28                | https://github.com/gluonhq/gluonfx-maven-plugin/                     |
+| Javafx maven plugin    | 0.0.8                 | https://mvnrepository.com/artifact/org.openjfx/javafx-maven-plugin   |
 
-Note: this JavaFX project is built with GraalVM 23 with Gluon included, but it mostly uses javafx packages only. This
-means there is no popup from Gluon Mobile. JavaFX on mobile is completely independent from Android. It uses GraalVM's
-native image to compile the JavaFX application into a native library that Android calls via JNI. As far as Android is 
-concerned, it's the same as using a C++ library but we're developing in 100% Java :-)
+JavaFX on mobile is completely independent from Android. It uses GraalVM's native image to compile the JavaFX
+application into a native library that Android calls via JNI. As far as Android is  concerned, it's the same as using a
+C++ library but we're developing in 100% Java :-)
 
 If you want to setup a working Linux (Ubuntu) environment, see this [blog](https://www.dotjava.nl/2025/04/20/ubuntu-for-mobile-android-java-development/). It describes setting up the environment.
 
-Note: gluonfx-maven-plugin 1.0.26 and 1.0.27 are present, but when used result in the following (open) [issue](https://github.com/gluonhq/gluonfx-maven-plugin/issues/539)
-
 ## Build and run on your phone (android)
 ```
-mvn -Pandroid clean gluonfx:build gluonfx:package
+mvn clean
+mvn -Pandroid gluonfx:build gluonfx:package
 mvn -Pandroid gluonfx:install
 mvn -Pandroid -X gluonfx:nativerun
-cp target/gluonfx/aarch64-android/gvm/IceCo.apk ~/Downloads
+check_elf_alignment target/gluonfx/aarch64-android/gvm/IceCo.apk
+check_elf_alignment target/gluonfx/aarch64-android/libIceCo.so
 ```
-last statement can be used to copy the android build to a location for your needs.
 
 ## Build and run on your iPhone
 As soon as I get my hands on a Apple laptop, I will build a iOS version.
@@ -45,37 +44,18 @@ Using the `org.openjfx.javafx-maven-plugin` artifact, you can run the app also o
 ```
 mvn gluonfx:run
 ```
-## Signing the app
-To sign the app and be able to upload it in Google Play Console, see [here](README-signing.md).
 
-## Current status (October 2025)
+## Signing the app and the 16Kb page size
+To manually sign the app, see [here](README-signing.md).
 
-This app is successfully deployed in the Google Play Store using `targetSdkVersion="35"` altered during post-processing,
-see [here](https://play.google.com/store/apps/details?id=nl.dotjava.javafx.iceconverter&hl=en).
-
-### 16KB Page Size Limitation
-
-Google Play Console requires 16KB page size support as of November 1, 2025. The current GraalVM + Gluon which I use is
-the latest SDK, but is from September 2024 and does not fully support this requirement. It's not possible to enter an 
-issue unfortunately.
-
-### Future Migration
-
-I will monitor these projects for updated JavaFX mobile support:
-- [OpenJDK Mobile - JavaFX Build](https://github.com/openjdk-mobile/openjfx-build)
-- [OpenJDK Mobile - JFX](https://github.com/openjdk-mobile/jfx)
-
-The app will be fully migrated to SDK 35 when the 16KB page size support becomes available. Since this is a tutorial
-project, I will keep this current state in a separate branch, see [here](https://github.com/michiel-jfx/iceconverter/tree/last-version-4kb-page-size).
-
-Important note: You can still build, deploy and use the app on your Android mobile phone, it's just not possible to 
-upload a complete signed package in the Google Play Console after November 2025 to get it in the Google Play Store.
+If you want to sign it automatically during packaging, see [here](README-substrate.md). This also explains a great deal
+about the 16Kb page size requirement which is the way to go from November 2025.
 
 # Information on the app
 The application is very basic and tries to convert any input both ways using a simple converter class. *I cannot be held
-responsible for any wrong conversions!* In the first version the conversion rate was hard coded, in this version the
-currency is downloaded from [dotJava/currency_data/króna.html](https://www.dotjava.nl/currency_data/króna.html) and is 
-updated when necessary, see the `CurrencySupport.getIcalandicCurrency()` method on how this is done.
+responsible for any wrong conversions!* In the first version the conversion rate was hard coded, now the currency is
+downloaded from [dotJava/currency_data/króna.html](https://www.dotjava.nl/currency_data/króna.html) and is updated when necessary, see
+the `CurrencySupport.getIcalandicCurrency()` method on how this is done.
 
 Since the AndroidManifest has:
 ```
@@ -108,6 +88,7 @@ And<br/>
 is what I use to see how I can spend my 12 euros.
 
 That's the idea, have fun!
+It's present in the [Google Play Store](https://play.google.com/store/apps/details?id=nl.dotjava.javafx.iceconverter&hl=en).
 
 # Additions
 After the very first implementation, I wanted to change the behavior to show the numerical keyboard instead of text
