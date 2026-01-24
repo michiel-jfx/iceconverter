@@ -101,9 +101,6 @@ Gluon Mobile (to note it's a free edition). It remains a nice tutorial currency 
 in 100% Java. See another [nop](https://github.com/michiel-jfx/nop) project for more interaction with the mobile phone and the use of some com.gluonhq
 packages.
 
-There are still a lot `System.out.println` statements present since this is a tutorial project. When you understand the
-flow and see how it works, remove them all please.
-
 Next goals:<br/>
 <ul>
 <li>Make a donate button ;)</li>

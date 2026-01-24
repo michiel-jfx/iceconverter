@@ -35,7 +35,7 @@ public class StorageSupport {
             if (fontFile.exists()) {
                 Font font = Font.loadFont(fontFile.toURI().toString(), FONT_SIZE);
                 if (font != null) {
-                    System.out.println("***** Font loaded from storage (" + fontFile.getAbsolutePath() + "), name '" + font.getName() + "', family '" + font.getFamily() + "', size " + font.getSize());
+                    AppLogger.info("Font loaded from storage (" + fontFile.getAbsolutePath() + "), name '" + font.getName() + "', family '" + font.getFamily() + "', size " + font.getSize());
                     return font;
                 }
             }
@@ -56,12 +56,12 @@ public class StorageSupport {
                     }
                 }
                 inputStream.close();
-                System.out.println("***** Font copied from resources to storage: " + fontFile.getAbsolutePath());
+                AppLogger.info("Font copied from resources to storage: " + fontFile.getAbsolutePath());
             }
         } catch (FileNotFoundException fnfe) {
-            System.err.println("***** Error copying font to storage: " + fnfe.getMessage());
+            AppLogger.error("Error copying font to storage: ", fnfe);
         } catch (IOException ioe) {
-            System.err.println("***** I/O Error copying font: " + ioe.getMessage());
+            AppLogger.error("I/O Error copying font: ", ioe);
         }
     }
 
@@ -73,12 +73,12 @@ public class StorageSupport {
                 File currenciesFile = new File(privateStorage.get(), ICELANDIC_CURRENCY);
                 if (currenciesFile.exists()) {
                     StorageProperty storageProperty = OBJECT_MAPPER.readValue(currenciesFile, StorageProperty.class);
-                    System.out.println("***** Conversion rate loaded from " + currenciesFile.getAbsolutePath() + ", bytes: " + currenciesFile.length());
+                    AppLogger.info("Conversion rate loaded from " + currenciesFile.getAbsolutePath() + ", bytes: " + currenciesFile.length());
                     return storageProperty.getValue();
                 }
             }
         } catch (IOException ioe) {
-            System.err.println("***** I/O Error loading conversion rate: " + ioe.getMessage());
+            AppLogger.error("I/O Error loading conversion rate", ioe);
         }
         return null;
     }
@@ -91,10 +91,10 @@ public class StorageSupport {
                 StorageProperty storageProperty = new StorageProperty("html", content);
                 File currenciesFile = new File(privateStorage.get(), ICELANDIC_CURRENCY);
                 OBJECT_MAPPER.writeValue(currenciesFile, storageProperty);
-                System.out.println("***** Conversion rate saved to " + currenciesFile.getAbsolutePath() + ", bytes: " + currenciesFile.length());
+                AppLogger.info("Conversion rate saved to " + currenciesFile.getAbsolutePath() + ", bytes: " + currenciesFile.length());
             }
         } catch (IOException ioe) {
-            System.err.println("***** I/O Error saving conversion rate: " + ioe.getMessage());
+            AppLogger.error("I/O Error saving conversion rate: ", ioe);
         }
     }
 }

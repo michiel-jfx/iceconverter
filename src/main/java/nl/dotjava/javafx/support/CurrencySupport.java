@@ -48,7 +48,7 @@ public class CurrencySupport {
 
         return switch (getFetchStrategy(html, hasInternet, needsFetch)) {
             case FETCH_FROM_INTERNET -> {
-                System.out.println("***** Refresh conversion rate from internet (outdated cache)");
+                AppLogger.info("Refresh conversion rate from internet (outdated cache)");
                 String content = downloadWebPageContentSynchronously();
                 saveIcelandicRate(content);
                 String valueTo = content == null
@@ -58,12 +58,12 @@ public class CurrencySupport {
                 yield iceland;
             }
             case FETCH_FROM_CACHE -> {
-                System.out.println("***** Using cached conversion rate");
+                AppLogger.info("Using cached conversion rate");
                 iceland.setValueTo(new BigDecimal(html.replaceAll("(?s).*<body>\\s*(.*?)\\s*</body>.*", "$1").trim()));
                 yield iceland;
             }
             case USE_DEFAULTS -> {
-                System.out.println("***** Using default conversion rate");
+                AppLogger.info("Using default conversion rate");
                 iceland.setValueTo(new BigDecimal(CURRENCY_TO));
                 yield iceland;
             }
@@ -106,7 +106,7 @@ public class CurrencySupport {
     /** Based on the cached icelandic rate file, check if it's necessary to fetch fresh data. */
     private static boolean shouldFetchCurrencies(String html) {
         if (html == null) {
-            System.out.println("***** Probably first time use, no local html present");
+            AppLogger.info("Probably first time use, no local html present");
             return true;
         }
         LocalDateTime nextMoment = LocalDateTime.parse(requireNonNull(extractTitleFromHtml(html)), DATE_FORMATTER).plusHours(6);

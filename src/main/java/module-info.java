@@ -6,6 +6,7 @@ module nl.dotjava.javafx.iceconverter {
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
     requires com.gluonhq.attach.storage;
+    requires java.logging;
 
     opens nl.dotjava.javafx.iceconverter to javafx.fxml;
     opens nl.dotjava.javafx.domain to com.fasterxml.jackson.databind;

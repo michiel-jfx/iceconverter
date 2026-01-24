@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import nl.dotjava.javafx.domain.Currency;
+import nl.dotjava.javafx.support.AppLogger;
 import nl.dotjava.javafx.support.ConvertSupport;
 
 import java.net.URL;
@@ -22,7 +23,7 @@ import static javafx.scene.input.KeyCode.ESCAPE;
 public class IceController implements Initializable {
 
     public IceController() {
-        System.out.println("***** IceController instantiated");
+        AppLogger.info("IceController instantiated");
     }
 
     // layout fields
@@ -40,7 +41,7 @@ public class IceController implements Initializable {
         textfieldInput.setFocusTraversable(false);
         lastClick = LocalDateTime.now();
         setupBackButtonHandler();
-        System.out.println("***** IceController initialized");
+        AppLogger.info("IceController initialized");
     }
 
     /** Handle tapping on any button. */
@@ -63,7 +64,7 @@ public class IceController implements Initializable {
             labelUpperRight.setText(convertSupport.convertToOtherCurrency(currentText));
             labelBelowLeft.setText(convertSupport.convertToEuroCurrency(currentText));
         } catch (Exception e) {
-            System.err.println("Error during conversion: " + e.getMessage());
+            AppLogger.error("Error during conversion", e);
         }
     }
 

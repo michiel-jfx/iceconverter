@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import nl.dotjava.javafx.support.AppLogger;
 
 import static nl.dotjava.javafx.support.CurrencySupport.getIcalandicCurrency;
 import static nl.dotjava.javafx.support.StorageSupport.loadCustomFont;
@@ -14,6 +15,7 @@ import static nl.dotjava.javafx.support.StorageSupport.loadCustomFont;
 public class IceCo extends Application {
 
     public void start(Stage stage) {
+        AppLogger.init(false);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ice-view.fxml"));
             Parent root = loader.load();
@@ -24,11 +26,10 @@ public class IceCo extends Application {
             setCustomFont(root);
             // load and set Icelandic currency
             controller.setSelectedCurrency(getIcalandicCurrency());
-            System.out.println("***** About to show stage");
+            AppLogger.info("About to show stage");
             stage.show();
         } catch (Exception e) {
-            System.err.println("***** Error loading FXML: " + e.getMessage());
-            e.printStackTrace();
+            AppLogger.error("Error loading FXML", e);
         }
     }
 
